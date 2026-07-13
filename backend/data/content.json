@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "title": "The Dark Knight",
+    "description": "Batman enfrenta al Joker en Gotham.",
+    "type": "movie",
+    "category": "Action",
+    "poster": "/images/dark-knight.jpg",
+    "video": "/videos/dark-knight.mp4",
+    "year": 2008,
+    "duration": 152,
+    "rating": 9.0,
+    "isPremium": false
+  },
+  {
+    "id": 2,
+    "title": "Breaking Bad",
+    "description": "Un profesor de química se convierte en fabricante de metanfetamina.",
+    "type": "series",
+    "category": "Drama",
+    "poster": "/images/breaking-bad.jpg",
+    "video": "/videos/breaking-bad.mp4",
+    "year": 2008,
+    "duration": 49,
+    "rating": 9.5,
+    "isPremium": true
+  },
+  {
+    "id": 3,
+    "title": "Interstellar",
+    "description": "Un viaje espacial para salvar a la humanidad.",
+    "type": "movie",
+    "category": "Sci-Fi",
+    "poster": "/images/interstellar.jpg",
+    "video": "/videos/interstellar.mp4",
+    "year": 2014,
+    "duration": 169,
+    "rating": 8.7,
+    "isPremium": false
+  }
+]
