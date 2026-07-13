@@ -1,3 +1,6 @@
+const authRoutes = require("./authRoutes");
+const contentRoutes = require("./contentRoutes");
+
 module.exports = (app) => {
   app.get("/", (req, res) => {
     res.json({
@@ -6,4 +9,7 @@ module.exports = (app) => {
       status: "running"
     });
   });
+
+  app.use("/auth", authRoutes);
+  app.use("/content", contentRoutes);
 };
