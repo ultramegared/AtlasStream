@@ -8,8 +8,8 @@ export default function Series() {
         <div class="movie-card">Breaking Bad</div>
         <div class="movie-card">The Last of Us</div>
         <div class="movie-card">Dark</div>
-        <div class="movie-card">The Witcher</div>
         <div class="movie-card">Peaky Blinders</div>
+        <div class="movie-card">The Boys</div>
       </div>
     </section>
   `;
