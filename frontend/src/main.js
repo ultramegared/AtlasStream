@@ -1,21 +1,49 @@
+import "./style.css";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Movies from "./pages/Movies";
+import Series from "./pages/Series";
+import LiveTV from "./pages/LiveTV";
+import Search from "./pages/Search";
+import Favorites from "./pages/Favorites";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import Player from "./pages/Player";
+import NotFound from "./pages/NotFound";
+
 const app = document.getElementById("app");
 
-app.innerHTML = `
-<header class="header">
-    <div class="logo">ATLASSTREAM</div>
+const routes = {
+  home: Home,
+  login: Login,
+  movies: Movies,
+  series: Series,
+  livetv: LiveTV,
+  search: Search,
+  favorites: Favorites,
+  profile: Profile,
+  settings: Settings,
+  player: Player
+};
 
-    <button class="login-btn">
-        Iniciar sesión
-    </button>
-</header>
+function render(page) {
+  const view = routes[page] || NotFound;
+  app.innerHTML = view();
 
-<section class="hero">
+  document.querySelectorAll(".menu-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      render(button.dataset.page);
+    });
+  });
 
-    <h1>Tu entretenimiento<br>en un solo lugar</h1>
+  const loginBtn = document.getElementById("loginBtn");
 
-    <p>
-        Películas, Series, TV en Vivo e Infantil.
-    </p>
+  if (loginBtn) {
+    loginBtn.addEventListener("click", () => {
+      render("login");
+    });
+  }
+}
 
-</section>
-`;
+render("home");

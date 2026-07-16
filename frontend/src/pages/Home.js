@@ -2,27 +2,47 @@ export default function Home() {
   return `
     <main class="home">
 
-        <section class="hero">
+      <header class="header">
+        <h1>🎬 AtlasStream</h1>
 
-            <h1>Bienvenido a AtlasStream</h1>
+        <button id="loginBtn">
+          Iniciar sesión
+        </button>
+      </header>
 
-            <p>
-                Tu entretenimiento en un solo lugar.
-            </p>
+      <section class="hero">
 
-        </section>
+        <h2>Tu entretenimiento en un solo lugar</h2>
 
-        <section class="categories">
+        <p>
+          Miles de películas, series y TV en vivo.
+        </p>
 
-            <div class="category">🎬 Películas</div>
+      </section>
 
-            <div class="category">🎞 Series</div>
+      <section class="categories">
 
-            <div class="category">📺 TV en Vivo</div>
+        <button class="menu-btn" data-page="movies">
+          🎬 Películas
+        </button>
 
-            <div class="category">👶 Infantil</div>
+        <button class="menu-btn" data-page="series">
+          🎞 Series
+        </button>
 
-        </section>
+        <button class="menu-btn" data-page="livetv">
+          📺 TV en Vivo
+        </button>
+
+        <button class="menu-btn" data-page="favorites">
+          ❤️ Favoritos
+        </button>
+
+        <button class="menu-btn" data-page="profile">
+          👤 Perfil
+        </button>
+
+      </section>
 
     </main>
   `;
