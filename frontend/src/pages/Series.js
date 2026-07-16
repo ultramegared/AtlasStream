@@ -1,29 +1,16 @@
 export default function Series() {
   return `
-    <main class="series">
+    <section class="page">
+      <h1>📺 Series</h1>
 
-        <h1>🎞 Series</h1>
-
-        <div class="movie-grid">
-
-            <div class="movie-card">
-                <h3>Breaking Bad</h3>
-            </div>
-
-            <div class="movie-card">
-                <h3>The Last of Us</h3>
-            </div>
-
-            <div class="movie-card">
-                <h3>Stranger Things</h3>
-            </div>
-
-            <div class="movie-card">
-                <h3>Dark</h3>
-            </div>
-
-        </div>
-
-    </main>
+      <div class="movie-grid">
+        <div class="movie-card">Stranger Things</div>
+        <div class="movie-card">Breaking Bad</div>
+        <div class="movie-card">The Last of Us</div>
+        <div class="movie-card">Dark</div>
+        <div class="movie-card">The Witcher</div>
+        <div class="movie-card">Peaky Blinders</div>
+      </div>
+    </section>
   `;
 }
