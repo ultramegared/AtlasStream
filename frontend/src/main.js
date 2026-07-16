@@ -2,17 +2,20 @@ const app = document.getElementById("app");
 
 app.innerHTML = `
 <header class="header">
-    <h1>🎬 AtlasStream</h1>
+    <div class="logo">ATLASSTREAM</div>
+
+    <button class="login-btn">
+        Iniciar sesión
+    </button>
 </header>
 
-<main class="home">
+<section class="hero">
 
-    <section class="hero">
-        <h2>Bienvenido</h2>
-        <p>Tu plataforma de entretenimiento.</p>
+    <h1>Tu entretenimiento<br>en un solo lugar</h1>
 
-        <button>Comenzar</button>
-    </section>
+    <p>
+        Películas, Series, TV en Vivo e Infantil.
+    </p>
 
-</main>
+</section>
 `;
