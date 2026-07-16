@@ -1,8 +1,18 @@
 const app = document.getElementById("app");
 
 app.innerHTML = `
-  <main>
+<header class="header">
     <h1>🎬 AtlasStream</h1>
-    <p>Bienvenido a la plataforma.</p>
-  </main>
+</header>
+
+<main class="home">
+
+    <section class="hero">
+        <h2>Bienvenido</h2>
+        <p>Tu plataforma de entretenimiento.</p>
+
+        <button>Comenzar</button>
+    </section>
+
+</main>
 `;
