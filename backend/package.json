@@ -2,10 +2,11 @@
   "name": "atlasstream-backend",
   "version": "1.0.0",
   "description": "Backend API for AtlasStream",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "author": "AtlasStream",
   "license": "MIT",
