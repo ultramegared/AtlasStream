@@ -2,41 +2,46 @@ CREATE TABLE subscriptions (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL,
 
-    plan_name VARCHAR(50) NOT NULL DEFAULT 'FREE',
+    plan_id UUID NOT NULL,
 
-    status VARCHAR(30) NOT NULL DEFAULT 'ACTIVE',
+    status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE'
+        CHECK (status IN ('ACTIVE', 'CANCELLED', 'EXPIRED', 'TRIAL')),
 
-    price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    start_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    currency VARCHAR(10) NOT NULL DEFAULT 'USD',
+    end_date TIMESTAMP,
 
-    starts_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    auto_renew BOOLEAN NOT NULL DEFAULT TRUE,
 
-    expires_at TIMESTAMP,
-
-    auto_renew BOOLEAN NOT NULL DEFAULT FALSE,
-
-    payment_provider VARCHAR(50),
-
-    payment_reference VARCHAR(255),
+    cancelled_at TIMESTAMP,
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT unique_user_subscription UNIQUE (user_id)
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_subscriptions_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_subscriptions_plan
+        FOREIGN KEY (plan_id)
+        REFERENCES plans(id)
+
 );
 
 CREATE INDEX idx_subscriptions_user
 ON subscriptions(user_id);
 
+CREATE INDEX idx_subscriptions_plan
+ON subscriptions(plan_id);
+
 CREATE INDEX idx_subscriptions_status
 ON subscriptions(status);
 
-CREATE INDEX idx_subscriptions_plan
-ON subscriptions(plan_name);
-
-CREATE INDEX idx_subscriptions_expires
-ON subscriptions(expires_at);
+CREATE INDEX idx_subscriptions_end_date
+ON subscriptions(end_date);
