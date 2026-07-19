@@ -29,3 +29,6 @@ ON categories(slug);
 
 CREATE INDEX idx_categories_active
 ON categories(is_active);
+
+CREATE INDEX idx_categories_sort_order
+ON categories(sort_order);
