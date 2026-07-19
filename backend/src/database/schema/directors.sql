@@ -20,8 +20,27 @@ CREATE TABLE directors (
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_directors_country
+        FOREIGN KEY (country_id)
+        REFERENCES countries(id),
+
+    CONSTRAINT chk_director_dates
+        CHECK (
+            death_date IS NULL
+            OR birth_date IS NULL
+            OR death_date >= birth_date
+        )
 );
 
 CREATE INDEX idx_directors_name
 ON directors(first_name, last_name);
+
+CREATE INDEX idx_directors_country
+ON directors(country_id);
+
+CREATE INDEX idx_directors_active
+ON directors(is_active);
