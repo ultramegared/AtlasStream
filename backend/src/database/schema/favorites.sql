@@ -2,7 +2,7 @@ CREATE TABLE favorites (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL,
 
     content_type VARCHAR(20) NOT NULL,
 
@@ -10,10 +10,17 @@ CREATE TABLE favorites (
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_favorites_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
     CONSTRAINT chk_favorites_content_type
         CHECK (content_type IN ('MOVIE', 'SERIES')),
 
-    CONSTRAINT unique_favorite
+    CONSTRAINT uq_favorites
         UNIQUE (user_id, content_type, content_id)
 );
 
