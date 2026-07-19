@@ -12,7 +12,9 @@ CREATE TABLE genres (
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    deleted_at TIMESTAMP
 );
 
 CREATE INDEX idx_genres_name
@@ -20,3 +22,6 @@ ON genres(name);
 
 CREATE INDEX idx_genres_slug
 ON genres(slug);
+
+CREATE INDEX idx_genres_active
+ON genres(is_active);
