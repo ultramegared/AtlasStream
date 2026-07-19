@@ -6,61 +6,77 @@ CREATE TABLE movies (
 
     original_title VARCHAR(255),
 
-    slug VARCHAR(255) NOT NULL UNIQUE,
-
     description TEXT,
 
-    synopsis TEXT,
+    release_date DATE,
+
+    duration_minutes INTEGER
+        CHECK (duration_minutes > 0),
+
+    country_id UUID,
+
+    language_id UUID,
+
+    studio_id UUID,
 
     poster_url TEXT,
 
     backdrop_url TEXT,
 
-    logo_url TEXT,
-
     trailer_url TEXT,
 
-    video_url TEXT NOT NULL,
+    video_url TEXT,
 
-    duration INTEGER NOT NULL,
+    age_rating VARCHAR(10),
 
-    release_date DATE,
+    imdb_rating DECIMAL(3,1)
+        CHECK (imdb_rating >= 0 AND imdb_rating <= 10),
 
-    age_rating VARCHAR(20),
+    is_featured BOOLEAN NOT NULL DEFAULT FALSE,
 
-    imdb_rating DECIMAL(3,1),
-
-    category_id UUID REFERENCES categories(id),
-
-    featured BOOLEAN NOT NULL DEFAULT FALSE,
-
-    premium BOOLEAN NOT NULL DEFAULT FALSE,
+    is_premium BOOLEAN NOT NULL DEFAULT FALSE,
 
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
-
-    total_views BIGINT NOT NULL DEFAULT 0,
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    deleted_at TIMESTAMP
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_movies_country
+        FOREIGN KEY (country_id)
+        REFERENCES countries(id),
+
+    CONSTRAINT fk_movies_language
+        FOREIGN KEY (language_id)
+        REFERENCES languages(id),
+
+    CONSTRAINT fk_movies_studio
+        FOREIGN KEY (studio_id)
+        REFERENCES studios(id)
 );
 
 CREATE INDEX idx_movies_title
 ON movies(title);
 
-CREATE INDEX idx_movies_slug
-ON movies(slug);
+CREATE INDEX idx_movies_release_date
+ON movies(release_date);
 
-CREATE INDEX idx_movies_category
-ON movies(category_id);
+CREATE INDEX idx_movies_country
+ON movies(country_id);
+
+CREATE INDEX idx_movies_language
+ON movies(language_id);
+
+CREATE INDEX idx_movies_studio
+ON movies(studio_id);
 
 CREATE INDEX idx_movies_featured
-ON movies(featured);
+ON movies(is_featured);
 
 CREATE INDEX idx_movies_premium
-ON movies(premium);
+ON movies(is_premium);
 
 CREATE INDEX idx_movies_active
 ON movies(is_active);
