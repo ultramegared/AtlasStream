@@ -2,7 +2,7 @@ CREATE TABLE watch_history (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL,
 
     content_type VARCHAR(20) NOT NULL,
 
@@ -24,8 +24,33 @@ CREATE TABLE watch_history (
 
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_watch_history_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
     CONSTRAINT chk_watch_history_content_type
-        CHECK (content_type IN ('MOVIE', 'SERIES', 'EPISODE'))
+        CHECK (
+            content_type IN ('MOVIE', 'SERIES', 'EPISODE')
+        ),
+
+    CONSTRAINT chk_watch_history_watched_seconds
+        CHECK (
+            watched_seconds >= 0
+        ),
+
+    CONSTRAINT chk_watch_history_total_duration
+        CHECK (
+            total_duration > 0
+        ),
+
+    CONSTRAINT chk_watch_history_dates
+        CHECK (
+            finished_at IS NULL
+            OR finished_at >= started_at
+        )
 );
 
 CREATE INDEX idx_watch_history_user
