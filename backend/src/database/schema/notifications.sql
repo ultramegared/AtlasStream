@@ -2,7 +2,7 @@ CREATE TABLE notifications (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL,
 
     title VARCHAR(255) NOT NULL,
 
@@ -16,7 +16,33 @@ CREATE TABLE notifications (
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    read_at TIMESTAMP
+    read_at TIMESTAMP,
+
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_notifications_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_notifications_type
+        CHECK (
+            type IN (
+                'SYSTEM',
+                'SUBSCRIPTION',
+                'PAYMENT',
+                'CONTENT',
+                'ACCOUNT'
+            )
+        ),
+
+    CONSTRAINT chk_notifications_read_at
+        CHECK (
+            read_at IS NULL
+            OR read_at >= created_at
+        )
 );
 
 CREATE INDEX idx_notifications_user
@@ -27,3 +53,6 @@ ON notifications(is_read);
 
 CREATE INDEX idx_notifications_created
 ON notifications(created_at);
+
+CREATE INDEX idx_notifications_type
+ON notifications(type);
