@@ -16,7 +16,9 @@ CREATE TABLE countries (
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    deleted_at TIMESTAMP
 );
 
 CREATE INDEX idx_countries_name
@@ -27,3 +29,6 @@ ON countries(iso2);
 
 CREATE INDEX idx_countries_iso3
 ON countries(iso3);
+
+CREATE INDEX idx_countries_active
+ON countries(is_active);
