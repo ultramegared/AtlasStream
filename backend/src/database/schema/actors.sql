@@ -22,7 +22,20 @@ CREATE TABLE actors (
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_actors_country
+        FOREIGN KEY (country_id)
+        REFERENCES countries(id),
+
+    CONSTRAINT chk_actor_dates
+        CHECK (
+            death_date IS NULL
+            OR birth_date IS NULL
+            OR death_date >= birth_date
+        )
 );
 
 CREATE INDEX idx_actors_name
@@ -30,3 +43,9 @@ ON actors(first_name, last_name);
 
 CREATE INDEX idx_actors_stage_name
 ON actors(stage_name);
+
+CREATE INDEX idx_actors_country
+ON actors(country_id);
+
+CREATE INDEX idx_actors_active
+ON actors(is_active);
