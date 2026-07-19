@@ -16,8 +16,20 @@ CREATE TABLE studios (
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_studios_country
+        FOREIGN KEY (country_id)
+        REFERENCES countries(id)
 );
 
 CREATE INDEX idx_studios_name
 ON studios(name);
+
+CREATE INDEX idx_studios_country
+ON studios(country_id);
+
+CREATE INDEX idx_studios_active
+ON studios(is_active);
