@@ -2,39 +2,45 @@ CREATE TABLE profiles (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    user_id UUID NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL,
 
-    display_name VARCHAR(100) NOT NULL,
-
-    biography TEXT,
+    name VARCHAR(100) NOT NULL,
 
     avatar_url TEXT,
 
-    birth_date DATE,
+    is_kids_profile BOOLEAN NOT NULL DEFAULT FALSE,
 
-    gender VARCHAR(20),
+    language_id UUID,
 
-    country VARCHAR(100),
+    pin VARCHAR(255),
 
-    language VARCHAR(50) DEFAULT 'es',
-
-    timezone VARCHAR(100) DEFAULT 'UTC',
-
-    parental_control_enabled BOOLEAN NOT NULL DEFAULT FALSE,
-
-    autoplay_enabled BOOLEAN NOT NULL DEFAULT TRUE,
-
-    subtitles_enabled BOOLEAN NOT NULL DEFAULT FALSE,
-
-    preferred_video_quality VARCHAR(20) DEFAULT 'AUTO',
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_profiles_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_profiles_language
+        FOREIGN KEY (language_id)
+        REFERENCES languages(id),
+
+    CONSTRAINT uq_profiles_user_name
+        UNIQUE (user_id, name)
+
 );
 
 CREATE INDEX idx_profiles_user
 ON profiles(user_id);
 
-CREATE INDEX idx_profiles_display_name
-ON profiles(display_name);
+CREATE INDEX idx_profiles_language
+ON profiles(language_id);
+
+CREATE INDEX idx_profiles_active
+ON profiles(is_active);
