@@ -1,8 +1,12 @@
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
-
 CREATE TABLE users (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    role_id UUID NOT NULL,
+
+    first_name VARCHAR(100) NOT NULL,
+
+    last_name VARCHAR(100) NOT NULL,
 
     username VARCHAR(50) NOT NULL UNIQUE,
 
@@ -10,27 +14,47 @@ CREATE TABLE users (
 
     password_hash TEXT NOT NULL,
 
-    first_name VARCHAR(100),
+    phone VARCHAR(20),
 
-    last_name VARCHAR(100),
+    birth_date DATE,
 
-    avatar_url TEXT,
+    profile_image TEXT,
 
-    role VARCHAR(20) NOT NULL DEFAULT 'USER',
+    country_id UUID,
 
-    account_status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
+    language_id UUID,
 
-    email_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
 
-    phone_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    is_verified BOOLEAN NOT NULL DEFAULT FALSE,
+
+    email_verified_at TIMESTAMP,
 
     last_login_at TIMESTAMP,
+
+    failed_login_attempts INTEGER NOT NULL DEFAULT 0,
+
+    locked_until TIMESTAMP,
+
+    password_changed_at TIMESTAMP,
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    deleted_at TIMESTAMP
+    deleted_at TIMESTAMP,
+
+    CONSTRAINT fk_users_role
+        FOREIGN KEY (role_id)
+        REFERENCES roles(id),
+
+    CONSTRAINT fk_users_country
+        FOREIGN KEY (country_id)
+        REFERENCES countries(id),
+
+    CONSTRAINT fk_users_language
+        FOREIGN KEY (language_id)
+        REFERENCES languages(id)
 );
 
 CREATE INDEX idx_users_username
@@ -39,5 +63,14 @@ ON users(username);
 CREATE INDEX idx_users_email
 ON users(email);
 
-CREATE INDEX idx_users_status
-ON users(account_status);
+CREATE INDEX idx_users_role
+ON users(role_id);
+
+CREATE INDEX idx_users_country
+ON users(country_id);
+
+CREATE INDEX idx_users_language
+ON users(language_id);
+
+CREATE INDEX idx_users_active
+ON users(is_active);
