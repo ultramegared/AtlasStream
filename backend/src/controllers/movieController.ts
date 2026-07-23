@@ -7,7 +7,10 @@ import {
   deleteMovie,
 } from "../services/movieService";
 
-export async function index(req: Request, res: Response) {
+export async function index(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     const movies = await getAllMovies();
 
@@ -15,15 +18,21 @@ export async function index(req: Request, res: Response) {
       success: true,
       data: movies,
     });
-  } catch {
+  } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Error al obtener películas.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error al obtener películas.",
     });
   }
 }
 
-export async function show(req: Request, res: Response) {
+export async function show(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     const movie = await getMovieById(req.params.id);
 
@@ -34,12 +43,18 @@ export async function show(req: Request, res: Response) {
   } catch (error) {
     return res.status(404).json({
       success: false,
-      message: error instanceof Error ? error.message : "Película no encontrada.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "Película no encontrada.",
     });
   }
 }
 
-export async function store(req: Request, res: Response) {
+export async function store(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     const movie = await createMovie(req.body);
 
@@ -50,12 +65,18 @@ export async function store(req: Request, res: Response) {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: error instanceof Error ? error.message : "No se pudo crear la película.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "No se pudo crear la película.",
     });
   }
 }
 
-export async function update(req: Request, res: Response) {
+export async function update(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     const movie = await updateMovie(req.params.id, req.body);
 
@@ -66,12 +87,18 @@ export async function update(req: Request, res: Response) {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: error instanceof Error ? error.message : "No se pudo actualizar.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "No se pudo actualizar.",
     });
   }
 }
 
-export async function destroy(req: Request, res: Response) {
+export async function destroy(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     await deleteMovie(req.params.id);
 
@@ -82,7 +109,10 @@ export async function destroy(req: Request, res: Response) {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: error instanceof Error ? error.message : "No se pudo eliminar.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "No se pudo eliminar.",
     });
   }
 }

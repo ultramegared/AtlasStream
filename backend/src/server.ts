@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pool from "./config/database";
-import authRoutes from "./routes/authRoutes";
+import routes from "./routes";
 
 dotenv.config();
 
@@ -117,7 +117,7 @@ app.get("/", (req, res) => {
       <div class="card">
 
         <div class="brand">
-          Developed by <span class="company">UltraMegaRed</span>
+          Developed by <span class="company">ultramegared</span>
         </div>
 
         <h1>🚀 AtlasStream API</h1>
@@ -129,13 +129,15 @@ app.get("/", (req, res) => {
 
         <ul>
           <li>/api/auth</li>
+          <li>/api/users</li>
+          <li>/api/movies</li>
         </ul>
 
         <hr>
 
         <div class="footer">
           <span>AtlasStream API v1.0.0</span>
-          <span>© 2026 <span class="company">UltraMegaRed</span></span>
+          <span>© 2026 <span class="company">ultramegared</span></span>
         </div>
 
       </div>
@@ -145,8 +147,8 @@ app.get("/", (req, res) => {
   `);
 });
 
-// Registrar rutas
-app.use("/api/auth", authRoutes);
+// Registrar todas las rutas
+app.use("/api", routes);
 
 const PORT = process.env.PORT || 3000;
 

@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import { registerUser, loginUser } from "../services/authService";
 
-export async function register(req: Request, res: Response) {
+export async function register(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     const user = await registerUser(req.body);
 
@@ -13,12 +16,18 @@ export async function register(req: Request, res: Response) {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: error instanceof Error ? error.message : "Error interno.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error interno.",
     });
   }
 }
 
-export async function login(req: Request, res: Response) {
+export async function login(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     const { email, password } = req.body;
 
@@ -32,7 +41,10 @@ export async function login(req: Request, res: Response) {
   } catch (error) {
     return res.status(401).json({
       success: false,
-      message: error instanceof Error ? error.message : "Correo o contraseña incorrectos.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "Correo o contraseña incorrectos.",
     });
   }
 }

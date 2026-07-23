@@ -5,7 +5,10 @@ import {
   changePassword,
 } from "../services/userService";
 
-export async function profile(req: Request, res: Response) {
+export async function profile(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     const user = await getProfile(req.user!.id);
 
@@ -16,12 +19,18 @@ export async function profile(req: Request, res: Response) {
   } catch (error) {
     return res.status(404).json({
       success: false,
-      message: error instanceof Error ? error.message : "Usuario no encontrado.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "Usuario no encontrado.",
     });
   }
 }
 
-export async function update(req: Request, res: Response) {
+export async function update(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     const user = await updateProfile(req.user!.id, req.body);
 
@@ -33,12 +42,18 @@ export async function update(req: Request, res: Response) {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: error instanceof Error ? error.message : "No se pudo actualizar el perfil.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "No se pudo actualizar el perfil.",
     });
   }
 }
 
-export async function password(req: Request, res: Response) {
+export async function password(
+  req: Request,
+  res: Response
+): Promise<Response> {
   try {
     const { currentPassword, newPassword } = req.body;
 
@@ -55,7 +70,10 @@ export async function password(req: Request, res: Response) {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: error instanceof Error ? error.message : "No se pudo cambiar la contraseña.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "No se pudo cambiar la contraseña.",
     });
   }
 }

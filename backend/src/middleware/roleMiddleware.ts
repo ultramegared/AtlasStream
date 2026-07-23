@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 
 export function authorize(...roles: string[]) {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Response | void => {
     if (!req.user) {
       return res.status(401).json({
         success: false,

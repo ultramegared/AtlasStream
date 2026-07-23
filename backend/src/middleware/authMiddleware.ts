@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-interface JwtPayload {
+export interface JwtPayload {
   id: string;
   username: string;
   email: string;
@@ -20,7 +20,7 @@ export function authenticateToken(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): Response | void {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -49,7 +49,7 @@ export function authenticateToken(
     req.user = decoded;
 
     next();
-  } catch {
+  } catch (error) {
     return res.status(401).json({
       success: false,
       message: "Token inválido o expirado.",
