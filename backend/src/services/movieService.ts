@@ -60,14 +60,14 @@ export async function createMovie(movie: Movie) {
       RETURNING *
     `,
     [
-      movie.title,
-      movie.description,
-      movie.releaseDate,
-      movie.duration,
-      movie.posterUrl,
-      movie.bannerUrl,
-      movie.trailerUrl,
-    ]
+  movie.title,
+  movie.description,
+  movie.year,
+  movie.duration,
+  movie.poster,
+  movie.backdrop,
+  movie.trailer,
+]
   );
 
   return result.rows[0];
@@ -93,15 +93,15 @@ export async function updateMovie(
       RETURNING *
     `,
     [
-      id,
-      movie.title ?? null,
-      movie.description ?? null,
-      movie.releaseDate ?? null,
-      movie.duration ?? null,
-      movie.posterUrl ?? null,
-      movie.bannerUrl ?? null,
-      movie.trailerUrl ?? null,
-    ]
+  id,
+  movie.title ?? null,
+  movie.description ?? null,
+  movie.year ?? null,
+  movie.duration ?? null,
+  movie.poster ?? null,
+  movie.backdrop ?? null,
+  movie.trailer ?? null,
+]
   );
 
   if (result.rows.length === 0) {
