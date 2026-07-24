@@ -1,9 +1,7 @@
-// frontend/constants/config.ts
-
 export const CONFIG = {
   APP_NAME: "AtlasStream",
 
-  API_URL: "https://atlas-stream-backend-nu.vercel.app/api",
+  API_URL: "https://atlas-stream-f13u.vercel.app/api",
 
   VERSION: "1.0.0",
 
