@@ -5,7 +5,7 @@ export interface JwtPayload {
   id: string;
   username: string;
   email: string;
-  roleId: string;
+  role: string;
 }
 
 declare global {
@@ -49,7 +49,7 @@ export function authenticateToken(
     req.user = decoded;
 
     next();
-  } catch (error) {
+  } catch {
     return res.status(401).json({
       success: false,
       message: "Token inválido o expirado.",

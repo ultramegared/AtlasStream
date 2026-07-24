@@ -11,31 +11,13 @@ export interface User {
 
   lastName?: string;
 
-  profileImage?: string;
+  avatar?: string;
 
-  roleId?: string;
-
-  countryId?: string;
-
-  languageId?: string;
-
-  phone?: string;
-
-  birthDate?: Date;
+  role?: string;
 
   isActive?: boolean;
-
-  isVerified?: boolean;
-
-  emailVerifiedAt?: Date;
-
-  lastLoginAt?: Date;
-
-  passwordChangedAt?: Date;
 
   createdAt?: Date;
 
   updatedAt?: Date;
-
-  deletedAt?: Date;
 }

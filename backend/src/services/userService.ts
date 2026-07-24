@@ -12,17 +12,11 @@ export async function getProfile(userId: string) {
         email,
         first_name,
         last_name,
-        profile_image,
-        phone,
-        birth_date,
-        role_id,
-        country_id,
-        language_id,
+        avatar,
+        role,
         is_active,
-        is_verified,
         created_at,
-        updated_at,
-        last_login_at
+        updated_at
       FROM users
       WHERE id = $1
       LIMIT 1
@@ -42,11 +36,7 @@ export async function updateProfile(
   data: {
     firstName?: string;
     lastName?: string;
-    phone?: string;
-    birthDate?: string;
-    profileImage?: string;
-    countryId?: string;
-    languageId?: string;
+    avatar?: string;
   }
 ) {
   const result = await pool.query(
@@ -55,11 +45,7 @@ export async function updateProfile(
       SET
         first_name = COALESCE($2, first_name),
         last_name = COALESCE($3, last_name),
-        phone = COALESCE($4, phone),
-        birth_date = COALESCE($5, birth_date),
-        profile_image = COALESCE($6, profile_image),
-        country_id = COALESCE($7, country_id),
-        language_id = COALESCE($8, language_id),
+        avatar = COALESCE($4, avatar),
         updated_at = CURRENT_TIMESTAMP
       WHERE id = $1
       RETURNING
@@ -68,23 +54,17 @@ export async function updateProfile(
         email,
         first_name,
         last_name,
-        profile_image,
-        phone,
-        birth_date,
-        role_id,
-        country_id,
-        language_id,
+        avatar,
+        role,
+        is_active,
+        created_at,
         updated_at
     `,
     [
       userId,
       data.firstName ?? null,
       data.lastName ?? null,
-      data.phone ?? null,
-      data.birthDate ?? null,
-      data.profileImage ?? null,
-      data.countryId ?? null,
-      data.languageId ?? null,
+      data.avatar ?? null,
     ]
   );
 
@@ -102,7 +82,7 @@ export async function changePassword(
 ) {
   const result = await pool.query(
     `
-      SELECT password_hash
+      SELECT password
       FROM users
       WHERE id = $1
     `,
@@ -117,7 +97,7 @@ export async function changePassword(
 
   const validPassword = await bcrypt.compare(
     currentPassword,
-    user.password_hash
+    user.password
   );
 
   if (!validPassword) {
@@ -133,8 +113,7 @@ export async function changePassword(
     `
       UPDATE users
       SET
-        password_hash = $2,
-        password_changed_at = CURRENT_TIMESTAMP,
+        password = $2,
         updated_at = CURRENT_TIMESTAMP
       WHERE id = $1
     `,

@@ -35,10 +35,10 @@ export async function registerUser(user: User) {
       INSERT INTO users (
         username,
         email,
-        password_hash,
+        password,
         first_name,
         last_name,
-        profile_image
+        avatar
       )
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING
@@ -47,8 +47,11 @@ export async function registerUser(user: User) {
         email,
         first_name,
         last_name,
-        profile_image,
-        created_at
+        avatar,
+        role,
+        is_active,
+        created_at,
+        updated_at
     `,
     [
       user.username,
@@ -56,7 +59,7 @@ export async function registerUser(user: User) {
       passwordHash,
       user.firstName ?? null,
       user.lastName ?? null,
-      user.profileImage ?? null,
+      user.avatar ?? null,
     ]
   );
 
@@ -72,7 +75,7 @@ export async function loginUser(
       SELECT *
       FROM users
       WHERE email = $1
-      AND is_active = TRUE
+        AND is_active = TRUE
     `,
     [email]
   );
@@ -85,22 +88,12 @@ export async function loginUser(
 
   const passwordMatch = await bcrypt.compare(
     password,
-    user.password_hash
+    user.password
   );
 
   if (!passwordMatch) {
     throw new Error("Correo o contraseña incorrectos.");
   }
-
-  // Actualizar último acceso
-  await pool.query(
-    `
-      UPDATE users
-      SET last_login_at = CURRENT_TIMESTAMP
-      WHERE id = $1
-    `,
-    [user.id]
-  );
 
   const secret = process.env.JWT_SECRET;
 
@@ -113,7 +106,7 @@ export async function loginUser(
       id: user.id,
       username: user.username,
       email: user.email,
-      roleId: user.role_id,
+      role: user.role,
     },
     secret,
     {
@@ -129,8 +122,11 @@ export async function loginUser(
       email: user.email,
       firstName: user.first_name,
       lastName: user.last_name,
-      profileImage: user.profile_image,
-      roleId: user.role_id,
+      avatar: user.avatar,
+      role: user.role,
+      isActive: user.is_active,
+      createdAt: user.created_at,
+      updatedAt: user.updated_at,
     },
   };
 }
