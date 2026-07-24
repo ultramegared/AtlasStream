@@ -34,7 +34,7 @@ export async function show(
   res: Response
 ): Promise<Response> {
   try {
-    const movie = await getMovieById(req.params.id);
+    const movie = await getMovieById(String(req.params.id));
 
     return res.json({
       success: true,
@@ -78,7 +78,7 @@ export async function update(
   res: Response
 ): Promise<Response> {
   try {
-    const movie = await updateMovie(req.params.id, req.body);
+    const movie = await updateMovie(String(req.params.id), req.body);
 
     return res.json({
       success: true,
@@ -100,7 +100,7 @@ export async function destroy(
   res: Response
 ): Promise<Response> {
   try {
-    await deleteMovie(req.params.id);
+    await deleteMovie(String(req.params.id));
 
     return res.json({
       success: true,
