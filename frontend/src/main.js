@@ -16,7 +16,7 @@ import NotFound from "./pages/NotFound";
 import {
   loginUser,
   registerUser
-} from "./controllers/authController";
+} from "./controllers/authControllers";
 
 const app = document.getElementById("app");
 
