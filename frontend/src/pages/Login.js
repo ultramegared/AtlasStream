@@ -1,29 +1,48 @@
+import Header from "../components/Header";
+import Input from "../components/Input";
+import Button from "../components/Button";
+
 export default function Login() {
   return `
     <section class="login-page">
-      <h1>Iniciar sesión</h1>
 
-      <input
-        type="email"
-        placeholder="Correo electrónico"
-      />
+      ${Button({
+        id: "backHome",
+        text: "← Inicio"
+      })}
 
-      <input
-        type="password"
-        placeholder="Contraseña"
-      />
+      ${Header("Iniciar sesión")}
 
-      <button id="loginButton">
-        Iniciar sesión
-      </button>
+      ${Input({
+        id: "email",
+        type: "email",
+        placeholder: "Correo electrónico"
+      })}
+
+      ${Input({
+        id: "password",
+        type: "password",
+        placeholder: "Contraseña"
+      })}
+
+      ${Button({
+        id: "loginButton",
+        text: "Iniciar sesión"
+      })}
+
+      <div id="loginMessage"></div>
+
+      <hr>
 
       <p>
         ¿No tienes una cuenta?
       </p>
 
-      <button id="registerButton">
-        Crear cuenta
-      </button>
+      ${Button({
+        id: "registerButton",
+        text: "Crear cuenta"
+      })}
+
     </section>
   `;
 }
