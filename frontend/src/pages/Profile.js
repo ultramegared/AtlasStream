@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 
-import { currentUser } from "../controllers/authController";
+import { currentUser } from "../controllers/authControllers";
 
 import { translations } from "../../constants/translations";
 import { getLanguage } from "../utils/storage";
