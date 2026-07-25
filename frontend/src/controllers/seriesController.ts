@@ -1,4 +1,3 @@
-// frontend/src/controllers/seriesController.ts
 // AtlasStream
 // Designed & Developed by ultramegared
 
@@ -12,11 +11,13 @@ import {
  */
 export async function loadSeries() {
   try {
-    return await getSeries();
+    const series = await getSeries();
+
+    return Array.isArray(series) ? series : [];
   } catch (error: any) {
-    throw new Error(
-      error.message || "Unable to load series."
-    );
+    console.error("Error loading series:", error);
+
+    return [];
   }
 }
 
@@ -27,6 +28,8 @@ export async function loadSeriesById(id: string) {
   try {
     return await getSeriesById(id);
   } catch (error: any) {
+    console.error("Error loading series:", error);
+
     throw new Error(
       error.message || "Unable to load series."
     );

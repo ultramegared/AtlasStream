@@ -1,24 +1,22 @@
 // frontend/src/pages/Series.js
+// AtlasStream
+// Designed & Developed by ultramegared
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import SeriesCard from "../components/SeriesCard";
+
+import { loadSeries } from "../controllers/seriesController";
 
 import { translations } from "../constants/translations";
 import { getLanguage } from "../utils/storage";
 
-export default function Series() {
+export default async function Series() {
 
   const language = getLanguage() || "es";
   const t = translations[language];
 
-  const series = [
-    "Stranger Things",
-    "Breaking Bad",
-    "The Last of Us",
-    "Dark",
-    "Peaky Blinders",
-    "The Boys",
-  ];
+  const series = await loadSeries();
 
   return `
     <main class="series-page">
@@ -33,30 +31,15 @@ export default function Series() {
 
         <div class="movie-grid">
 
-          ${series
-            .map(
-              (serie) => `
-                <div class="movie-card">
-
-                  <div class="movie-poster">
-                    📺
-                  </div>
-
-                  <h3 class="movie-title">
-                    ${serie}
-                  </h3>
-
-                  <button
-                    class="menu-btn"
-                    data-page="player"
-                  >
-                    ▶ ${t.playNow}
-                  </button>
-
+          ${
+            series.length > 0
+              ? series.map(SeriesCard).join("")
+              : `
+                <div class="empty-state">
+                  <p>${t.noSeries || "No series available."}</p>
                 </div>
               `
-            )
-            .join("")}
+          }
 
         </div>
 
