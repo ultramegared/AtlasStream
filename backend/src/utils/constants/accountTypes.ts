@@ -11,25 +11,11 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Rutas de autenticación de usuarios.
+ * Tipos de cuenta disponibles en AtlasStream.
  * ----------------------------------------------------------------
  */
 
-import { Router } from "express";
-import { register, login } from "../controllers/authController";
-
-const router = Router();
-
-/**
- * ----------------------------------------------------------------
- * Authentication Routes
- * ----------------------------------------------------------------
- */
-
-// Registrar un nuevo usuario
-router.post("/register", register);
-
-// Iniciar sesión
-router.post("/login", login);
-
-export default router;
+export enum AccountType {
+  FREE = "free",
+  PREMIUM = "premium",
+}

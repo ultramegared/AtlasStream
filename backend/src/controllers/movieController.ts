@@ -1,3 +1,20 @@
+/**
+ * ----------------------------------------------------------------
+ * AtlasStream Backend API
+ * ----------------------------------------------------------------
+ * Author: ultramegared
+ * Project: AtlasStream
+ * Programming Language: TypeScript
+ * Supported Languages:
+ *   - English (en)
+ *   - Español (es)
+ * License: Proprietary
+ * ----------------------------------------------------------------
+ * Description:
+ * Controlador para la administración de películas.
+ * ----------------------------------------------------------------
+ */
+
 import { Request, Response } from "express";
 import {
   getAllMovies,
@@ -14,7 +31,7 @@ export async function index(
   try {
     const movies = await getAllMovies();
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       data: movies,
     });
@@ -24,7 +41,7 @@ export async function index(
       message:
         error instanceof Error
           ? error.message
-          : "Error al obtener películas.",
+          : "Error al obtener las películas.",
     });
   }
 }
@@ -34,9 +51,9 @@ export async function show(
   res: Response
 ): Promise<Response> {
   try {
-    const movie = await getMovieById(String(req.params.id));
+    const movie = await getMovieById(req.params.id);
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       data: movie,
     });
@@ -78,9 +95,9 @@ export async function update(
   res: Response
 ): Promise<Response> {
   try {
-    const movie = await updateMovie(String(req.params.id), req.body);
+    const movie = await updateMovie(req.params.id, req.body);
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       data: movie,
     });
@@ -90,7 +107,7 @@ export async function update(
       message:
         error instanceof Error
           ? error.message
-          : "No se pudo actualizar.",
+          : "No se pudo actualizar la película.",
     });
   }
 }
@@ -100,9 +117,9 @@ export async function destroy(
   res: Response
 ): Promise<Response> {
   try {
-    await deleteMovie(String(req.params.id));
+    await deleteMovie(req.params.id);
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       message: "Película eliminada correctamente.",
     });
@@ -112,7 +129,7 @@ export async function destroy(
       message:
         error instanceof Error
           ? error.message
-          : "No se pudo eliminar.",
+          : "No se pudo eliminar la película.",
     });
   }
 }

@@ -11,25 +11,30 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Rutas de autenticación de usuarios.
+ * Utilidades para respuestas estándar de la API.
  * ----------------------------------------------------------------
  */
 
-import { Router } from "express";
-import { register, login } from "../controllers/authController";
+export interface ApiSuccessResponse<T> {
+  success: true;
+  data: T;
+}
 
-const router = Router();
+export interface ApiErrorResponse {
+  success: false;
+  message: string;
+}
 
-/**
- * ----------------------------------------------------------------
- * Authentication Routes
- * ----------------------------------------------------------------
- */
+export function success<T>(data: T): ApiSuccessResponse<T> {
+  return {
+    success: true,
+    data,
+  };
+}
 
-// Registrar un nuevo usuario
-router.post("/register", register);
-
-// Iniciar sesión
-router.post("/login", login);
-
-export default router;
+export function error(message: string): ApiErrorResponse {
+  return {
+    success: false,
+    message,
+  };
+}

@@ -1,3 +1,20 @@
+/**
+ * ----------------------------------------------------------------
+ * AtlasStream Backend API
+ * ----------------------------------------------------------------
+ * Author: ultramegared
+ * Project: AtlasStream
+ * Programming Language: TypeScript
+ * Supported Languages:
+ *   - English (en)
+ *   - Español (es)
+ * License: Proprietary
+ * ----------------------------------------------------------------
+ * Description:
+ * Middleware para autorización basada en roles.
+ * ----------------------------------------------------------------
+ */
+
 import { Request, Response, NextFunction } from "express";
 
 export function authorize(...roles: string[]) {

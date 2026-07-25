@@ -1,17 +1,38 @@
 {
   "name": "atlasstream-backend",
   "version": "1.0.0",
-  "description": "Backend API for AtlasStream",
+  "description": "AtlasStream Backend API (TypeScript)",
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
-  "author": "AtlasStream",
-  "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "atlasstream",
+    "backend",
+    "api",
+    "typescript",
+    "express",
+    "postgresql",
+    "english",
+    "espanol"
+  ],
+  "author": "ultramegared",
+  "license": "Proprietary",
   "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "atlasstream": {
+    "project": "AtlasStream",
+    "programmingLanguage": "TypeScript",
+    "supportedLanguages": [
+      "English (en)",
+      "Español (es)"
+    ],
+    "credits": "Developed by ultramegared"
+  },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",

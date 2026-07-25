@@ -1,3 +1,20 @@
+/**
+ * ----------------------------------------------------------------
+ * AtlasStream Backend API
+ * ----------------------------------------------------------------
+ * Author: ultramegared
+ * Project: AtlasStream
+ * Programming Language: TypeScript
+ * Supported Languages:
+ *   - English (en)
+ *   - Español (es)
+ * License: Proprietary
+ * ----------------------------------------------------------------
+ * Description:
+ * Middleware para validar y autenticar tokens JWT.
+ * ----------------------------------------------------------------
+ */
+
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
@@ -6,6 +23,7 @@ export interface JwtPayload {
   username: string;
   email: string;
   role: string;
+  language?: "en" | "es";
 }
 
 declare global {
@@ -31,7 +49,7 @@ export function authenticateToken(
   }
 
   const token = authHeader.startsWith("Bearer ")
-    ? authHeader.substring(7)
+    ? authHeader.slice(7)
     : authHeader;
 
   const secret = process.env.JWT_SECRET;
@@ -44,9 +62,7 @@ export function authenticateToken(
   }
 
   try {
-    const decoded = jwt.verify(token, secret) as JwtPayload;
-
-    req.user = decoded;
+    req.user = jwt.verify(token, secret) as JwtPayload;
 
     next();
   } catch {

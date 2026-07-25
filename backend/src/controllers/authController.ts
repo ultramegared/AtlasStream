@@ -1,3 +1,20 @@
+/**
+ * ----------------------------------------------------------------
+ * AtlasStream Backend API
+ * ----------------------------------------------------------------
+ * Author: ultramegared
+ * Project: AtlasStream
+ * Programming Language: TypeScript
+ * Supported Languages:
+ *   - English (en)
+ *   - Español (es)
+ * License: Proprietary
+ * ----------------------------------------------------------------
+ * Description:
+ * Controlador para el registro e inicio de sesión de usuarios.
+ * ----------------------------------------------------------------
+ */
+
 import { Request, Response } from "express";
 import { registerUser, loginUser } from "../services/authService";
 
@@ -19,7 +36,7 @@ export async function register(
       message:
         error instanceof Error
           ? error.message
-          : "Error interno.",
+          : "Error interno del servidor.",
     });
   }
 }
@@ -44,7 +61,7 @@ export async function login(
       message:
         error instanceof Error
           ? error.message
-          : "Correo o contraseña incorrectos.",
+          : "Correo electrónico o contraseña incorrectos.",
     });
   }
 }

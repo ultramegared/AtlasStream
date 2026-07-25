@@ -1,3 +1,20 @@
+/**
+ * ----------------------------------------------------------------
+ * AtlasStream Backend API
+ * ----------------------------------------------------------------
+ * Author: ultramegared
+ * Project: AtlasStream
+ * Programming Language: TypeScript
+ * Supported Languages:
+ *   - English (en)
+ *   - Español (es)
+ * License: Proprietary
+ * ----------------------------------------------------------------
+ * Description:
+ * Controlador para la gestión del perfil del usuario.
+ * ----------------------------------------------------------------
+ */
+
 import { Request, Response } from "express";
 import {
   getProfile,
