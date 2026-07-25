@@ -1,25 +1,54 @@
+// frontend/src/pages/Profile.js
+
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Button from "../components/Button";
+
 import { currentUser } from "../controllers/authController";
 
+import { translations } from "../constants/translations";
+import { getLanguage } from "../utils/storage";
+
 export default function Profile() {
+
+  const language = getLanguage() || "es";
+  const t = translations[language];
+
   const user = currentUser();
 
   return `
     <main class="profile">
 
-      <h1>👤 Mi Perfil</h1>
+      ${Header()}
 
-      <p><strong>Usuario:</strong> ${user?.username ?? "No disponible"}</p>
+      <section class="profile-container">
 
-      <p><strong>Correo:</strong> ${user?.email ?? "No disponible"}</p>
+        <h2 class="page-title">
+          👤 ${t.profile}
+        </h2>
 
-      <button id="logoutButton">
-        Cerrar sesión
-      </button>
+        <div class="profile-card">
 
-      <footer class="app-footer">
-        <p>Designed & Developed by ultramegared</p>
-        <p>© 2026 AtlasStream</p>
-      </footer>
+          <p>
+            <strong>Username:</strong>
+            ${user?.username ?? "No disponible"}
+          </p>
+
+          <p>
+            <strong>Email:</strong>
+            ${user?.email ?? "No disponible"}
+          </p>
+
+        </div>
+
+        ${Button({
+          id: "logoutButton",
+          text: t.logout
+        })}
+
+      </section>
+
+      ${Footer()}
 
     </main>
   `;

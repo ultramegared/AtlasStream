@@ -4,13 +4,23 @@ import { CONFIG } from "../constants/config";
 
 export default function Footer() {
   return `
-    <footer class="app-footer">
+    <footer class="footer">
 
-      <p>${CONFIG.DESIGNER}</p>
+      <div class="footer-content">
 
-      <p>${CONFIG.COPYRIGHT}</p>
+        <p class="footer-designer">
+          ${CONFIG.DESIGNER}
+        </p>
 
-      <p>Version ${CONFIG.VERSION}</p>
+        <p class="footer-copyright">
+          ${CONFIG.COPYRIGHT}
+        </p>
+
+        <p class="footer-version">
+          Version ${CONFIG.VERSION}
+        </p>
+
+      </div>
 
     </footer>
   `;

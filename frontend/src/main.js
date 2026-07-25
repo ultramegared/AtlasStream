@@ -18,6 +18,11 @@ import {
   registerUser
 } from "./controllers/authControllers";
 
+import {
+  getLanguage,
+  saveLanguage
+} from "./utils/storage";
+
 const app = document.getElementById("app");
 
 const routes = {
@@ -35,7 +40,6 @@ const routes = {
 };
 
 async function handleLogin() {
-
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const message = document.getElementById("loginMessage");
@@ -46,7 +50,6 @@ async function handleLogin() {
   }
 
   try {
-
     await loginUser({
       email,
       password,
@@ -55,16 +58,12 @@ async function handleLogin() {
     render("home");
 
   } catch (error) {
-
     message.innerHTML =
       error.message || "No fue posible iniciar sesión.";
-
   }
-
 }
 
 async function handleRegister() {
-
   const username = document.getElementById("username").value.trim();
   const firstName = document.getElementById("firstName").value.trim();
   const lastName = document.getElementById("lastName").value.trim();
@@ -74,23 +73,19 @@ async function handleRegister() {
   const message = document.getElementById("registerMessage");
 
   if (!username || !email || !password) {
-
     message.innerHTML = "Completa los campos obligatorios.";
     return;
-
   }
 
   try {
 
     await registerUser({
-
       username,
       firstName,
       lastName,
       email,
       password,
       profileImage: null,
-
     });
 
     alert("Cuenta creada correctamente.");
@@ -98,12 +93,9 @@ async function handleRegister() {
     render("login");
 
   } catch (error) {
-
     message.innerHTML =
       error.message || "No fue posible crear la cuenta.";
-
   }
-
 }
 
 function render(page = "home") {
@@ -113,76 +105,76 @@ function render(page = "home") {
   app.innerHTML = view();
 
   document.querySelectorAll(".menu-btn").forEach((button) => {
-
     button.addEventListener("click", () => {
-
       render(button.dataset.page);
-
     });
-
   });
 
   const loginBtn = document.getElementById("loginBtn");
 
   if (loginBtn) {
-
     loginBtn.addEventListener("click", () => {
-
       render("login");
-
     });
-
   }
 
   const registerBtn = document.getElementById("registerButton");
 
   if (registerBtn) {
-
     registerBtn.addEventListener("click", () => {
-
       render("register");
-
     });
-
   }
 
   const backToLogin = document.getElementById("backToLogin");
 
   if (backToLogin) {
-
     backToLogin.addEventListener("click", () => {
-
       render("login");
-
     });
-
   }
 
   const backHome = document.getElementById("backHome");
 
   if (backHome) {
-
     backHome.addEventListener("click", () => {
-
       render("home");
-
     });
-
   }
 
   const loginButton = document.getElementById("loginButton");
 
   if (loginButton) {
-
     loginButton.addEventListener("click", handleLogin);
-
   }
 
-  const createAccountButton = document.getElementById("createAccountButton");
+  const createAccountButton =
+    document.getElementById("createAccountButton");
 
   if (createAccountButton) {
+    createAccountButton.addEventListener(
+      "click",
+      handleRegister
+    );
+  }
 
-    createAccountButton.addEventListener("click", handleRegister);
+  // Selector de idioma
+
+  const languageSelector =
+    document.getElementById("languageSelector");
+
+  if (languageSelector) {
+
+    languageSelector.value =
+      getLanguage() || "es";
+
+    languageSelector.addEventListener("change", (event) => {
+
+      saveLanguage(event.target.value);
+
+      render(page);
+
+    });
 
   }
 

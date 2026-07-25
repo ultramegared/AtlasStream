@@ -2,6 +2,7 @@
 
 const TOKEN_KEY = "atlasstream_token";
 const USER_KEY = "atlasstream_user";
+const LANGUAGE_KEY = "atlasstream_language";
 
 export function saveToken(token) {
   localStorage.setItem(TOKEN_KEY, token);
@@ -27,6 +28,18 @@ export function getUser() {
 
 export function removeUser() {
   localStorage.removeItem(USER_KEY);
+}
+
+export function saveLanguage(language) {
+  localStorage.setItem(LANGUAGE_KEY, language);
+}
+
+export function getLanguage() {
+  return localStorage.getItem(LANGUAGE_KEY);
+}
+
+export function removeLanguage() {
+  localStorage.removeItem(LANGUAGE_KEY);
 }
 
 export function logout() {

@@ -1,51 +1,71 @@
+// frontend/src/pages/Register.js
+
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
+import { translations } from "../constants/translations";
+import { getLanguage } from "../utils/storage";
+
 export default function Register() {
+
+  const language = getLanguage() || "es";
+  const t = translations[language];
+
   return `
     <section class="register-page">
 
+      ${Header()}
+
       ${Button({
         id: "backToLogin",
-        text: "← Volver"
+        text: "← ${t.login}"
       })}
 
-      ${Header("Crear cuenta")}
+      <h2 class="page-title">
+        ${t.createAccount}
+      </h2>
+
+      <p class="page-subtitle">
+        ${t.heroDescription}
+      </p>
 
       ${Input({
         id: "username",
-        placeholder: "Nombre de usuario"
+        placeholder: "Username"
       })}
 
       ${Input({
         id: "firstName",
-        placeholder: "Nombre"
+        placeholder: "First Name"
       })}
 
       ${Input({
         id: "lastName",
-        placeholder: "Apellido"
+        placeholder: "Last Name"
       })}
 
       ${Input({
         id: "email",
         type: "email",
-        placeholder: "Correo electrónico"
+        placeholder: t.email
       })}
 
       ${Input({
         id: "password",
         type: "password",
-        placeholder: "Contraseña"
+        placeholder: t.password
       })}
 
       ${Button({
         id: "createAccountButton",
-        text: "Crear cuenta"
+        text: t.createAccount
       })}
 
       <div id="registerMessage"></div>
+
+      ${Footer()}
 
     </section>
   `;

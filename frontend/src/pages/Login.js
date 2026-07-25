@@ -1,38 +1,51 @@
+// frontend/src/pages/Login.js
+
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { CONFIG } from "../constants/config";
+
+import { translations } from "../constants/translations";
+import { getLanguage } from "../utils/storage";
 
 export default function Login() {
+
+  const language = getLanguage() || "es";
+  const t = translations[language];
+
   return `
     <section class="login-page">
 
+      ${Header()}
+
       ${Button({
         id: "backHome",
-        text: "← Inicio"
+        text: t.backHome
       })}
 
-      ${Header(CONFIG.APP_NAME)}
+      <h2 class="page-title">
+        ${t.login}
+      </h2>
 
       <p class="page-subtitle">
-        Iniciar sesión
+        ${t.heroDescription}
       </p>
 
       ${Input({
         id: "email",
         type: "email",
-        placeholder: "Correo electrónico"
+        placeholder: t.email
       })}
 
       ${Input({
         id: "password",
         type: "password",
-        placeholder: "Contraseña"
+        placeholder: t.password
       })}
 
       ${Button({
         id: "loginButton",
-        text: "Iniciar sesión"
+        text: t.login
       })}
 
       <div id="loginMessage"></div>
@@ -40,18 +53,15 @@ export default function Login() {
       <hr>
 
       <p>
-        ¿No tienes una cuenta?
+        ${t.noAccount}
       </p>
 
       ${Button({
         id: "registerButton",
-        text: "Crear cuenta"
+        text: t.createAccount
       })}
 
-      <footer class="app-footer">
-        <p>${CONFIG.DESIGNER}</p>
-        <p>${CONFIG.COPYRIGHT}</p>
-      </footer>
+      ${Footer()}
 
     </section>
   `;

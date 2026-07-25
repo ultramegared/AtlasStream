@@ -1,26 +1,22 @@
-import { CONFIG } from "../../constants/config";
+// frontend/services/api/profileApi.ts
+// AtlasStream
+// Designed & Developed by ultramegared
 
-const API = CONFIG.API_URL;
+import { apiFetch } from "./api";
 
-export async function getProfile(token: string) {
-  const response = await fetch(`${API}/profile`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.json();
+/**
+ * Obtiene el perfil del usuario autenticado.
+ */
+export async function getProfile() {
+  return apiFetch("/profile");
 }
 
-export async function updateProfile(token: string, data: any) {
-  const response = await fetch(`${API}/profile`, {
+/**
+ * Actualiza el perfil del usuario autenticado.
+ */
+export async function updateProfile(data: any) {
+  return apiFetch("/profile", {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
     body: JSON.stringify(data),
   });
-
-  return response.json();
 }

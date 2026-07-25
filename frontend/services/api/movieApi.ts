@@ -1,15 +1,19 @@
-import { CONFIG } from "../../constants/config";
+// frontend/services/api/moviesApi.ts
+// AtlasStream
+// Designed & Developed by ultramegared
 
-const API = CONFIG.API_URL;
+import { apiFetch } from "./api";
 
+/**
+ * Obtiene todas las películas.
+ */
 export async function getMovies() {
-  const response = await fetch(`${API}/movies`);
-
-  return response.json();
+  return apiFetch("/movies");
 }
 
+/**
+ * Obtiene una película por su ID.
+ */
 export async function getMovieById(id: string) {
-  const response = await fetch(`${API}/movies/${id}`);
-
-  return response.json();
+  return apiFetch(`/movies/${id}`);
 }

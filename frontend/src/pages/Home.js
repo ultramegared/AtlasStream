@@ -1,77 +1,79 @@
-import { CONFIG } from "../constants/config";
+// frontend/src/pages/Home.js
+
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { translations } from "../constants/translations";
+import { getLanguage } from "../utils/storage";
 
 export default function Home() {
+  const language = getLanguage() || "es";
+  const t = translations[language];
+
   return `
     <main class="home">
 
-      <header class="header">
-
-        <h1>${CONFIG.APP_NAME}</h1>
-
-        <div class="header-actions">
-
-          <select id="languageSelector">
-            ${CONFIG.SUPPORTED_LANGUAGES.map(
-              (language) => `
-                <option
-                  value="${language.code}"
-                  ${
-                    language.code === CONFIG.DEFAULT_LANGUAGE
-                      ? "selected"
-                      : ""
-                  }>
-                  🌐 ${language.name}
-                </option>
-              `
-            ).join("")}
-          </select>
-
-          <button id="loginBtn">
-            Iniciar sesión
-          </button>
-
-        </div>
-
-      </header>
+      ${Header()}
 
       <section class="hero">
 
-        <h2>Tu entretenimiento en un solo lugar</h2>
+        <h2>${t.heroTitle}</h2>
 
         <p>
-          Miles de películas, series y TV en vivo.
+          ${t.heroDescription}
         </p>
 
       </section>
 
       <section class="categories">
 
-        <button class="menu-btn" data-page="movies">
-          🎬 Películas
+        <button
+          class="menu-btn"
+          data-page="movies"
+        >
+          🎬 ${t.movies}
         </button>
 
-        <button class="menu-btn" data-page="series">
-          🎞 Series
+        <button
+          class="menu-btn"
+          data-page="series"
+        >
+          🎞 ${t.series}
         </button>
 
-        <button class="menu-btn" data-page="livetv">
-          📺 TV en Vivo
+        <button
+          class="menu-btn"
+          data-page="livetv"
+        >
+          📺 ${t.liveTv}
         </button>
 
-        <button class="menu-btn" data-page="favorites">
-          ❤️ Favoritos
+        <button
+          class="menu-btn"
+          data-page="favorites"
+        >
+          ❤️ ${t.favorites}
         </button>
 
-        <button class="menu-btn" data-page="profile">
-          👤 Perfil
+        <button
+          class="menu-btn"
+          data-page="profile"
+        >
+          👤 ${t.profile}
         </button>
 
       </section>
 
-      <footer class="app-footer">
-        <p>${CONFIG.DESIGNER}</p>
-        <p>${CONFIG.COPYRIGHT}</p>
-      </footer>
+      <section class="actions">
+
+        <button
+          id="loginBtn"
+        >
+          ${t.login}
+        </button>
+
+      </section>
+
+      ${Footer()}
 
     </main>
   `;

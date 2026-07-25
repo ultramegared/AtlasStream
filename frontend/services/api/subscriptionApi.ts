@@ -1,24 +1,24 @@
-import { CONFIG } from "../../constants/config";
+// frontend/services/api/subscriptionApi.ts
+// AtlasStream
+// Designed & Developed by ultramegared
 
-const API = CONFIG.API_URL;
+import { apiFetch } from "./api";
 
+/**
+ * Obtiene los planes de suscripción disponibles.
+ */
 export async function getSubscriptions() {
-  const response = await fetch(`${API}/subscriptions`);
-
-  return response.json();
+  return apiFetch("/subscriptions");
 }
 
-export async function subscribe(token: string, planId: string) {
-  const response = await fetch(`${API}/subscriptions`, {
+/**
+ * Suscribe al usuario autenticado a un plan.
+ */
+export async function subscribe(planId: string) {
+  return apiFetch("/subscriptions", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
     body: JSON.stringify({
       planId,
     }),
   });
-
-  return response.json();
 }
