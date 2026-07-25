@@ -6,7 +6,7 @@ export const CONFIG = {
   APP_ID: "atlasstream",
 
   // API
-  API_URL: "https://atlas-stream-f13u.vercel.app/api",
+  API_URL: "https://api.magictouchdesigns.com/api",
 
   // Versión
   VERSION: "1.0.0",
