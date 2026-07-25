@@ -1,9 +1,33 @@
 // frontend/src/components/Header.js
 
-export default function Header(title = "AtlasStream") {
+import { CONFIG } from "../constants/config";
+
+export default function Header(title = CONFIG.APP_NAME) {
   return `
     <header class="header">
-      <h1>${title}</h1>
+
+      <div class="header-top">
+
+        <h1>${title}</h1>
+
+        <select id="languageSelector">
+          ${CONFIG.SUPPORTED_LANGUAGES.map(
+            (language) => `
+              <option
+                value="${language.code}"
+                ${
+                  language.code === CONFIG.DEFAULT_LANGUAGE
+                    ? "selected"
+                    : ""
+                }>
+                🌐 ${language.name}
+              </option>
+            `
+          ).join("")}
+        </select>
+
+      </div>
+
     </header>
   `;
 }

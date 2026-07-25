@@ -1,13 +1,37 @@
+import { CONFIG } from "../constants/config";
+
 export default function Home() {
   return `
     <main class="home">
 
       <header class="header">
-        <h1>🎬 AtlasStream</h1>
 
-        <button id="loginBtn">
-          Iniciar sesión
-        </button>
+        <h1>${CONFIG.APP_NAME}</h1>
+
+        <div class="header-actions">
+
+          <select id="languageSelector">
+            ${CONFIG.SUPPORTED_LANGUAGES.map(
+              (language) => `
+                <option
+                  value="${language.code}"
+                  ${
+                    language.code === CONFIG.DEFAULT_LANGUAGE
+                      ? "selected"
+                      : ""
+                  }>
+                  🌐 ${language.name}
+                </option>
+              `
+            ).join("")}
+          </select>
+
+          <button id="loginBtn">
+            Iniciar sesión
+          </button>
+
+        </div>
+
       </header>
 
       <section class="hero">
@@ -43,6 +67,11 @@ export default function Home() {
         </button>
 
       </section>
+
+      <footer class="app-footer">
+        <p>${CONFIG.DESIGNER}</p>
+        <p>${CONFIG.COPYRIGHT}</p>
+      </footer>
 
     </main>
   `;

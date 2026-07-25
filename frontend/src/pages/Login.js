@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import { CONFIG } from "../constants/config";
 
 export default function Login() {
   return `
@@ -11,7 +12,11 @@ export default function Login() {
         text: "← Inicio"
       })}
 
-      ${Header("Iniciar sesión")}
+      ${Header(CONFIG.APP_NAME)}
+
+      <p class="page-subtitle">
+        Iniciar sesión
+      </p>
 
       ${Input({
         id: "email",
@@ -42,6 +47,11 @@ export default function Login() {
         id: "registerButton",
         text: "Crear cuenta"
       })}
+
+      <footer class="app-footer">
+        <p>${CONFIG.DESIGNER}</p>
+        <p>${CONFIG.COPYRIGHT}</p>
+      </footer>
 
     </section>
   `;
