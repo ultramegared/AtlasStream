@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
-import { translations } from "../constants/translations";
+import { translations } from "../../constants/translations";
 import { getLanguage } from "../utils/storage";
 
 export default function Register() {
