@@ -8,7 +8,7 @@ import SeriesCard from "../components/SeriesCard";
 
 import { loadSeries } from "../controllers/seriesController";
 
-import { translations } from "../constants/translations";
+import { translations } from "../../constants/translations";
 import { getLanguage } from "../utils/storage";
 
 export default async function Series() {

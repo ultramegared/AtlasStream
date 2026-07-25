@@ -6,7 +6,7 @@ import Button from "../components/Button";
 
 import { currentUser } from "../controllers/authController";
 
-import { translations } from "../constants/translations";
+import { translations } from "../../constants/translations";
 import { getLanguage } from "../utils/storage";
 
 export default function Profile() {

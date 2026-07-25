@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MovieCard from "../components/MovieCard";
 
-import { translations } from "../constants/translations";
+import { translations } from "../../constants/translations";
 import { getLanguage } from "../utils/storage";
 
 export default function Movies() {

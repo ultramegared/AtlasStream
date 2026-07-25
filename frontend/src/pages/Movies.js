@@ -8,7 +8,7 @@ import MovieCard from "../components/MovieCard";
 
 import { loadMovies } from "../controllers/movieController";
 
-import { translations } from "../constants/translations";
+import { translations } from "../../constants/translations";
 import { getLanguage } from "../utils/storage";
 
 export default async function Movies() {
