@@ -1,4 +1,3 @@
-// frontend/src/controllers/movieController.ts
 // AtlasStream
 // Designed & Developed by ultramegared
 
@@ -12,11 +11,13 @@ import {
  */
 export async function loadMovies() {
   try {
-    return await getMovies();
+    const movies = await getMovies();
+
+    return Array.isArray(movies) ? movies : [];
   } catch (error: any) {
-    throw new Error(
-      error.message || "Unable to load movies."
-    );
+    console.error("Error loading movies:", error);
+
+    return [];
   }
 }
 
@@ -27,6 +28,8 @@ export async function loadMovieById(id: string) {
   try {
     return await getMovieById(id);
   } catch (error: any) {
+    console.error("Error loading movie:", error);
+
     throw new Error(
       error.message || "Unable to load movie."
     );

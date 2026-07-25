@@ -1,24 +1,22 @@
 // frontend/src/pages/Movies.js
+// AtlasStream
+// Designed & Developed by ultramegared
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import MovieCard from "../components/MovieCard";
+
+import { loadMovies } from "../controllers/movieController";
 
 import { translations } from "../constants/translations";
 import { getLanguage } from "../utils/storage";
 
-export default function Movies() {
+export default async function Movies() {
 
   const language = getLanguage() || "es";
   const t = translations[language];
 
-  const movies = [
-    "Avatar",
-    "John Wick",
-    "Avengers",
-    "Batman",
-    "Spider-Man",
-    "The Matrix",
-  ];
+  const movies = await loadMovies();
 
   return `
     <main class="movies-page">
@@ -33,30 +31,15 @@ export default function Movies() {
 
         <div class="movie-grid">
 
-          ${movies
-            .map(
-              (movie) => `
-                <div class="movie-card">
-
-                  <div class="movie-poster">
-                    🎬
-                  </div>
-
-                  <h3 class="movie-title">
-                    ${movie}
-                  </h3>
-
-                  <button
-                    class="menu-btn"
-                    data-page="player"
-                  >
-                    ▶ ${t.playNow}
-                  </button>
-
+          ${
+            movies.length > 0
+              ? movies.map(MovieCard).join("")
+              : `
+                <div class="empty-state">
+                  <p>${t.noMovies || "No movies available."}</p>
                 </div>
               `
-            )
-            .join("")}
+          }
 
         </div>
 

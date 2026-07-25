@@ -1,3 +1,6 @@
+// AtlasStream
+// Designed & Developed by ultramegared
+
 import "./style.css";
 
 import Home from "./pages/Home";
@@ -15,12 +18,12 @@ import NotFound from "./pages/NotFound";
 
 import {
   loginUser,
-  registerUser
+  registerUser,
 } from "./controllers/authControllers";
 
 import {
   getLanguage,
-  saveLanguage
+  saveLanguage,
 } from "./utils/storage";
 
 const app = document.getElementById("app");
@@ -56,7 +59,6 @@ async function handleLogin() {
     });
 
     render("home");
-
   } catch (error) {
     message.innerHTML =
       error.message || "No fue posible iniciar sesión.";
@@ -78,7 +80,6 @@ async function handleRegister() {
   }
 
   try {
-
     await registerUser({
       username,
       firstName,
@@ -91,18 +92,16 @@ async function handleRegister() {
     alert("Cuenta creada correctamente.");
 
     render("login");
-
   } catch (error) {
     message.innerHTML =
       error.message || "No fue posible crear la cuenta.";
   }
 }
 
-function render(page = "home") {
-
+async function render(page = "home") {
   const view = routes[page] || NotFound;
 
-  app.innerHTML = view();
+  app.innerHTML = await view();
 
   document.querySelectorAll(".menu-btn").forEach((button) => {
     button.addEventListener("click", () => {
@@ -164,20 +163,15 @@ function render(page = "home") {
     document.getElementById("languageSelector");
 
   if (languageSelector) {
-
     languageSelector.value =
       getLanguage() || "es";
 
     languageSelector.addEventListener("change", (event) => {
-
       saveLanguage(event.target.value);
 
       render(page);
-
     });
-
   }
-
 }
 
 window.render = render;
