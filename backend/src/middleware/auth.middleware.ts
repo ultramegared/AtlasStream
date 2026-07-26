@@ -19,11 +19,11 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 export interface JwtPayload {
-  id: string;
-  username: string;
-  email: string;
-  role: string;
-  language?: "en" | "es";
+  readonly id: string;
+  readonly username: string;
+  readonly email: string;
+  readonly role: string;
+  readonly language?: "en" | "es";
 }
 
 declare global {
@@ -52,7 +52,7 @@ export function authenticateToken(
     ? authHeader.slice(7)
     : authHeader;
 
-  const secret = process.env.JWT_SECRET;
+  const secret: string | undefined = process.env.JWT_SECRET;
 
   if (!secret) {
     return res.status(500).json({
@@ -65,7 +65,7 @@ export function authenticateToken(
     req.user = jwt.verify(token, secret) as JwtPayload;
 
     next();
-  } catch {
+  } catch (error) {
     return res.status(401).json({
       success: false,
       message: "Token inválido o expirado.",

@@ -17,7 +17,7 @@
 
 import { Request, Response, NextFunction } from "express";
 
-export function authorize(...roles: string[]) {
+export function authorize(...roles: readonly string[]) {
   return (
     req: Request,
     res: Response,

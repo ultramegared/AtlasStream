@@ -20,7 +20,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const databaseUrl = process.env.DATABASE_URL;
+const databaseUrl: string | undefined = process.env.DATABASE_URL;
 
 if (!databaseUrl) {
   throw new Error("DATABASE_URL no está configurada en el archivo .env");
@@ -41,11 +41,11 @@ const pool = new Pool({
   connectionTimeoutMillis: 5000,
 });
 
-pool.on("connect", () => {
+pool.on("connect", (): void => {
   console.log("🟢 PostgreSQL conectado");
 });
 
-pool.on("error", (error) => {
+pool.on("error", (error: Error): void => {
   console.error("🔴 Error inesperado en PostgreSQL:", error);
 });
 
