@@ -1,12 +1,34 @@
+/**
+ * ----------------------------------------------------------------
+ * AtlasStream Backend API
+ * ----------------------------------------------------------------
+ * Author: ultramegared
+ * Project: AtlasStream
+ * Programming Language: TypeScript
+ * Supported Languages:
+ *   - English (en)
+ *   - Español (es)
+ * License: Proprietary
+ * ----------------------------------------------------------------
+ * Description:
+ * Servicio para el registro e inicio de sesión de usuarios.
+ * ----------------------------------------------------------------
+ */
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 import pool from "../config/database";
-import { User } from "../models/User";
+import { User } from "../models/user.model";
 
 const SALT_ROUNDS = 10;
 
-export async function registerUser(user: User) {
-  // Verificar username
+/**
+ * Registra un nuevo usuario.
+ */
+export async function registerUser(
+  user: User
+): Promise<User> {
   const usernameExists = await pool.query(
     "SELECT id FROM users WHERE username = $1",
     [user.username]
@@ -16,7 +38,6 @@ export async function registerUser(user: User) {
     throw new Error("El nombre de usuario ya existe.");
   }
 
-  // Verificar email
   const emailExists = await pool.query(
     "SELECT id FROM users WHERE email = $1",
     [user.email]
@@ -26,10 +47,11 @@ export async function registerUser(user: User) {
     throw new Error("El correo electrónico ya está registrado.");
   }
 
-  // Encriptar contraseña
-  const passwordHash = await bcrypt.hash(user.password, SALT_ROUNDS);
+  const passwordHash = await bcrypt.hash(
+    user.password,
+    SALT_ROUNDS
+  );
 
-  // Guardar usuario
   const result = await pool.query(
     `
       INSERT INTO users (
@@ -66,10 +88,16 @@ export async function registerUser(user: User) {
   return result.rows[0];
 }
 
+/**
+ * Inicia sesión de un usuario.
+ */
 export async function loginUser(
   email: string,
   password: string
-) {
+): Promise<{
+  token: string;
+  user: Omit<User, "password">;
+}> {
   const result = await pool.query(
     `
       SELECT *

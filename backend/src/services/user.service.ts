@@ -1,9 +1,33 @@
+/**
+ * ----------------------------------------------------------------
+ * AtlasStream Backend API
+ * ----------------------------------------------------------------
+ * Author: ultramegared
+ * Project: AtlasStream
+ * Programming Language: TypeScript
+ * Supported Languages:
+ *   - English (en)
+ *   - Español (es)
+ * License: Proprietary
+ * ----------------------------------------------------------------
+ * Description:
+ * Servicio para la gestión del perfil de usuario.
+ * ----------------------------------------------------------------
+ */
+
 import bcrypt from "bcrypt";
+
 import pool from "../config/database";
+import { User } from "../models/user.model";
 
 const SALT_ROUNDS = 10;
 
-export async function getProfile(userId: string) {
+/**
+ * Obtiene el perfil de un usuario.
+ */
+export async function getProfile(
+  userId: string
+): Promise<Omit<User, "password">> {
   const result = await pool.query(
     `
       SELECT
@@ -31,6 +55,9 @@ export async function getProfile(userId: string) {
   return result.rows[0];
 }
 
+/**
+ * Actualiza la información del perfil.
+ */
 export async function updateProfile(
   userId: string,
   data: {
@@ -38,7 +65,7 @@ export async function updateProfile(
     lastName?: string;
     avatar?: string;
   }
-) {
+): Promise<Omit<User, "password">> {
   const result = await pool.query(
     `
       UPDATE users
@@ -75,11 +102,14 @@ export async function updateProfile(
   return result.rows[0];
 }
 
+/**
+ * Cambia la contraseña del usuario.
+ */
 export async function changePassword(
   userId: string,
   currentPassword: string,
   newPassword: string
-) {
+): Promise<boolean> {
   const result = await pool.query(
     `
       SELECT password

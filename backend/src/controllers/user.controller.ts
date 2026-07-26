@@ -16,12 +16,16 @@
  */
 
 import { Request, Response } from "express";
+
 import {
+  changePassword,
   getProfile,
   updateProfile,
-  changePassword,
-} from "../services/userService";
+} from "../services/user.service";
 
+/**
+ * Get the authenticated user's profile.
+ */
 export async function profile(
   req: Request,
   res: Response
@@ -44,6 +48,9 @@ export async function profile(
   }
 }
 
+/**
+ * Update the authenticated user's profile.
+ */
 export async function update(
   req: Request,
   res: Response
@@ -67,6 +74,9 @@ export async function update(
   }
 }
 
+/**
+ * Change the authenticated user's password.
+ */
 export async function password(
   req: Request,
   res: Response

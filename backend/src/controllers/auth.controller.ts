@@ -16,8 +16,15 @@
  */
 
 import { Request, Response } from "express";
-import { registerUser, loginUser } from "../services/authService";
 
+import {
+  loginUser,
+  registerUser,
+} from "../services/auth.service";
+
+/**
+ * Register a new user.
+ */
 export async function register(
   req: Request,
   res: Response
@@ -41,6 +48,9 @@ export async function register(
   }
 }
 
+/**
+ * Authenticate an existing user.
+ */
 export async function login(
   req: Request,
   res: Response

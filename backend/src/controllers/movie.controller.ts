@@ -16,14 +16,18 @@
  */
 
 import { Request, Response } from "express";
+
 import {
+  createMovie,
+  deleteMovie,
   getAllMovies,
   getMovieById,
-  createMovie,
   updateMovie,
-  deleteMovie,
-} from "../services/movieService";
+} from "../services/movie.service";
 
+/**
+ * Get all movies.
+ */
 export async function index(
   req: Request,
   res: Response
@@ -46,6 +50,9 @@ export async function index(
   }
 }
 
+/**
+ * Get a movie by its ID.
+ */
 export async function show(
   req: Request,
   res: Response
@@ -68,6 +75,9 @@ export async function show(
   }
 }
 
+/**
+ * Create a new movie.
+ */
 export async function store(
   req: Request,
   res: Response
@@ -90,6 +100,9 @@ export async function store(
   }
 }
 
+/**
+ * Update an existing movie.
+ */
 export async function update(
   req: Request,
   res: Response
@@ -112,6 +125,9 @@ export async function update(
   }
 }
 
+/**
+ * Delete a movie.
+ */
 export async function destroy(
   req: Request,
   res: Response

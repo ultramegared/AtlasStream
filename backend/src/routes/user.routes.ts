@@ -11,25 +11,41 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Rutas de autenticación de usuarios.
+ * Rutas para la gestión del perfil de usuario.
  * ----------------------------------------------------------------
  */
 
 import { Router } from "express";
-import { register, login } from "../controllers/authController";
 
-const router = Router();
+import {
+  password,
+  profile,
+  update,
+} from "../controllers/user.controller";
+
+import { authenticateToken } from "../middleware/auth.middleware";
+
+const router: Router = Router();
 
 /**
  * ----------------------------------------------------------------
- * Authentication Routes
+ * User Routes
  * ----------------------------------------------------------------
  */
 
-// Registrar un nuevo usuario
-router.post("/register", register);
+/**
+ * Get the authenticated user's profile.
+ */
+router.get("/profile", authenticateToken, profile);
 
-// Iniciar sesión
-router.post("/login", login);
+/**
+ * Update the authenticated user's profile.
+ */
+router.put("/profile", authenticateToken, update);
+
+/**
+ * Change the authenticated user's password.
+ */
+router.put("/password", authenticateToken, password);
 
 export default router;

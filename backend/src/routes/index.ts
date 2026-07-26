@@ -12,25 +12,37 @@
  * ----------------------------------------------------------------
  * Description:
  * Enrutador principal de la API de AtlasStream.
+ * Centraliza el registro de todos los módulos de rutas.
  * ----------------------------------------------------------------
  */
 
 import { Router } from "express";
 
-import authRoutes from "./authRoutes";
-import userRoutes from "./userRoutes";
-import movieRoutes from "./movieRoutes";
+import authRoutes from "./auth.routes";
+import movieRoutes from "./movie.routes";
+import userRoutes from "./user.routes";
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * ----------------------------------------------------------------
- * API Routes
+ * Authentication Routes
  * ----------------------------------------------------------------
  */
-
 router.use("/auth", authRoutes);
+
+/**
+ * ----------------------------------------------------------------
+ * User Routes
+ * ----------------------------------------------------------------
+ */
 router.use("/users", userRoutes);
+
+/**
+ * ----------------------------------------------------------------
+ * Movie Routes
+ * ----------------------------------------------------------------
+ */
 router.use("/movies", movieRoutes);
 
 export default router;

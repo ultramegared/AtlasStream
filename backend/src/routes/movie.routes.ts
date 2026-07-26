@@ -18,16 +18,16 @@
 import { Router } from "express";
 
 import {
+  destroy,
   index,
   show,
   store,
   update,
-  destroy,
-} from "../controllers/movieController";
+} from "../controllers/movie.controller";
 
-import { authenticateToken } from "../middleware/authMiddleware";
+import { authenticateToken } from "../middleware/auth.middleware";
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * ----------------------------------------------------------------
@@ -35,19 +35,29 @@ const router = Router();
  * ----------------------------------------------------------------
  */
 
-// Obtener todas las películas
+/**
+ * Get all movies.
+ */
 router.get("/", index);
 
-// Obtener una película por ID
+/**
+ * Get a movie by ID.
+ */
 router.get("/:id", show);
 
-// Crear una película (requiere autenticación)
+/**
+ * Create a new movie.
+ */
 router.post("/", authenticateToken, store);
 
-// Actualizar una película (requiere autenticación)
+/**
+ * Update a movie.
+ */
 router.put("/:id", authenticateToken, update);
 
-// Eliminar una película (requiere autenticación)
+/**
+ * Delete a movie.
+ */
 router.delete("/:id", authenticateToken, destroy);
 
 export default router;

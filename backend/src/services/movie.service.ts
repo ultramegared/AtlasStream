@@ -1,7 +1,27 @@
-import pool from "../config/database";
-import { Movie } from "../models/Movie";
+/**
+ * ----------------------------------------------------------------
+ * AtlasStream Backend API
+ * ----------------------------------------------------------------
+ * Author: ultramegared
+ * Project: AtlasStream
+ * Programming Language: TypeScript
+ * Supported Languages:
+ *   - English (en)
+ *   - Español (es)
+ * License: Proprietary
+ * ----------------------------------------------------------------
+ * Description:
+ * Servicio para la gestión de películas.
+ * ----------------------------------------------------------------
+ */
 
-export async function getAllMovies() {
+import pool from "../config/database";
+import { Movie } from "../models/movie.model";
+
+/**
+ * Obtiene todas las películas disponibles.
+ */
+export async function getAllMovies(): Promise<Movie[]> {
   const result = await pool.query(
     `
       SELECT
@@ -25,7 +45,10 @@ export async function getAllMovies() {
   return result.rows;
 }
 
-export async function getMovieById(id: string) {
+/**
+ * Obtiene una película por su ID.
+ */
+export async function getMovieById(id: string): Promise<Movie> {
   const result = await pool.query(
     `
       SELECT *
@@ -44,7 +67,10 @@ export async function getMovieById(id: string) {
   return result.rows[0];
 }
 
-export async function createMovie(movie: Movie) {
+/**
+ * Crea una nueva película.
+ */
+export async function createMovie(movie: Movie): Promise<Movie> {
   const result = await pool.query(
     `
       INSERT INTO movies (
@@ -60,23 +86,26 @@ export async function createMovie(movie: Movie) {
       RETURNING *
     `,
     [
-  movie.title,
-  movie.description,
-  movie.year,
-  movie.duration,
-  movie.poster,
-  movie.backdrop,
-  movie.trailer,
-]
+      movie.title,
+      movie.description,
+      movie.year,
+      movie.duration,
+      movie.poster,
+      movie.backdrop,
+      movie.trailer,
+    ]
   );
 
   return result.rows[0];
 }
 
+/**
+ * Actualiza una película existente.
+ */
 export async function updateMovie(
   id: string,
   movie: Partial<Movie>
-) {
+): Promise<Movie> {
   const result = await pool.query(
     `
       UPDATE movies
@@ -93,15 +122,15 @@ export async function updateMovie(
       RETURNING *
     `,
     [
-  id,
-  movie.title ?? null,
-  movie.description ?? null,
-  movie.year ?? null,
-  movie.duration ?? null,
-  movie.poster ?? null,
-  movie.backdrop ?? null,
-  movie.trailer ?? null,
-]
+      id,
+      movie.title ?? null,
+      movie.description ?? null,
+      movie.year ?? null,
+      movie.duration ?? null,
+      movie.poster ?? null,
+      movie.backdrop ?? null,
+      movie.trailer ?? null,
+    ]
   );
 
   if (result.rows.length === 0) {
@@ -111,7 +140,10 @@ export async function updateMovie(
   return result.rows[0];
 }
 
-export async function deleteMovie(id: string) {
+/**
+ * Elimina una película (eliminación lógica).
+ */
+export async function deleteMovie(id: string): Promise<boolean> {
   const result = await pool.query(
     `
       UPDATE movies
