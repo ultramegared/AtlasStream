@@ -19,7 +19,9 @@
 import { Router } from "express";
 
 import authRoutes from "./auth.routes";
+import homeRoutes from "./home.routes";
 import movieRoutes from "./movie.routes";
+import seriesRoutes from "./series.routes";
 import userRoutes from "./user.routes";
 
 const router: Router = Router();
@@ -44,5 +46,19 @@ router.use("/users", userRoutes);
  * ----------------------------------------------------------------
  */
 router.use("/movies", movieRoutes);
+
+/**
+ * ----------------------------------------------------------------
+ * Series Routes
+ * ----------------------------------------------------------------
+ */
+router.use("/series", seriesRoutes);
+
+/**
+ * ----------------------------------------------------------------
+ * Home Routes
+ * ----------------------------------------------------------------
+ */
+router.use("/home", homeRoutes);
 
 export default router;

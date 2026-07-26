@@ -11,59 +11,25 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Rutas para la gestión de series.
+ * Rutas del módulo Home.
  * ----------------------------------------------------------------
  */
 
 import { Router } from "express";
-
-import {
-  destroy,
-  index,
-  show,
-  showBySlug,
-  store,
-  update,
-} from "../controllers/series.controller";
-
-import { authenticateToken } from "../middleware/auth.middleware";
+import { getHomeController } from "../controllers/home.controller";
 
 const router: Router = Router();
 
 /**
  * ----------------------------------------------------------------
- * Series Routes
+ * Home Routes
  * ----------------------------------------------------------------
  */
 
 /**
- * Obtener todas las series.
+ * GET /api/home
+ * Obtiene el contenido principal de la pantalla Home.
  */
-router.get("/", index);
-
-/**
- * Obtener una serie por slug.
- */
-router.get("/slug/:slug", showBySlug);
-
-/**
- * Obtener una serie por ID.
- */
-router.get("/:id", show);
-
-/**
- * Crear una serie.
- */
-router.post("/", authenticateToken, store);
-
-/**
- * Actualizar una serie.
- */
-router.put("/:id", authenticateToken, update);
-
-/**
- * Desactivar una serie.
- */
-router.delete("/:id", authenticateToken, destroy);
+router.get("/", getHomeController);
 
 export default router;

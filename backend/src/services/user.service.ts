@@ -23,7 +23,11 @@ import { User } from "../models/user.model";
 const SALT_ROUNDS = 10;
 
 /**
+ * ----------------------------------------------------------------
+ * Get Profile
+ * ----------------------------------------------------------------
  * Obtiene el perfil de un usuario.
+ * ----------------------------------------------------------------
  */
 export async function getProfile(
   userId: string
@@ -43,6 +47,7 @@ export async function getProfile(
         updated_at
       FROM users
       WHERE id = $1
+        AND is_active = TRUE
       LIMIT 1
     `,
     [userId]
@@ -52,11 +57,28 @@ export async function getProfile(
     throw new Error("Usuario no encontrado.");
   }
 
-  return result.rows[0];
+  const user = result.rows[0];
+
+  return {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    avatar: user.avatar,
+    role: user.role,
+    isActive: user.is_active,
+    createdAt: user.created_at,
+    updatedAt: user.updated_at,
+  };
 }
 
 /**
+ * ----------------------------------------------------------------
+ * Update Profile
+ * ----------------------------------------------------------------
  * Actualiza la información del perfil.
+ * ----------------------------------------------------------------
  */
 export async function updateProfile(
   userId: string,
@@ -75,6 +97,7 @@ export async function updateProfile(
         avatar = COALESCE($4, avatar),
         updated_at = CURRENT_TIMESTAMP
       WHERE id = $1
+        AND is_active = TRUE
       RETURNING
         id,
         username,
@@ -99,11 +122,28 @@ export async function updateProfile(
     throw new Error("Usuario no encontrado.");
   }
 
-  return result.rows[0];
+  const user = result.rows[0];
+
+  return {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    avatar: user.avatar,
+    role: user.role,
+    isActive: user.is_active,
+    createdAt: user.created_at,
+    updatedAt: user.updated_at,
+  };
 }
 
 /**
+ * ----------------------------------------------------------------
+ * Change Password
+ * ----------------------------------------------------------------
  * Cambia la contraseña del usuario.
+ * ----------------------------------------------------------------
  */
 export async function changePassword(
   userId: string,
@@ -112,9 +152,12 @@ export async function changePassword(
 ): Promise<boolean> {
   const result = await pool.query(
     `
-      SELECT password
+      SELECT
+        password
       FROM users
       WHERE id = $1
+        AND is_active = TRUE
+      LIMIT 1
     `,
     [userId]
   );
@@ -146,6 +189,7 @@ export async function changePassword(
         password = $2,
         updated_at = CURRENT_TIMESTAMP
       WHERE id = $1
+        AND is_active = TRUE
     `,
     [userId, passwordHash]
   );

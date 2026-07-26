@@ -22,11 +22,12 @@ import {
   deleteMovie,
   getAllMovies,
   getMovieById,
+  getMovieBySlug,
   updateMovie,
 } from "../services/movie.service";
 
 /**
- * Get all movies.
+ * Obtiene todas las películas.
  */
 export async function index(
   req: Request,
@@ -51,7 +52,7 @@ export async function index(
 }
 
 /**
- * Get a movie by its ID.
+ * Obtiene una película por su ID.
  */
 export async function show(
   req: Request,
@@ -76,7 +77,32 @@ export async function show(
 }
 
 /**
- * Create a new movie.
+ * Obtiene una película por su slug.
+ */
+export async function showBySlug(
+  req: Request,
+  res: Response
+): Promise<Response> {
+  try {
+    const movie = await getMovieBySlug(req.params.slug);
+
+    return res.status(200).json({
+      success: true,
+      data: movie,
+    });
+  } catch (error) {
+    return res.status(404).json({
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Película no encontrada.",
+    });
+  }
+}
+
+/**
+ * Crea una nueva película.
  */
 export async function store(
   req: Request,
@@ -101,7 +127,7 @@ export async function store(
 }
 
 /**
- * Update an existing movie.
+ * Actualiza una película.
  */
 export async function update(
   req: Request,
@@ -126,7 +152,7 @@ export async function update(
 }
 
 /**
- * Delete a movie.
+ * Desactiva una película.
  */
 export async function destroy(
   req: Request,
@@ -137,7 +163,7 @@ export async function destroy(
 
     return res.status(200).json({
       success: true,
-      message: "Película eliminada correctamente.",
+      message: "Película desactivada correctamente.",
     });
   } catch (error) {
     return res.status(400).json({
@@ -145,7 +171,7 @@ export async function destroy(
       message:
         error instanceof Error
           ? error.message
-          : "No se pudo eliminar la película.",
+          : "No se pudo desactivar la película.",
     });
   }
 }

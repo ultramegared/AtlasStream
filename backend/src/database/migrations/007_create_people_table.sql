@@ -5,69 +5,74 @@
  * Author: ultramegared
  * Project: AtlasStream
  * Database: PostgreSQL
- * Schema Version: 1.0.0
+ * Migration: 007_create_people_table.sql
+ * Description: Creates the people table.
+ * ----------------------------------------------------------------
  * Supported Languages:
  *   - English (en)
  *   - Español (es)
  * License: Proprietary
  * ----------------------------------------------------------------
- * Description:
- * Crea la tabla de episodios.
- * ----------------------------------------------------------------
  */
 
 BEGIN;
 
-CREATE TABLE episodes (
+-- ============================================================
+-- TABLE: people
+-- Description:
+-- Stores information about actors, directors, producers,
+-- writers and other people related to media content.
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS people (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    season_id UUID NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
 
-    episode_number SMALLINT NOT NULL,
+    last_name VARCHAR(100),
 
-    title VARCHAR(255) NOT NULL,
+    stage_name VARCHAR(200),
 
-    description TEXT,
+    biography TEXT,
 
-    thumbnail_url TEXT,
+    birth_date DATE,
 
-    backdrop_url TEXT,
+    death_date DATE,
 
-    video_url TEXT,
+    place_of_birth VARCHAR(255),
 
-    trailer_url TEXT,
+    profile_image_url TEXT,
 
-    duration SMALLINT,
+    cover_image_url TEXT,
 
-    release_date DATE,
+    popularity NUMERIC(10,2) NOT NULL DEFAULT 0,
 
-    imdb_rating NUMERIC(3,1),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
 
-    atlas_rating NUMERIC(3,1) DEFAULT 0,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    views BIGINT DEFAULT 0,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    active BOOLEAN DEFAULT TRUE,
-
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT fk_episode_season
-        FOREIGN KEY (season_id)
-        REFERENCES seasons(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT uq_episode_number
-        UNIQUE(season_id, episode_number)
+    CONSTRAINT uq_people_stage_name
+        UNIQUE (stage_name)
 
 );
 
-CREATE INDEX idx_episode_season
-ON episodes(season_id);
+-- ============================================================
+-- INDEXES
+-- ============================================================
 
-CREATE INDEX idx_episode_active
-ON episodes(active);
+CREATE INDEX IF NOT EXISTS idx_people_first_name
+ON people(first_name);
+
+CREATE INDEX IF NOT EXISTS idx_people_last_name
+ON people(last_name);
+
+CREATE INDEX IF NOT EXISTS idx_people_stage_name
+ON people(stage_name);
+
+CREATE INDEX IF NOT EXISTS idx_people_active
+ON people(is_active);
 
 COMMIT;

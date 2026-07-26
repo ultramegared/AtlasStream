@@ -24,7 +24,11 @@ import { User } from "../models/user.model";
 const SALT_ROUNDS = 10;
 
 /**
+ * ----------------------------------------------------------------
+ * Register User
+ * ----------------------------------------------------------------
  * Registra un nuevo usuario.
+ * ----------------------------------------------------------------
  */
 export async function registerUser(
   user: User
@@ -89,7 +93,11 @@ export async function registerUser(
 }
 
 /**
+ * ----------------------------------------------------------------
+ * Login User
+ * ----------------------------------------------------------------
  * Inicia sesión de un usuario.
+ * ----------------------------------------------------------------
  */
 export async function loginUser(
   email: string,
@@ -100,7 +108,18 @@ export async function loginUser(
 }> {
   const result = await pool.query(
     `
-      SELECT *
+      SELECT
+        id,
+        username,
+        email,
+        password,
+        first_name,
+        last_name,
+        avatar,
+        role,
+        is_active,
+        created_at,
+        updated_at
       FROM users
       WHERE email = $1
         AND is_active = TRUE

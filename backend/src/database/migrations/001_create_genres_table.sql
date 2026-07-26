@@ -5,14 +5,13 @@
  * Author: ultramegared
  * Project: AtlasStream
  * Database: PostgreSQL
- * Schema Version: 1.0.0
+ * Migration: 001_create_genres_table.sql
+ * Description: Creates the genres table.
+ * ----------------------------------------------------------------
  * Supported Languages:
  *   - English (en)
  *   - Español (es)
  * License: Proprietary
- * ----------------------------------------------------------------
- * Description:
- * Crea la tabla de géneros para películas y series.
  * ----------------------------------------------------------------
  */
 
@@ -21,28 +20,28 @@ BEGIN;
 -- ============================================================
 -- TABLE: genres
 -- Description:
--- Catálogo maestro de géneros utilizados por AtlasStream.
+-- Stores the master catalog of genres used by movies and series.
 -- ============================================================
 
-CREATE TABLE genres (
+CREATE TABLE IF NOT EXISTS genres (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    name VARCHAR(100) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
 
-    slug VARCHAR(100) NOT NULL UNIQUE,
+    slug VARCHAR(100) NOT NULL,
 
     description TEXT,
 
-    icon VARCHAR(100),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
 
-    color VARCHAR(20),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    active BOOLEAN NOT NULL DEFAULT TRUE,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_genres_name UNIQUE (name),
 
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    CONSTRAINT uq_genres_slug UNIQUE (slug)
 
 );
 
@@ -50,10 +49,13 @@ CREATE TABLE genres (
 -- INDEXES
 -- ============================================================
 
-CREATE INDEX idx_genres_slug
+CREATE INDEX IF NOT EXISTS idx_genres_name
+ON genres(name);
+
+CREATE INDEX IF NOT EXISTS idx_genres_slug
 ON genres(slug);
 
-CREATE INDEX idx_genres_active
-ON genres(active);
+CREATE INDEX IF NOT EXISTS idx_genres_active
+ON genres(is_active);
 
 COMMIT;

@@ -5,54 +5,69 @@
  * Author: ultramegared
  * Project: AtlasStream
  * Database: PostgreSQL
- * Schema Version: 1.0.0
+ * Migration: 008_create_movie_cast_table.sql
+ * Description: Creates the movie cast relationship table.
+ * ----------------------------------------------------------------
  * Supported Languages:
  *   - English (en)
  *   - Español (es)
  * License: Proprietary
  * ----------------------------------------------------------------
- * Description:
- * Almacena las personas relacionadas con el contenido:
- * actores, directores, productores, etc.
- * ----------------------------------------------------------------
  */
 
 BEGIN;
 
-CREATE TABLE people (
+-- ============================================================
+-- TABLE: movie_cast
+-- Description:
+-- Associates people with movies and defines their role.
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS movie_cast (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    first_name VARCHAR(100) NOT NULL,
+    movie_id UUID NOT NULL,
 
-    last_name VARCHAR(100),
+    person_id UUID NOT NULL,
 
-    stage_name VARCHAR(200),
+    role VARCHAR(50) NOT NULL,
 
-    biography TEXT,
+    character_name VARCHAR(255),
 
-    birth_date DATE,
+    billing_order SMALLINT NOT NULL DEFAULT 0,
 
-    death_date DATE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    place_of_birth VARCHAR(255),
+    CONSTRAINT fk_movie_cast_movie
+        FOREIGN KEY (movie_id)
+        REFERENCES movies(id)
+        ON DELETE CASCADE,
 
-    profile_image_url TEXT,
+    CONSTRAINT fk_movie_cast_person
+        FOREIGN KEY (person_id)
+        REFERENCES people(id)
+        ON DELETE CASCADE,
 
-    cover_image_url TEXT,
-
-    active BOOLEAN NOT NULL DEFAULT TRUE,
-
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    CONSTRAINT uq_movie_cast
+        UNIQUE (movie_id, person_id, role)
 
 );
 
-CREATE INDEX idx_people_stage_name
-ON people(stage_name);
+-- ============================================================
+-- INDEXES
+-- ============================================================
 
-CREATE INDEX idx_people_active
-ON people(active);
+CREATE INDEX IF NOT EXISTS idx_movie_cast_movie
+ON movie_cast(movie_id);
+
+CREATE INDEX IF NOT EXISTS idx_movie_cast_person
+ON movie_cast(person_id);
+
+CREATE INDEX IF NOT EXISTS idx_movie_cast_role
+ON movie_cast(role);
+
+CREATE INDEX IF NOT EXISTS idx_movie_cast_billing_order
+ON movie_cast(billing_order);
 
 COMMIT;

@@ -11,17 +11,17 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Servicio para la gestión de películas.
+ * Servicio para la gestión de series.
  * ----------------------------------------------------------------
  */
 
 import pool from "../config/database";
-import { Movie } from "../models/movie.model";
+import { Series } from "../models/series.model";
 
 /**
- * Obtiene todas las películas activas.
+ * Obtiene todas las series activas.
  */
-export async function getAllMovies(): Promise<Movie[]> {
+export async function getAllSeries(): Promise<Series[]> {
   const result = await pool.query(`
     SELECT
       id,
@@ -34,9 +34,8 @@ export async function getAllMovies(): Promise<Movie[]> {
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -49,18 +48,18 @@ export async function getAllMovies(): Promise<Movie[]> {
       is_active,
       created_at,
       updated_at
-    FROM movies
+    FROM series
     WHERE is_active = TRUE
-    ORDER BY release_date DESC NULLS LAST, created_at DESC
+    ORDER BY first_air_date DESC NULLS LAST, created_at DESC
   `);
 
   return result.rows;
 }
 
 /**
- * Obtiene una película por su ID.
+ * Obtiene una serie por su ID.
  */
-export async function getMovieById(id: string): Promise<Movie> {
+export async function getSeriesById(id: string): Promise<Series> {
   const result = await pool.query(
     `
     SELECT
@@ -74,9 +73,8 @@ export async function getMovieById(id: string): Promise<Movie> {
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -89,7 +87,7 @@ export async function getMovieById(id: string): Promise<Movie> {
       is_active,
       created_at,
       updated_at
-    FROM movies
+    FROM series
     WHERE id = $1
       AND is_active = TRUE
     LIMIT 1
@@ -98,16 +96,16 @@ export async function getMovieById(id: string): Promise<Movie> {
   );
 
   if (result.rows.length === 0) {
-    throw new Error("Película no encontrada.");
+    throw new Error("Serie no encontrada.");
   }
 
   return result.rows[0];
 }
 
 /**
- * Obtiene una película por su slug.
+ * Obtiene una serie por su slug.
  */
-export async function getMovieBySlug(slug: string): Promise<Movie> {
+export async function getSeriesBySlug(slug: string): Promise<Series> {
   const result = await pool.query(
     `
     SELECT
@@ -121,9 +119,8 @@ export async function getMovieBySlug(slug: string): Promise<Movie> {
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -136,7 +133,7 @@ export async function getMovieBySlug(slug: string): Promise<Movie> {
       is_active,
       created_at,
       updated_at
-    FROM movies
+    FROM series
     WHERE slug = $1
       AND is_active = TRUE
     LIMIT 1
@@ -145,16 +142,16 @@ export async function getMovieBySlug(slug: string): Promise<Movie> {
   );
 
   if (result.rows.length === 0) {
-    throw new Error("Película no encontrada.");
+    throw new Error("Serie no encontrada.");
   }
 
   return result.rows[0];
 }
 
 /**
- * Obtiene las películas destacadas.
+ * Obtiene las series destacadas.
  */
-export async function getFeaturedMovies(): Promise<Movie[]> {
+export async function getFeaturedSeries(): Promise<Series[]> {
   const result = await pool.query(`
     SELECT
       id,
@@ -167,9 +164,8 @@ export async function getFeaturedMovies(): Promise<Movie[]> {
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -182,7 +178,7 @@ export async function getFeaturedMovies(): Promise<Movie[]> {
       is_active,
       created_at,
       updated_at
-    FROM movies
+    FROM series
     WHERE featured = TRUE
       AND is_active = TRUE
     ORDER BY popularity DESC
@@ -193,9 +189,9 @@ export async function getFeaturedMovies(): Promise<Movie[]> {
 }
 
 /**
- * Obtiene las películas en tendencia.
+ * Obtiene las series en tendencia.
  */
-export async function getTrendingMovies(): Promise<Movie[]> {
+export async function getTrendingSeries(): Promise<Series[]> {
   const result = await pool.query(`
     SELECT
       id,
@@ -208,9 +204,8 @@ export async function getTrendingMovies(): Promise<Movie[]> {
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -223,7 +218,7 @@ export async function getTrendingMovies(): Promise<Movie[]> {
       is_active,
       created_at,
       updated_at
-    FROM movies
+    FROM series
     WHERE trending = TRUE
       AND is_active = TRUE
     ORDER BY popularity DESC
@@ -234,9 +229,9 @@ export async function getTrendingMovies(): Promise<Movie[]> {
 }
 
 /**
- * Obtiene las últimas películas.
+ * Obtiene las últimas series.
  */
-export async function getLatestMovies(): Promise<Movie[]> {
+export async function getLatestSeries(): Promise<Series[]> {
   const result = await pool.query(`
     SELECT
       id,
@@ -249,9 +244,8 @@ export async function getLatestMovies(): Promise<Movie[]> {
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -264,9 +258,9 @@ export async function getLatestMovies(): Promise<Movie[]> {
       is_active,
       created_at,
       updated_at
-    FROM movies
+    FROM series
     WHERE is_active = TRUE
-    ORDER BY release_date DESC NULLS LAST
+    ORDER BY first_air_date DESC NULLS LAST
     LIMIT 20
   `);
 
@@ -274,9 +268,9 @@ export async function getLatestMovies(): Promise<Movie[]> {
 }
 
 /**
- * Obtiene las películas recomendadas.
+ * Obtiene las series recomendadas.
  */
-export async function getRecommendedMovies(): Promise<Movie[]> {
+export async function getRecommendedSeries(): Promise<Series[]> {
   const result = await pool.query(`
     SELECT
       id,
@@ -289,9 +283,8 @@ export async function getRecommendedMovies(): Promise<Movie[]> {
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -304,7 +297,7 @@ export async function getRecommendedMovies(): Promise<Movie[]> {
       is_active,
       created_at,
       updated_at
-    FROM movies
+    FROM series
     WHERE recommended = TRUE
       AND is_active = TRUE
     ORDER BY popularity DESC
@@ -315,12 +308,12 @@ export async function getRecommendedMovies(): Promise<Movie[]> {
 }
 
 /**
- * Crea una nueva película.
+ * Crea una nueva serie.
  */
-export async function createMovie(movie: Movie): Promise<Movie> {
+export async function createSeries(series: Series): Promise<Series> {
   const result = await pool.query(
     `
-    INSERT INTO movies (
+    INSERT INTO series (
       title,
       original_title,
       slug,
@@ -330,9 +323,8 @@ export async function createMovie(movie: Movie): Promise<Movie> {
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -345,8 +337,9 @@ export async function createMovie(movie: Movie): Promise<Movie> {
       is_active
     )
     VALUES (
-      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,
-      $11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22
+      $1,$2,$3,$4,$5,$6,$7,$8,$9,
+      $10,$11,$12,$13,$14,$15,$16,
+      $17,$18,$19,$20,$21
     )
     RETURNING
       id,
@@ -359,9 +352,8 @@ export async function createMovie(movie: Movie): Promise<Movie> {
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -376,28 +368,27 @@ export async function createMovie(movie: Movie): Promise<Movie> {
       updated_at
     `,
     [
-      movie.title,
-      movie.original_title ?? null,
-      movie.slug,
-      movie.overview,
-      movie.tagline ?? null,
-      movie.poster_url,
-      movie.backdrop_url,
-      movie.logo_url ?? null,
-      movie.trailer_url ?? null,
-      movie.video_url ?? null,
-      movie.release_date ?? null,
-      movie.runtime ?? null,
-      movie.imdb_rating ?? null,
-      movie.atlas_rating ?? 0,
-      movie.maturity_rating ?? null,
-      movie.popularity ?? 0,
-      movie.views ?? 0,
-      movie.featured ?? false,
-      movie.trending ?? false,
-      movie.recommended ?? false,
-      movie.premium ?? false,
-      movie.is_active ?? true,
+      series.title,
+      series.original_title ?? null,
+      series.slug,
+      series.overview,
+      series.tagline ?? null,
+      series.poster_url,
+      series.backdrop_url,
+      series.logo_url ?? null,
+      series.trailer_url ?? null,
+      series.first_air_date ?? null,
+      series.last_air_date ?? null,
+      series.imdb_rating ?? null,
+      series.atlas_rating ?? 0,
+      series.maturity_rating ?? null,
+      series.popularity ?? 0,
+      series.views ?? 0,
+      series.featured ?? false,
+      series.trending ?? false,
+      series.recommended ?? false,
+      series.premium ?? false,
+      series.is_active ?? true,
     ]
   );
 
@@ -405,15 +396,15 @@ export async function createMovie(movie: Movie): Promise<Movie> {
 }
 
 /**
- * Actualiza una película existente.
+ * Actualiza una serie existente.
  */
-export async function updateMovie(
+export async function updateSeries(
   id: string,
-  movie: Partial<Movie>
-): Promise<Movie> {
+  series: Partial<Series>
+): Promise<Series> {
   const result = await pool.query(
     `
-    UPDATE movies
+    UPDATE series
     SET
       title = COALESCE($2, title),
       original_title = COALESCE($3, original_title),
@@ -424,19 +415,18 @@ export async function updateMovie(
       backdrop_url = COALESCE($8, backdrop_url),
       logo_url = COALESCE($9, logo_url),
       trailer_url = COALESCE($10, trailer_url),
-      video_url = COALESCE($11, video_url),
-      release_date = COALESCE($12, release_date),
-      runtime = COALESCE($13, runtime),
-      imdb_rating = COALESCE($14, imdb_rating),
-      atlas_rating = COALESCE($15, atlas_rating),
-      maturity_rating = COALESCE($16, maturity_rating),
-      popularity = COALESCE($17, popularity),
-      views = COALESCE($18, views),
-      featured = COALESCE($19, featured),
-      trending = COALESCE($20, trending),
-      recommended = COALESCE($21, recommended),
-      premium = COALESCE($22, premium),
-      is_active = COALESCE($23, is_active),
+      first_air_date = COALESCE($11, first_air_date),
+      last_air_date = COALESCE($12, last_air_date),
+      imdb_rating = COALESCE($13, imdb_rating),
+      atlas_rating = COALESCE($14, atlas_rating),
+      maturity_rating = COALESCE($15, maturity_rating),
+      popularity = COALESCE($16, popularity),
+      views = COALESCE($17, views),
+      featured = COALESCE($18, featured),
+      trending = COALESCE($19, trending),
+      recommended = COALESCE($20, recommended),
+      premium = COALESCE($21, premium),
+      is_active = COALESCE($22, is_active),
       updated_at = NOW()
     WHERE id = $1
     RETURNING
@@ -450,9 +440,8 @@ export async function updateMovie(
       backdrop_url,
       logo_url,
       trailer_url,
-      video_url,
-      release_date,
-      runtime,
+      first_air_date,
+      last_air_date,
       imdb_rating,
       atlas_rating,
       maturity_rating,
@@ -468,45 +457,44 @@ export async function updateMovie(
     `,
     [
       id,
-      movie.title ?? null,
-      movie.original_title ?? null,
-      movie.slug ?? null,
-      movie.overview ?? null,
-      movie.tagline ?? null,
-      movie.poster_url ?? null,
-      movie.backdrop_url ?? null,
-      movie.logo_url ?? null,
-      movie.trailer_url ?? null,
-      movie.video_url ?? null,
-      movie.release_date ?? null,
-      movie.runtime ?? null,
-      movie.imdb_rating ?? null,
-      movie.atlas_rating ?? null,
-      movie.maturity_rating ?? null,
-      movie.popularity ?? null,
-      movie.views ?? null,
-      movie.featured ?? null,
-      movie.trending ?? null,
-      movie.recommended ?? null,
-      movie.premium ?? null,
-      movie.is_active ?? null,
+      series.title ?? null,
+      series.original_title ?? null,
+      series.slug ?? null,
+      series.overview ?? null,
+      series.tagline ?? null,
+      series.poster_url ?? null,
+      series.backdrop_url ?? null,
+      series.logo_url ?? null,
+      series.trailer_url ?? null,
+      series.first_air_date ?? null,
+      series.last_air_date ?? null,
+      series.imdb_rating ?? null,
+      series.atlas_rating ?? null,
+      series.maturity_rating ?? null,
+      series.popularity ?? null,
+      series.views ?? null,
+      series.featured ?? null,
+      series.trending ?? null,
+      series.recommended ?? null,
+      series.premium ?? null,
+      series.is_active ?? null,
     ]
   );
 
   if (result.rows.length === 0) {
-    throw new Error("Película no encontrada.");
+    throw new Error("Serie no encontrada.");
   }
 
   return result.rows[0];
 }
 
 /**
- * Desactiva una película.
+ * Desactiva una serie.
  */
-export async function deleteMovie(id: string): Promise<boolean> {
+export async function deleteSeries(id: string): Promise<boolean> {
   const result = await pool.query(
     `
-    UPDATE movies
+    UPDATE series
     SET
       is_active = FALSE,
       updated_at = NOW()
@@ -517,7 +505,7 @@ export async function deleteMovie(id: string): Promise<boolean> {
   );
 
   if (result.rows.length === 0) {
-    throw new Error("Película no encontrada.");
+    throw new Error("Serie no encontrada.");
   }
 
   return true;

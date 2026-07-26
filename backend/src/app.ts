@@ -38,7 +38,15 @@ app.get("/", (_, res) => {
   });
 });
 
-// Rutas
+// API
 app.use("/api", routes);
+
+// Ruta no encontrada
+app.use((_, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Ruta no encontrada.",
+  });
+});
 
 export default app;

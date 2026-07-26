@@ -17,15 +17,39 @@
 
 export interface Series {
   id?: string;
+
   title: string;
-  description: string;
-  poster: string;
-  backdrop: string;
-  seasons: number;
-  episodes: number;
-  category: string;
-  rating: number;
+  original_title?: string;
+
+  slug: string;
+
+  overview: string;
+  tagline?: string;
+
+  poster_url: string;
+  backdrop_url: string;
+  logo_url?: string;
+
+  trailer_url?: string;
+
+  first_air_date?: Date;
+  last_air_date?: Date;
+
+  imdb_rating?: number;
+  atlas_rating?: number;
+
+  maturity_rating?: string;
+
+  popularity?: number;
+  views?: number;
+
+  featured: boolean;
+  trending: boolean;
+  recommended: boolean;
   premium: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
+
+  is_active: boolean;
+
+  created_at?: Date;
+  updated_at?: Date;
 }

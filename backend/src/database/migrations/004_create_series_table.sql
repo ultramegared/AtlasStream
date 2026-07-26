@@ -5,14 +5,13 @@
  * Author: ultramegared
  * Project: AtlasStream
  * Database: PostgreSQL
- * Schema Version: 1.0.0
+ * Migration: 004_create_series_table.sql
+ * Description: Creates the series table.
+ * ----------------------------------------------------------------
  * Supported Languages:
  *   - English (en)
  *   - Español (es)
  * License: Proprietary
- * ----------------------------------------------------------------
- * Description:
- * Crea la tabla principal de series.
  * ----------------------------------------------------------------
  */
 
@@ -21,11 +20,10 @@ BEGIN;
 -- ============================================================
 -- TABLE: series
 -- Description:
--- Almacena toda la información de las series
--- disponibles dentro de AtlasStream.
+-- Stores all TV series metadata available in AtlasStream.
 -- ============================================================
 
-CREATE TABLE series (
+CREATE TABLE IF NOT EXISTS series (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
@@ -33,11 +31,11 @@ CREATE TABLE series (
 
     original_title VARCHAR(255),
 
-    slug VARCHAR(255) NOT NULL UNIQUE,
+    slug VARCHAR(255) NOT NULL,
 
-    description TEXT NOT NULL,
+    overview TEXT NOT NULL,
 
-    short_description VARCHAR(500),
+    tagline VARCHAR(255),
 
     poster_url TEXT NOT NULL,
 
@@ -47,35 +45,35 @@ CREATE TABLE series (
 
     trailer_url TEXT,
 
-    release_year SMALLINT NOT NULL,
+    first_air_date DATE,
 
-    end_year SMALLINT,
-
-    total_seasons SMALLINT DEFAULT 1,
-
-    total_episodes INTEGER DEFAULT 0,
+    last_air_date DATE,
 
     imdb_rating NUMERIC(3,1),
 
-    atlas_rating NUMERIC(3,1) DEFAULT 0,
+    atlas_rating NUMERIC(3,1) NOT NULL DEFAULT 0.0,
 
     maturity_rating VARCHAR(20),
 
-    featured BOOLEAN DEFAULT FALSE,
+    popularity NUMERIC(10,2) NOT NULL DEFAULT 0,
 
-    trending BOOLEAN DEFAULT FALSE,
+    views BIGINT NOT NULL DEFAULT 0,
 
-    recommended BOOLEAN DEFAULT FALSE,
+    featured BOOLEAN NOT NULL DEFAULT FALSE,
 
-    is_premium BOOLEAN DEFAULT FALSE,
+    trending BOOLEAN NOT NULL DEFAULT FALSE,
 
-    active BOOLEAN DEFAULT TRUE,
+    recommended BOOLEAN NOT NULL DEFAULT FALSE,
 
-    views BIGINT DEFAULT 0,
+    premium BOOLEAN NOT NULL DEFAULT FALSE,
 
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
 
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT uq_series_slug UNIQUE (slug)
 
 );
 
@@ -83,22 +81,25 @@ CREATE TABLE series (
 -- INDEXES
 -- ============================================================
 
-CREATE INDEX idx_series_slug
+CREATE INDEX IF NOT EXISTS idx_series_title
+ON series(title);
+
+CREATE INDEX IF NOT EXISTS idx_series_slug
 ON series(slug);
 
-CREATE INDEX idx_series_featured
+CREATE INDEX IF NOT EXISTS idx_series_first_air_date
+ON series(first_air_date);
+
+CREATE INDEX IF NOT EXISTS idx_series_featured
 ON series(featured);
 
-CREATE INDEX idx_series_trending
+CREATE INDEX IF NOT EXISTS idx_series_trending
 ON series(trending);
 
-CREATE INDEX idx_series_recommended
+CREATE INDEX IF NOT EXISTS idx_series_recommended
 ON series(recommended);
 
-CREATE INDEX idx_series_active
-ON series(active);
-
-CREATE INDEX idx_series_release_year
-ON series(release_year);
+CREATE INDEX IF NOT EXISTS idx_series_active
+ON series(is_active);
 
 COMMIT;

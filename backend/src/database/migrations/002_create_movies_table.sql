@@ -5,14 +5,13 @@
  * Author: ultramegared
  * Project: AtlasStream
  * Database: PostgreSQL
- * Schema Version: 1.0.0
+ * Migration: 002_create_movies_table.sql
+ * Description: Creates the movies table.
+ * ----------------------------------------------------------------
  * Supported Languages:
  *   - English (en)
  *   - Español (es)
  * License: Proprietary
- * ----------------------------------------------------------------
- * Description:
- * Crea la tabla principal de películas.
  * ----------------------------------------------------------------
  */
 
@@ -21,11 +20,10 @@ BEGIN;
 -- ============================================================
 -- TABLE: movies
 -- Description:
--- Almacena toda la información de las películas
--- disponibles dentro de AtlasStream.
+-- Stores all movie metadata available in AtlasStream.
 -- ============================================================
 
-CREATE TABLE movies (
+CREATE TABLE IF NOT EXISTS movies (
 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
@@ -33,11 +31,11 @@ CREATE TABLE movies (
 
     original_title VARCHAR(255),
 
-    slug VARCHAR(255) NOT NULL UNIQUE,
+    slug VARCHAR(255) NOT NULL,
 
-    description TEXT NOT NULL,
+    overview TEXT NOT NULL,
 
-    short_description VARCHAR(500),
+    tagline VARCHAR(255),
 
     poster_url TEXT NOT NULL,
 
@@ -49,31 +47,35 @@ CREATE TABLE movies (
 
     video_url TEXT,
 
-    release_year SMALLINT NOT NULL,
+    release_date DATE,
 
-    duration SMALLINT NOT NULL,
+    runtime SMALLINT,
 
     imdb_rating NUMERIC(3,1),
 
-    atlas_rating NUMERIC(3,1) DEFAULT 0,
+    atlas_rating NUMERIC(3,1) DEFAULT 0.0,
 
     maturity_rating VARCHAR(20),
 
-    featured BOOLEAN DEFAULT FALSE,
-
-    trending BOOLEAN DEFAULT FALSE,
-
-    recommended BOOLEAN DEFAULT FALSE,
-
-    is_premium BOOLEAN DEFAULT FALSE,
-
-    active BOOLEAN DEFAULT TRUE,
+    popularity NUMERIC(10,2) DEFAULT 0,
 
     views BIGINT DEFAULT 0,
 
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    featured BOOLEAN NOT NULL DEFAULT FALSE,
 
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    trending BOOLEAN NOT NULL DEFAULT FALSE,
+
+    recommended BOOLEAN NOT NULL DEFAULT FALSE,
+
+    premium BOOLEAN NOT NULL DEFAULT FALSE,
+
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT uq_movies_slug UNIQUE (slug)
 
 );
 
@@ -81,25 +83,25 @@ CREATE TABLE movies (
 -- INDEXES
 -- ============================================================
 
-CREATE INDEX idx_movies_slug
+CREATE INDEX IF NOT EXISTS idx_movies_title
+ON movies(title);
+
+CREATE INDEX IF NOT EXISTS idx_movies_slug
 ON movies(slug);
 
-CREATE INDEX idx_movies_featured
+CREATE INDEX IF NOT EXISTS idx_movies_release_date
+ON movies(release_date);
+
+CREATE INDEX IF NOT EXISTS idx_movies_featured
 ON movies(featured);
 
-CREATE INDEX idx_movies_trending
+CREATE INDEX IF NOT EXISTS idx_movies_trending
 ON movies(trending);
 
-CREATE INDEX idx_movies_recommended
+CREATE INDEX IF NOT EXISTS idx_movies_recommended
 ON movies(recommended);
 
-CREATE INDEX idx_movies_active
-ON movies(active);
-
-CREATE INDEX idx_movies_release_year
-ON movies(release_year);
-
-CREATE INDEX idx_movies_imdb_rating
-ON movies(imdb_rating);
+CREATE INDEX IF NOT EXISTS idx_movies_active
+ON movies(is_active);
 
 COMMIT;

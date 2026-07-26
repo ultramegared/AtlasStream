@@ -5,15 +5,13 @@
  * Author: ultramegared
  * Project: AtlasStream
  * Database: PostgreSQL
- * Schema Version: 1.0.0
+ * Migration: 003_create_movie_genres_table.sql
+ * Description: Creates the relationship between movies and genres.
+ * ----------------------------------------------------------------
  * Supported Languages:
  *   - English (en)
  *   - Español (es)
  * License: Proprietary
- * ----------------------------------------------------------------
- * Description:
- * Relación entre películas y géneros.
- * Una película puede pertenecer a múltiples géneros.
  * ----------------------------------------------------------------
  */
 
@@ -22,18 +20,19 @@ BEGIN;
 -- ============================================================
 -- TABLE: movie_genres
 -- Description:
--- Relación N:M entre movies y genres.
+-- Many-to-many relationship between movies and genres.
 -- ============================================================
 
-CREATE TABLE movie_genres (
+CREATE TABLE IF NOT EXISTS movie_genres (
 
     movie_id UUID NOT NULL,
 
     genre_id UUID NOT NULL,
 
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    PRIMARY KEY (movie_id, genre_id),
+    CONSTRAINT pk_movie_genres
+        PRIMARY KEY (movie_id, genre_id),
 
     CONSTRAINT fk_movie_genres_movie
         FOREIGN KEY (movie_id)
@@ -51,10 +50,10 @@ CREATE TABLE movie_genres (
 -- INDEXES
 -- ============================================================
 
-CREATE INDEX idx_movie_genres_movie
+CREATE INDEX IF NOT EXISTS idx_movie_genres_movie
 ON movie_genres(movie_id);
 
-CREATE INDEX idx_movie_genres_genre
+CREATE INDEX IF NOT EXISTS idx_movie_genres_genre
 ON movie_genres(genre_id);
 
 COMMIT;
