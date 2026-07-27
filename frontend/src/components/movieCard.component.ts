@@ -18,18 +18,10 @@
  * ----------------------------------------------------------------
  */
 
+import type { Movie } from "../models/movie.model";
+
 import { TRANSLATIONS } from "../constants/translations.constants";
 import { getLanguage } from "../utils/storage.utils";
-
-interface Movie {
-  id: string;
-  title: string;
-  poster?: string | null;
-  rating: string | number;
-  genre: string;
-  duration: string;
-  favorite?: boolean;
-}
 
 /**
  * Creates a movie card component.
@@ -41,10 +33,14 @@ export default function MovieCard(
   movie: Movie
 ): string {
   const language = getLanguage() ?? "es";
+
   const t = TRANSLATIONS[language];
 
   return `
-    <article class="movie-card">
+    <article
+      class="movie-card"
+      data-id="${movie.id}"
+    >
 
       <div class="movie-poster">
 
@@ -53,16 +49,19 @@ export default function MovieCard(
           data-id="${movie.id}"
           aria-label="Favorite"
         >
-          ${movie.favorite ? "❤️" : "🤍"}
+          🤍
         </button>
 
         ${
           movie.poster
-            ? `<img
+            ? `
+              <img
                 src="${movie.poster}"
                 alt="${movie.title}"
                 class="movie-poster-image"
-              >`
+                loading="lazy"
+              >
+            `
             : `
               <div class="movie-poster-placeholder">
                 🎬
@@ -79,22 +78,22 @@ export default function MovieCard(
         </h3>
 
         <p class="movie-rating">
-          ⭐ ${movie.rating}
-        </p>
-
-        <p class="movie-genre">
-          🎭 ${movie.genre}
+          ⭐ ${movie.rating.toFixed(1)}
         </p>
 
         <p class="movie-duration">
-          ⏱️ ${movie.duration}
+          ⏱️ ${movie.duration} min
+        </p>
+
+        <p class="movie-year">
+          📅 ${movie.year}
         </p>
 
       </div>
 
       <button
         class="menu-btn"
-        data-page="player"
+        data-page="Player"
         data-id="${movie.id}"
       >
         ▶ ${t.playNow}

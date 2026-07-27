@@ -39,6 +39,13 @@ export const TRANSLATIONS = {
     settings: "Configuración",
     search: "Buscar",
 
+    trending: "Tendencias",
+    continueWatching: "Continuar viendo",
+    featured: "Destacados",
+    liveNow: "En vivo",
+    viewAll: "Ver todo",
+    noContent: "No hay contenido disponible",
+
     heroTitle: "Tu entretenimiento en un solo lugar",
     heroDescription: "Miles de películas, series y TV en vivo.",
 
@@ -86,6 +93,13 @@ export const TRANSLATIONS = {
     profile: "Profile",
     settings: "Settings",
     search: "Search",
+
+    trending: "Trending",
+    continueWatching: "Continue Watching",
+    featured: "Featured",
+    liveNow: "Live",
+    viewAll: "View All",
+    noContent: "No content available",
 
     heroTitle: "Your entertainment in one place",
     heroDescription: "Thousands of movies, series and live TV.",

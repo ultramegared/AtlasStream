@@ -18,8 +18,8 @@
  * ----------------------------------------------------------------
  */
 
-import Footer from "../components/footer.component";
 import Header from "../components/header.component";
+import Footer from "../components/footer.component";
 import SeriesCard from "../components/seriesCard.component";
 
 import { loadSeries } from "../controllers/series.controller";
@@ -36,31 +36,46 @@ import { getLanguage } from "../utils/storage.utils";
  */
 export default async function Series(): Promise<string> {
   const language =
-    getLanguage() ?? CONFIG.DEFAULT_LANGUAGE;
+    getLanguage() ??
+    CONFIG.DEFAULT_LANGUAGE;
 
   const t = TRANSLATIONS[language];
 
-  const series = await loadSeries();
+  const series =
+    await loadSeries();
 
   return `
     <main class="series-page">
 
-      ${Header()}
+      ${Header(t.series)}
 
       <section class="series-container">
 
-        <h2 class="page-title">
-          📺 ${t.series}
-        </h2>
+        <header class="page-header">
 
-        <div class="movie-grid">
+          <h2 class="page-title">
+            📺 ${t.series}
+          </h2>
+
+        </header>
+
+        <div class="series-grid">
 
           ${
             series.length > 0
-              ? series.map(SeriesCard).join("")
+              ? series
+                  .map((item) => SeriesCard(item))
+                  .join("")
               : `
                 <div class="empty-state">
-                  <p>${t.noSeries ?? "No series available."}</p>
+
+                  <p>
+                    ${
+                      t.noSeries ??
+                      t.noContent
+                    }
+                  </p>
+
                 </div>
               `
           }

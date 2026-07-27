@@ -18,8 +18,8 @@
  * ----------------------------------------------------------------
  */
 
-import Footer from "../components/footer.component";
 import Header from "../components/header.component";
+import Footer from "../components/footer.component";
 import MovieCard from "../components/movieCard.component";
 
 import { loadMovies } from "../controllers/movie.controller";
@@ -36,31 +36,46 @@ import { getLanguage } from "../utils/storage.utils";
  */
 export default async function Movies(): Promise<string> {
   const language =
-    getLanguage() ?? CONFIG.DEFAULT_LANGUAGE;
+    getLanguage() ??
+    CONFIG.DEFAULT_LANGUAGE;
 
   const t = TRANSLATIONS[language];
 
-  const movies = await loadMovies();
+  const movies =
+    await loadMovies();
 
   return `
     <main class="movies-page">
 
-      ${Header()}
+      ${Header(t.movies)}
 
       <section class="movies-container">
 
-        <h2 class="page-title">
-          🎬 ${t.movies}
-        </h2>
+        <header class="page-header">
+
+          <h2 class="page-title">
+            🎬 ${t.movies}
+          </h2>
+
+        </header>
 
         <div class="movie-grid">
 
           ${
             movies.length > 0
-              ? movies.map(MovieCard).join("")
+              ? movies
+                  .map((movie) => MovieCard(movie))
+                  .join("")
               : `
                 <div class="empty-state">
-                  <p>${t.noMovies ?? "No movies available."}</p>
+
+                  <p>
+                    ${
+                      t.noMovies ??
+                      t.noContent
+                    }
+                  </p>
+
                 </div>
               `
           }

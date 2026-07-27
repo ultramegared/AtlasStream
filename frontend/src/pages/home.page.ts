@@ -13,94 +13,64 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Renders the application home page including
- * featured sections and navigation shortcuts.
+ * Renders the AtlasStream home page including
+ * the featured carousel and content sections.
  * ----------------------------------------------------------------
  */
 
 import Header from "../components/header.component";
 import Footer from "../components/footer.component";
+import HeroCarousel from "../components/hero-carousel.component";
+import ContentSection from "../components/content-section.component";
+
+import { homeController } from "../controllers/home.controller";
 
 import { CONFIG } from "../constants/config.constants";
-import { ROUTES } from "../constants/routes.constants";
 import { TRANSLATIONS } from "../constants/translations.constants";
 
 import { getLanguage } from "../utils/storage.utils";
 
 /**
- * Renders the home page.
+ * Renders the Home page.
  *
  * @returns HTML string.
  */
 export default function Home(): string {
   const language =
-    getLanguage() ?? CONFIG.DEFAULT_LANGUAGE;
+    getLanguage() ??
+    CONFIG.DEFAULT_LANGUAGE;
 
   const t = TRANSLATIONS[language];
+
+  const home =
+    homeController.getHomeData();
 
   return `
     <main class="home">
 
       ${Header()}
 
-      <section class="hero">
+      ${HeroCarousel(home.hero)}
 
-        <h2>${t.heroTitle}</h2>
+      ${ContentSection({
+        title: t.trending,
+        items: home.trending
+      })}
 
-        <p>
-          ${t.heroDescription}
-        </p>
+      ${ContentSection({
+        title: t.movies,
+        items: home.movies
+      })}
 
-      </section>
+      ${ContentSection({
+        title: t.series,
+        items: home.series
+      })}
 
-      <section class="categories">
-
-        <button
-          class="menu-btn"
-          data-page="${ROUTES.MOVIES}"
-        >
-          🎬 ${t.movies}
-        </button>
-
-        <button
-          class="menu-btn"
-          data-page="${ROUTES.SERIES}"
-        >
-          🎞 ${t.series}
-        </button>
-
-        <button
-          class="menu-btn"
-          data-page="${ROUTES.LIVETV}"
-        >
-          📺 ${t.liveTv}
-        </button>
-
-        <button
-          class="menu-btn"
-          data-page="${ROUTES.FAVORITES}"
-        >
-          ❤️ ${t.favorites}
-        </button>
-
-        <button
-          class="menu-btn"
-          data-page="${ROUTES.PROFILE}"
-        >
-          👤 ${t.profile}
-        </button>
-
-      </section>
-
-      <section class="actions">
-
-        <button
-          id="loginBtn"
-        >
-          ${t.login}
-        </button>
-
-      </section>
+      ${ContentSection({
+        title: t.continueWatching,
+        items: home.continueWatching
+      })}
 
       ${Footer()}
 

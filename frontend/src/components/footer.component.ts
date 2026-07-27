@@ -26,6 +26,8 @@ import { CONFIG } from "../constants/config.constants";
  * @returns HTML string.
  */
 export default function Footer(): string {
+  const year = new Date().getFullYear();
+
   return `
     <footer class="footer">
 
@@ -36,7 +38,7 @@ export default function Footer(): string {
         </p>
 
         <p class="footer-copyright">
-          ${CONFIG.COPYRIGHT}
+          © ${year} ${CONFIG.APP_NAME}
         </p>
 
         <p class="footer-version">

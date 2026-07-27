@@ -18,19 +18,13 @@
  * ----------------------------------------------------------------
  */
 
-import { CONFIG } from "../constants/config.constants";
-import { TRANSLATIONS } from "../constants/translations.constants";
-import { getLanguage } from "../utils/storage.utils";
+import type { Series } from "../models/series.model";
 
-interface Series {
-  id: string;
-  title: string;
-  poster?: string | null;
-  rating: string | number;
-  genre: string;
-  seasons: number;
-  favorite?: boolean;
-}
+import { CONFIG } from "../constants/config.constants";
+import { ROUTES } from "../constants/routes.constants";
+import { TRANSLATIONS } from "../constants/translations.constants";
+
+import { getLanguage } from "../utils/storage.utils";
 
 /**
  * Creates a series card component.
@@ -47,16 +41,19 @@ export default function SeriesCard(
   const t = TRANSLATIONS[language];
 
   return `
-    <article class="movie-card">
+    <article
+      class="series-card"
+      data-id="${series.id}"
+    >
 
-      <div class="movie-poster">
+      <div class="series-poster">
 
         <button
           class="favorite-btn"
           data-id="${series.id}"
           aria-label="Favorite"
         >
-          ${series.favorite ? "❤️" : "🤍"}
+          🤍
         </button>
 
         ${
@@ -65,11 +62,12 @@ export default function SeriesCard(
               <img
                 src="${series.poster}"
                 alt="${series.title}"
-                class="movie-poster-image"
+                class="series-poster-image"
+                loading="lazy"
               >
             `
             : `
-              <div class="movie-poster-placeholder">
+              <div class="series-poster-placeholder">
                 📺
               </div>
             `
@@ -77,29 +75,29 @@ export default function SeriesCard(
 
       </div>
 
-      <div class="movie-info">
+      <div class="series-info">
 
-        <h3 class="movie-title">
+        <h3 class="series-title">
           ${series.title}
         </h3>
 
-        <p class="movie-rating">
-          ⭐ ${series.rating}
+        <p class="series-rating">
+          ⭐ ${series.rating.toFixed(1)}
         </p>
 
-        <p class="movie-genre">
-          🎭 ${series.genre}
+        <p class="series-seasons">
+          📺 ${series.seasons}
         </p>
 
-        <p class="movie-duration">
-          📺 ${series.seasons} ${t.seasons}
+        <p class="series-episodes">
+          🎞 ${series.episodes}
         </p>
 
       </div>
 
       <button
         class="menu-btn"
-        data-page="player"
+        data-page="${ROUTES.PLAYER}"
         data-id="${series.id}"
       >
         ▶ ${t.playNow}
