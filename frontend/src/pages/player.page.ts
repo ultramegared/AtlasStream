@@ -21,44 +21,59 @@
 import Header from "../components/header.component";
 import Footer from "../components/footer.component";
 
+import { loadPlayerContent } from "../controllers/player.controller";
+
 import { CONFIG } from "../constants/config.constants";
 import { ROUTES } from "../constants/routes.constants";
 import { TRANSLATIONS } from "../constants/translations.constants";
 
 import { getLanguage } from "../utils/storage.utils";
 
-interface PlayerContent {
-  title: string;
-  description: string;
-  type: "movie" | "series" | "liveTv";
-  source: string;
-}
-
 /**
  * Renders the player page.
  *
+ * @param id Content identifier.
  * @returns HTML string.
  */
-export default function Player(): string {
+export default async function Player(
+  id: string
+): Promise<string> {
   const language =
     getLanguage() ?? CONFIG.DEFAULT_LANGUAGE;
 
   const t = TRANSLATIONS[language];
 
-  // Temporary.
-  // Later this information will come
-  // from the API.
-  const content: PlayerContent = {
-    title: "Avatar",
-    description: t.playerDescription,
-    type: "movie",
-    source: ""
-  };
+  const content =
+    await loadPlayerContent(id);
+
+  if (!content) {
+    return `
+      <main class="player-page">
+
+        ${Header(t.player)}
+
+        <section class="player-container">
+
+          <div class="empty-state">
+
+            <h2>
+              ${t.noContent}
+            </h2>
+
+          </div>
+
+        </section>
+
+        ${Footer()}
+
+      </main>
+    `;
+  }
 
   return `
     <main class="player-page">
 
-      ${Header()}
+      ${Header(content.title)}
 
       <section class="player-container">
 
@@ -73,19 +88,15 @@ export default function Player(): string {
             class="video-player"
             controls
             preload="metadata"
+            playsinline
             width="100%"
+            aria-label="${content.title}"
           >
 
-            ${
-              content.source
-                ? `
-                  <source
-                    src="${content.source}"
-                    type="video/mp4"
-                  >
-                `
-                : ""
-            }
+            <source
+              src="${content.videoUrl}"
+              type="video/mp4"
+            >
 
             ${t.videoNotSupported}
 
@@ -103,6 +114,18 @@ export default function Player(): string {
             ${content.description}
           </p>
 
+          <p>
+            ⭐ ${content.rating.toFixed(1)}
+          </p>
+
+          <p>
+            📅 ${content.year}
+          </p>
+
+          <p>
+            ⏱️ ${content.duration} min
+          </p>
+
         </div>
 
         <div class="player-actions">
@@ -110,6 +133,7 @@ export default function Player(): string {
           <button
             id="favoriteButton"
             class="menu-btn"
+            data-id="${content.id}"
           >
             ❤️ ${t.favorites}
           </button>

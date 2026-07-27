@@ -4,8 +4,8 @@
  * ----------------------------------------------------------------
  * Author: ultramegared
  * Project: AtlasStream
- * File: player.service.ts
- * Module: Services
+ * File: player.controller.ts
+ * Module: Controllers
  * Programming Language: TypeScript
  * Supported Languages:
  *   - English (en)
@@ -13,27 +13,34 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Provides player-related services for retrieving
- * media content from the AtlasStream backend API.
+ * Handles player-related operations between
+ * the UI and the player service.
  * ----------------------------------------------------------------
  */
 
 import type { Movie } from "../models/movie.model";
 
-import { getMovieById } from "./movie.service";
+import {
+  getMovieById
+} from "../services/player.service";
 
 /**
- * Retrieves the media content to be played.
+ * Loads a movie for playback.
  *
- * Currently supports movies.
- * Future versions will also support
- * TV series episodes and live channels.
- *
- * @param id Content identifier.
- * @returns Movie details.
+ * @param id Movie identifier.
+ * @returns Movie data or null if not found.
  */
-export async function getPlayerContent(
+export async function loadPlayerContent(
   id: string
-): Promise<Movie> {
-  return getMovieById<Movie>(id);
+): Promise<Movie | null> {
+  try {
+    return await getMovieById(id);
+  } catch (error) {
+    console.error(
+      "[PlayerController]",
+      error
+    );
+
+    return null;
+  }
 }

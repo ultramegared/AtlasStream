@@ -13,27 +13,42 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Provides player-related services for retrieving
- * media content from the AtlasStream backend API.
+ * Provides player-related data for
+ * the AtlasStream media player.
  * ----------------------------------------------------------------
  */
 
 import type { Movie } from "../models/movie.model";
 
-import { getMovieById } from "./movie.service";
+import { loadMovies } from "./movie.service";
 
 /**
- * Retrieves the media content to be played.
+ * Retrieves player content by its identifier.
  *
  * Currently supports movies.
  * Future versions will also support
  * TV series episodes and live channels.
  *
  * @param id Content identifier.
- * @returns Movie details.
+ * @returns Movie or null if not found.
  */
 export async function getPlayerContent(
   id: string
-): Promise<Movie> {
-  return getMovieById<Movie>(id);
+): Promise<Movie | null> {
+  try {
+    const movies = await loadMovies();
+
+    const movie = movies.find(
+      (movie) => movie.id === id
+    );
+
+    return movie ?? null;
+  } catch (error) {
+    console.error(
+      "[PlayerService]",
+      error
+    );
+
+    return null;
+  }
 }
