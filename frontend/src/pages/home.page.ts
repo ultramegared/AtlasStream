@@ -35,7 +35,7 @@ import { getLanguage } from "../utils/storage.utils";
  *
  * @returns HTML string.
  */
-export default function Home(): string {
+export default async function Home(): Promise<string> {
   const language =
     getLanguage() ??
     CONFIG.DEFAULT_LANGUAGE;
@@ -43,7 +43,7 @@ export default function Home(): string {
   const t = TRANSLATIONS[language];
 
   const home =
-    homeController.getHomeData();
+    await homeController.getHomeData();
 
   return `
     <main class="home">

@@ -25,8 +25,8 @@ import { apiFetch } from "./apiFetch.service";
  *
  * @returns List of series.
  */
-export async function getSeries<T = unknown>(): Promise<T> {
-  return apiFetch<T>("/series");
+export async function getSeries<T>(): Promise<T[]> {
+  return apiFetch<T[]>("/series");
 }
 
 /**

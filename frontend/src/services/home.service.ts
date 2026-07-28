@@ -13,49 +13,30 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Provides all data required by the Home page.
- * Mock data is used during development and can
- * later be replaced by API requests.
+ * Provides all data required by the Home page
+ * using the AtlasStream API.
  * ----------------------------------------------------------------
  */
 
 import type { Movie } from "../models/movie.model";
 import type { Series } from "../models/series.model";
 
+import { getMovies } from "./movie.service";
+import { getSeries } from "./series.service";
+
 /**
  * Home service.
  */
 export class HomeService {
   /**
-   * Featured movies displayed in the Hero carousel.
+   * Returns featured movies displayed
+   * in the Hero carousel.
    */
-  private readonly heroMovies: Movie[] = [];
+  public async getHero(): Promise<Movie[]> {
+    const movies = await this.getMovies();
 
-  /**
-   * Trending movies.
-   */
-  private readonly trendingMovies: Movie[] = [];
-
-  /**
-   * Popular movies.
-   */
-  private readonly popularMovies: Movie[] = [];
-
-  /**
-   * Popular TV series.
-   */
-  private readonly popularSeries: Series[] = [];
-
-  /**
-   * Continue watching list.
-   */
-  private readonly continueWatching: Movie[] = [];
-
-  /**
-   * Returns five random hero items.
-   */
-  public getHero(): Movie[] {
-    return [...this.heroMovies]
+    return movies
+      .filter((movie) => movie.featured)
       .sort(() => Math.random() - 0.5)
       .slice(0, 5);
   }
@@ -63,29 +44,47 @@ export class HomeService {
   /**
    * Returns trending movies.
    */
-  public getTrending(): Movie[] {
-    return this.trendingMovies;
+  public async getTrending(): Promise<Movie[]> {
+    const movies = await this.getMovies();
+
+    return [...movies]
+      .sort((a, b) => b.rating - a.rating)
+      .slice(0, 12);
   }
 
   /**
    * Returns popular movies.
    */
-  public getMovies(): Movie[] {
-    return this.popularMovies;
+  public async getMovies(): Promise<Movie[]> {
+    try {
+      return await getMovies<Movie>();
+    } catch (error) {
+      console.error("[HomeService:getMovies]", error);
+
+      return [];
+    }
   }
 
   /**
    * Returns popular series.
    */
-  public getSeries(): Series[] {
-    return this.popularSeries;
+  public async getSeries(): Promise<Series[]> {
+    try {
+      return await getSeries<Series[]>();
+    } catch (error) {
+      console.error("[HomeService:getSeries]", error);
+
+      return [];
+    }
   }
 
   /**
    * Returns continue watching items.
+   *
+   * Placeholder until watch history exists.
    */
-  public getContinueWatching(): Movie[] {
-    return this.continueWatching;
+  public async getContinueWatching(): Promise<Movie[]> {
+    return [];
   }
 
   /**

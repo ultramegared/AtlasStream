@@ -19,6 +19,7 @@
  */
 
 import { homeService } from "../services/home.service";
+
 import type { Movie } from "../models/movie.model";
 import type { Series } from "../models/series.model";
 
@@ -64,13 +65,27 @@ export class HomeController {
   /**
    * Returns all data required by the Home page.
    */
-  public getHomeData(): HomeData {
+  public async getHomeData(): Promise<HomeData> {
+    const [
+      hero,
+      trending,
+      movies,
+      series,
+      continueWatching
+    ] = await Promise.all([
+      homeService.getHero(),
+      homeService.getTrending(),
+      homeService.getMovies(),
+      homeService.getSeries(),
+      homeService.getContinueWatching()
+    ]);
+
     return {
-      hero: homeService.getHero(),
-      trending: homeService.getTrending(),
-      movies: homeService.getMovies(),
-      series: homeService.getSeries(),
-      continueWatching: homeService.getContinueWatching(),
+      hero,
+      trending,
+      movies,
+      series,
+      continueWatching,
       liveChannels: homeService.getLiveChannels()
     };
   }
