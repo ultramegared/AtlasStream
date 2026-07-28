@@ -4,7 +4,7 @@
  * ----------------------------------------------------------------
  * Author: ultramegared
  * Project: AtlasStream
- * File: player.service.ts
+ * File: movie.service.ts
  * Module: Services
  * Programming Language: TypeScript
  * Supported Languages:
@@ -13,27 +13,28 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Provides player-related services for retrieving
- * media content from the AtlasStream backend API.
+ * Provides movie-related services for communicating with the
+ * AtlasStream backend API.
  * ----------------------------------------------------------------
  */
 
-import type { Movie } from "../models/movie.model";
-
-import { getMovieById } from "./movie.service";
+import { apiFetch } from "./apiFetch.service";
 
 /**
- * Retrieves the media content to be played.
+ * Retrieves all movies.
  *
- * Currently supports movies.
- * Future versions will also support
- * TV series episodes and live channels.
+ * @returns Movie collection.
+ */
+export async function getMovies<T>(): Promise<T[]> {
+  return apiFetch<T[]>("/movies");
+}
+
+/**
+ * Retrieves a movie by its identifier.
  *
- * @param id Content identifier.
+ * @param id Movie identifier.
  * @returns Movie details.
  */
-export async function getPlayerContent(
-  id: string
-): Promise<Movie> {
-  return getMovieById<Movie>(id);
+export async function getMovieById<T>(id: string): Promise<T> {
+  return apiFetch<T>(`/movies/${id}`);
 }
