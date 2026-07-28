@@ -21,7 +21,7 @@
 import type { Movie } from "../models/movie.model";
 
 import {
-  getMovieById
+  getPlayerContent
 } from "../services/player.service";
 
 /**
@@ -34,7 +34,7 @@ export async function loadPlayerContent(
   id: string
 ): Promise<Movie | null> {
   try {
-    return await getMovieById(id);
+    return await getPlayerContent(id);
   } catch (error) {
     console.error(
       "[PlayerController]",
