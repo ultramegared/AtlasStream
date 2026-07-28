@@ -25,7 +25,7 @@ import Login from "./pages/login.page";
 import Register from "./pages/register.page";
 import Movies from "./pages/movies.page";
 import Series from "./pages/series.page";
-import LiveTV from "./pages/liveTv.page";
+import LiveTV from "./pages/liveTV.page";
 import Search from "./pages/search.page";
 import Favorites from "./pages/favorites.page";
 import Profile from "./pages/profile.page";
