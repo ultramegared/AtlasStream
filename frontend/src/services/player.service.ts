@@ -20,7 +20,7 @@
 
 import type { Movie } from "../models/movie.model";
 
-import { loadMovies } from "./movie.service";
+import { getMovies } from "./movie.service";
 
 /**
  * Retrieves player content by its identifier.
@@ -36,7 +36,7 @@ export async function getPlayerContent(
   id: string
 ): Promise<Movie | null> {
   try {
-    const movies = await loadMovies();
+    const movies = await getMovies<Movie>();
 
     const movie = movies.find(
       (movie) => movie.id === id
