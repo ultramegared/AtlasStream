@@ -1,6 +1,20 @@
 {
+  "// ----------------------------------------------------------------": "",
+  "// AtlasStream Backend": "",
+  "// -----------------------------------------------------------------": "",
+  "// Author": "ultramegared",
+  "// Project": "AtlasStream",
+  "// Programming Language": "TypeScript",
+  "// Supported Languages": [
+    "English (en)",
+    "Español (es)"
+  ],
+  "// License": "Proprietary",
+  "// Description": "TypeScript compiler configuration for AtlasStream Backend.",
+  "// ------------------------------------------------------------------": "",
+
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": ".",
     "outDir": "./dist",
 
     "module": "commonjs",
@@ -22,7 +36,8 @@
   },
 
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "database/**/*"
   ],
 
   "exclude": [
