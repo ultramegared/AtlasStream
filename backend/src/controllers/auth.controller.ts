@@ -1,77 +1,104 @@
 /**
  * ----------------------------------------------------------------
- * AtlasStream Backend API
+ * AtlasStream
  * ----------------------------------------------------------------
+ * File: auth.controller.ts
+ * Path: backend/src/controllers/auth.controller.ts
  * Author: ultramegared
  * Project: AtlasStream
- * Programming Language: TypeScript
- * Supported Languages:
- *   - English (en)
- *   - Español (es)
- * License: Proprietary
+ * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * Controlador para el registro e inicio de sesión de usuarios.
+ * Authentication controller.
  * ----------------------------------------------------------------
  */
 
-import { Request, Response } from "express";
+import {
+    Request,
+    Response
+} from "express";
+
+import authService from "@/services/auth.service";
 
 import {
-  loginUser,
-  registerUser,
-} from "../services/auth.service";
+    asyncHandler,
+    HTTP_STATUS,
+    success
+} from "@/utils";
 
-/**
- * Register a new user.
- */
-export async function register(
-  req: Request,
-  res: Response
-): Promise<Response> {
-  try {
-    const user = await registerUser(req.body);
+class AuthController {
 
-    return res.status(201).json({
-      success: true,
-      message: "Usuario registrado correctamente.",
-      data: user,
-    });
-  } catch (error) {
-    return res.status(400).json({
-      success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : "Error interno del servidor.",
-    });
-  }
+    public login = asyncHandler(
+        async (
+            req: Request,
+            res: Response
+        ): Promise<void> => {
+
+            const result = await authService.login(
+                req.body
+            );
+
+            success(
+                res,
+                result,
+                "Login successful.",
+                HTTP_STATUS.OK
+            );
+
+        }
+    );
+
+    public register = asyncHandler(
+        async (
+            req: Request,
+            res: Response
+        ): Promise<void> => {
+
+            const result = await authService.register(
+                req.body
+            );
+
+            success(
+                res,
+                result,
+                "Registration successful.",
+                HTTP_STATUS.CREATED
+            );
+
+        }
+    );
+
+    public changePassword = asyncHandler(
+        async (
+            req: Request,
+            res: Response
+        ): Promise<void> => {
+
+            await authService.changePassword(
+
+                req.user!.id,
+
+                req.body.currentPassword,
+
+                req.body.newPassword
+
+            );
+
+            success(
+
+                res,
+
+                null,
+
+                "Password updated successfully.",
+
+                HTTP_STATUS.OK
+
+            );
+
+        }
+    );
+
 }
 
-/**
- * Authenticate an existing user.
- */
-export async function login(
-  req: Request,
-  res: Response
-): Promise<Response> {
-  try {
-    const { email, password } = req.body;
-
-    const data = await loginUser(email, password);
-
-    return res.status(200).json({
-      success: true,
-      message: "Inicio de sesión correcto.",
-      data,
-    });
-  } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : "Correo electrónico o contraseña incorrectos.",
-    });
-  }
-}
+export default new AuthController();

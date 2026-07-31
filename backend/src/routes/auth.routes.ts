@@ -1,40 +1,52 @@
 /**
  * ----------------------------------------------------------------
- * AtlasStream Backend API
+ * AtlasStream
  * ----------------------------------------------------------------
+ * File: auth.routes.ts
+ * Path: backend/src/routes/auth.routes.ts
  * Author: ultramegared
  * Project: AtlasStream
- * Programming Language: TypeScript
- * Supported Languages:
- *   - English (en)
- *   - Español (es)
- * License: Proprietary
+ * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * Rutas de autenticación de usuarios.
- * Gestiona el registro e inicio de sesión.
+ * Authentication routes.
  * ----------------------------------------------------------------
  */
 
 import { Router } from "express";
-import { login, register } from "../controllers/authController";
 
-const router: Router = Router();
+import authController from "@/controllers/auth.controller";
 
-/**
- * ----------------------------------------------------------------
- * Authentication Routes
- * ----------------------------------------------------------------
- */
+import {
+    authenticate,
+    validate
+} from "@/middleware";
 
-/**
- * Register a new user.
- */
-router.post("/register", register);
+import {
+    changePasswordSchema,
+    loginSchema,
+    registerSchema
+} from "@/validators/auth.validator";
 
-/**
- * Authenticate an existing user.
- */
-router.post("/login", login);
+const router = Router();
+
+router.post(
+    "/login",
+    validate(loginSchema),
+    authController.login
+);
+
+router.post(
+    "/register",
+    validate(registerSchema),
+    authController.register
+);
+
+router.patch(
+    "/change-password",
+    authenticate,
+    validate(changePasswordSchema),
+    authController.changePassword
+);
 
 export default router;

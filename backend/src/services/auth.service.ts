@@ -1,179 +1,256 @@
 /**
  * ----------------------------------------------------------------
- * AtlasStream Backend API
+ * AtlasStream
  * ----------------------------------------------------------------
+ * File: auth.service.ts
+ * Path: backend/src/services/auth.service.ts
  * Author: ultramegared
  * Project: AtlasStream
- * Programming Language: TypeScript
- * Supported Languages:
- *   - English (en)
- *   - Español (es)
- * License: Proprietary
+ * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * Servicio para el registro e inicio de sesión de usuarios.
+ * Authentication business logic.
  * ----------------------------------------------------------------
  */
 
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import authRepository from "@/repositories/auth.repository";
 
-import pool from "../config/database";
-import { User } from "../models/user.model";
+import {
+    ApiError,
+    generateAccessToken,
+    generateRefreshToken,
+    hashPassword,
+    HTTP_STATUS,
+    USER_STATUS,
+    verifyPassword
+} from "@/utils";
 
-const SALT_ROUNDS = 10;
+import {
+    AuthResponse,
+    LoginCredentials,
+    RegisterUser
+} from "@/models/auth.model";
 
-/**
- * ----------------------------------------------------------------
- * Register User
- * ----------------------------------------------------------------
- * Registra un nuevo usuario.
- * ----------------------------------------------------------------
- */
-export async function registerUser(
-  user: User
-): Promise<User> {
-  const usernameExists = await pool.query(
-    "SELECT id FROM users WHERE username = $1",
-    [user.username]
-  );
+class AuthService {
 
-  if (usernameExists.rows.length > 0) {
-    throw new Error("El nombre de usuario ya existe.");
-  }
+    public async login(
+        credentials: LoginCredentials
+    ): Promise<AuthResponse> {
 
-  const emailExists = await pool.query(
-    "SELECT id FROM users WHERE email = $1",
-    [user.email]
-  );
+        const user = await authRepository.findByEmail(
+            credentials.email
+        );
 
-  if (emailExists.rows.length > 0) {
-    throw new Error("El correo electrónico ya está registrado.");
-  }
+        if (!user) {
 
-  const passwordHash = await bcrypt.hash(
-    user.password,
-    SALT_ROUNDS
-  );
+            throw new ApiError(
+                HTTP_STATUS.UNAUTHORIZED,
+                "INVALID_CREDENTIALS",
+                "Invalid email or password."
+            );
 
-  const result = await pool.query(
-    `
-      INSERT INTO users (
-        username,
-        email,
-        password,
-        first_name,
-        last_name,
-        avatar
-      )
-      VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING
-        id,
-        username,
-        email,
-        first_name,
-        last_name,
-        avatar,
-        role,
-        is_active,
-        created_at,
-        updated_at
-    `,
-    [
-      user.username,
-      user.email,
-      passwordHash,
-      user.firstName ?? null,
-      user.lastName ?? null,
-      user.avatar ?? null,
-    ]
-  );
+        }
 
-  return result.rows[0];
-}
+        const validPassword = await verifyPassword(
+            credentials.password,
+            user.passwordHash
+        );
 
-/**
- * ----------------------------------------------------------------
- * Login User
- * ----------------------------------------------------------------
- * Inicia sesión de un usuario.
- * ----------------------------------------------------------------
- */
-export async function loginUser(
-  email: string,
-  password: string
-): Promise<{
-  token: string;
-  user: Omit<User, "password">;
-}> {
-  const result = await pool.query(
-    `
-      SELECT
-        id,
-        username,
-        email,
-        password,
-        first_name,
-        last_name,
-        avatar,
-        role,
-        is_active,
-        created_at,
-        updated_at
-      FROM users
-      WHERE email = $1
-        AND is_active = TRUE
-    `,
-    [email]
-  );
+        if (!validPassword) {
 
-  if (result.rows.length === 0) {
-    throw new Error("Correo o contraseña incorrectos.");
-  }
+            throw new ApiError(
+                HTTP_STATUS.UNAUTHORIZED,
+                "INVALID_CREDENTIALS",
+                "Invalid email or password."
+            );
 
-  const user = result.rows[0];
+        }
 
-  const passwordMatch = await bcrypt.compare(
-    password,
-    user.password
-  );
+        if (user.status !== USER_STATUS.ACTIVE) {
 
-  if (!passwordMatch) {
-    throw new Error("Correo o contraseña incorrectos.");
-  }
+            throw new ApiError(
+                HTTP_STATUS.FORBIDDEN,
+                "ACCOUNT_DISABLED",
+                "User account is not active."
+            );
 
-  const secret = process.env.JWT_SECRET;
+        }
 
-  if (!secret) {
-    throw new Error("JWT_SECRET no está configurado.");
-  }
+        await authRepository.updateLastLogin(
+            user.id
+        );
 
-  const token = jwt.sign(
-    {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      role: user.role,
-    },
-    secret,
-    {
-      expiresIn: "7d",
+        const accessToken = generateAccessToken({
+
+            id: user.id,
+            email: user.email,
+            role: user.role
+
+        });
+
+        const refreshToken = generateRefreshToken({
+
+            id: user.id,
+            email: user.email,
+            role: user.role
+
+        });
+
+        const {
+            passwordHash,
+            ...safeUser
+        } = user;
+
+        return {
+
+            user: safeUser,
+
+            tokens: {
+
+                accessToken,
+
+                refreshToken,
+
+                expiresIn: 900
+
+            }
+
+        };
+
     }
-  );
 
-  return {
-    token,
-    user: {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      firstName: user.first_name,
-      lastName: user.last_name,
-      avatar: user.avatar,
-      role: user.role,
-      isActive: user.is_active,
-      createdAt: user.created_at,
-      updatedAt: user.updated_at,
-    },
-  };
+    public async register(
+        payload: RegisterUser
+    ): Promise<AuthResponse> {
+
+        const existingEmail = await authRepository.findByEmail(
+            payload.email
+        );
+
+        if (existingEmail) {
+
+            throw new ApiError(
+                HTTP_STATUS.CONFLICT,
+                "EMAIL_ALREADY_EXISTS",
+                "Email already registered."
+            );
+
+        }
+
+        const existingUsername = await authRepository.findByUsername(
+            payload.username
+        );
+
+        if (existingUsername) {
+
+            throw new ApiError(
+                HTTP_STATUS.CONFLICT,
+                "USERNAME_ALREADY_EXISTS",
+                "Username already registered."
+            );
+
+        }
+
+        const passwordHash = await hashPassword(
+            payload.password
+        );
+
+        const user = await authRepository.create({
+
+            ...payload,
+
+            passwordHash
+
+        });
+
+        const accessToken = generateAccessToken({
+
+            id: user.id,
+            email: user.email,
+            role: user.role
+
+        });
+
+        const refreshToken = generateRefreshToken({
+
+            id: user.id,
+            email: user.email,
+            role: user.role
+
+        });
+
+        const {
+            passwordHash: _,
+            ...safeUser
+        } = user;
+
+        return {
+
+            user: safeUser,
+
+            tokens: {
+
+                accessToken,
+
+                refreshToken,
+
+                expiresIn: 900
+
+            }
+
+        };
+
+    }
+
+    public async changePassword(
+
+        userId: string,
+
+        currentPassword: string,
+
+        newPassword: string
+
+    ): Promise<void> {
+
+        const user = await authRepository.findById(
+            userId
+        );
+
+        if (!user) {
+
+            throw new ApiError(
+                HTTP_STATUS.NOT_FOUND,
+                "USER_NOT_FOUND",
+                "User not found."
+            );
+
+        }
+
+        const validPassword = await verifyPassword(
+            currentPassword,
+            user.passwordHash
+        );
+
+        if (!validPassword) {
+
+            throw new ApiError(
+                HTTP_STATUS.UNAUTHORIZED,
+                "INVALID_PASSWORD",
+                "Current password is incorrect."
+            );
+
+        }
+
+        const passwordHash = await hashPassword(
+            newPassword
+        );
+
+        await authRepository.updatePassword(
+            user.id,
+            passwordHash
+        );
+
+    }
+
 }
+export default new AuthService();
