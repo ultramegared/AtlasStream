@@ -1,40 +1,76 @@
 /**
  * ----------------------------------------------------------------
- * AtlasStream Backend API
+ * AtlasStream
  * ----------------------------------------------------------------
+ * File: response.ts
+ * Path: backend/src/utils/response.ts
  * Author: ultramegared
  * Project: AtlasStream
- * Programming Language: TypeScript
- * Supported Languages:
- *   - English (en)
- *   - Español (es)
- * License: Proprietary
+ * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * Utilidades para respuestas estándar de la API.
+ * Standard API response helpers.
  * ----------------------------------------------------------------
  */
 
-export interface ApiSuccessResponse<T> {
-  success: true;
-  data: T;
+import { Response } from "express";
+
+interface SuccessResponseOptions<T = unknown> {
+    statusCode?: number;
+    message?: string;
+    data?: T;
+    meta?: Record<string, unknown>;
 }
 
-export interface ApiErrorResponse {
-  success: false;
-  message: string;
+interface ErrorResponseOptions {
+    statusCode?: number;
+    code?: string;
+    message: string;
+    details?: unknown;
 }
 
-export function success<T>(data: T): ApiSuccessResponse<T> {
-  return {
-    success: true,
-    data,
-  };
+export function success<T>(
+    res: Response,
+    options: SuccessResponseOptions<T> = {}
+): Response {
+
+    const {
+        statusCode = 200,
+        message = "Request completed successfully.",
+        data = null,
+        meta
+    } = options;
+
+    return res.status(statusCode).json({
+        success: true,
+        message,
+        data,
+        meta,
+        timestamp: new Date().toISOString()
+    });
+
 }
 
-export function error(message: string): ApiErrorResponse {
-  return {
-    success: false,
-    message,
-  };
+export function error(
+    res: Response,
+    options: ErrorResponseOptions
+): Response {
+
+    const {
+        statusCode = 500,
+        code = "INTERNAL_SERVER_ERROR",
+        message,
+        details
+    } = options;
+
+    return res.status(statusCode).json({
+        success: false,
+        error: {
+            code,
+            message,
+            details
+        },
+        timestamp: new Date().toISOString()
+    });
+
 }
