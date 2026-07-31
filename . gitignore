@@ -1,0 +1,86 @@
+# -----------------------------------------------------------------------------
+# AtlasStream
+# Copyright © 2026 ultramegared. Todos los derechos reservados.
+#
+# Proyecto   : AtlasStream
+# Plataforma : TV | Mobile | Web
+# Archivo    : .gitignore
+#
+# Idiomas soportados:
+# - Español (es)
+# - English (en)
+# -----------------------------------------------------------------------------
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Expo
+.expo/
+.expo-shared/
+dist/
+
+# React Native
+android/.gradle/
+android/app/build/
+android/build/
+ios/build/
+ios/Pods/
+
+# Build
+build/
+coverage/
+.next/
+out/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Turbo
+.turbo/
+
+# TypeScript
+*.tsbuildinfo
+
+# Cache
+.cache/
+tmp/
+temp/
+
+# Firebase
+firebase-debug.log
+
+# Local database
+*.sqlite
+*.db
+
+# Secrets
+*.pem
+*.key
+*.crt
+
+# Misc
+*.pid

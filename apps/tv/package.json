@@ -1,0 +1,25 @@
+{
+  "name": "@atlasstream/tv",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AtlasStream TV Application",
+  "license": "Proprietary",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-native start",
+    "start:reset": "react-native start --reset-cache",
+    "android": "react-native run-android",
+    "android:clean": "react-native run-android --active-arch-only",
+    "ios": "react-native run-ios",
+    "tvos": "react-native run-ios --simulator=\"Apple TV\"",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write .",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "test": "jest",
+    "verify": "npm run lint && npm run typecheck && npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
