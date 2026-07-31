@@ -1,0 +1,103 @@
+%% ============================================================
+%% Author: ultramegared
+%% Project: AtlasStream
+%% File: auth.mmd
+%% Module: Authentication
+%% Language: Mermaid ER Diagram
+%% Description:
+%% Authentication and Authorization Module
+%% ============================================================
+
+erDiagram
+
+%% ============================================================
+%% ENTITIES
+%% ============================================================
+
+ROLE {
+    uuid id PK
+    varchar name
+    text description
+    boolean is_system
+    timestamptz created_at
+}
+
+PERMISSION {
+    uuid id PK
+    varchar name
+    varchar resource
+    varchar action
+    text description
+    timestamptz created_at
+}
+
+ROLE_PERMISSION {
+    uuid id PK
+    uuid role_id FK
+    uuid permission_id FK
+    timestamptz created_at
+}
+
+APP_USER {
+    uuid id PK
+    citext email
+    varchar username
+    varchar password_hash
+    varchar first_name
+    varchar last_name
+    boolean is_active
+    boolean is_verified
+    timestamptz last_login
+    timestamptz created_at
+}
+
+USER_ROLE {
+    uuid id PK
+    uuid user_id FK
+    uuid role_id FK
+    timestamptz assigned_at
+}
+
+USER_SESSION {
+    uuid id PK
+    uuid user_id FK
+    varchar refresh_token
+    inet ip_address
+    text user_agent
+    timestamptz expires_at
+    timestamptz created_at
+}
+
+PASSWORD_RESET {
+    uuid id PK
+    uuid user_id FK
+    varchar token
+    timestamptz expires_at
+    timestamptz used_at
+}
+
+EMAIL_VERIFICATION {
+    uuid id PK
+    uuid user_id FK
+    varchar token
+    timestamptz expires_at
+    timestamptz verified_at
+}
+
+%% ============================================================
+%% RELATIONSHIPS
+%% ============================================================
+
+ROLE ||--o{ ROLE_PERMISSION : grants
+
+PERMISSION ||--o{ ROLE_PERMISSION : includes
+
+ROLE ||--o{ USER_ROLE : assigned_to
+
+APP_USER ||--o{ USER_ROLE : has
+
+APP_USER ||--o{ USER_SESSION : owns
+
+APP_USER ||--o{ PASSWORD_RESET : requests
+
+APP_USER ||--o{ EMAIL_VERIFICATION : verifies

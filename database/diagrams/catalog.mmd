@@ -1,0 +1,152 @@
+%% ============================================================
+%% Author: ultramegared
+%% Project: AtlasStream
+%% File: catalog.mmd
+%% Module: Catalog
+%% Language: Mermaid ER Diagram
+%% Description:
+%% Content Catalog Module
+%% ============================================================
+
+erDiagram
+
+%% ============================================================
+%% ENTITIES
+%% ============================================================
+
+COUNTRY {
+    uuid id PK
+    varchar iso2
+    varchar iso3
+    varchar name
+}
+
+LANGUAGE {
+    uuid id PK
+    varchar code
+    varchar name
+    varchar native_name
+}
+
+GENRE {
+    uuid id PK
+    varchar name
+    varchar slug
+}
+
+CATEGORY {
+    uuid id PK
+    varchar name
+    varchar slug
+}
+
+AGE_RATING {
+    uuid id PK
+    varchar code
+    varchar name
+    varchar system
+}
+
+PERSON {
+    uuid id PK
+    varchar full_name
+    date birth_date
+    varchar nationality
+}
+
+STUDIO {
+    uuid id PK
+    varchar name
+    varchar country
+    varchar website
+}
+
+CONTENT {
+    uuid id PK
+    varchar title
+    varchar original_title
+    text synopsis
+    varchar content_type
+    integer release_year
+    integer duration
+    uuid studio_id FK
+    uuid language_id FK
+    uuid country_id FK
+    uuid age_rating_id FK
+    boolean featured
+    boolean published
+}
+
+SEASON {
+    uuid id PK
+    uuid content_id FK
+    integer season_number
+    varchar title
+    integer episode_count
+}
+
+EPISODE {
+    uuid id PK
+    uuid season_id FK
+    integer episode_number
+    varchar title
+    integer duration
+}
+
+CONTENT_GENRE {
+    uuid id PK
+    uuid content_id FK
+    uuid genre_id FK
+}
+
+CONTENT_CATEGORY {
+    uuid id PK
+    uuid content_id FK
+    uuid category_id FK
+}
+
+CONTENT_CAST {
+    uuid id PK
+    uuid content_id FK
+    uuid person_id FK
+    varchar character_name
+}
+
+CONTENT_CREW {
+    uuid id PK
+    uuid content_id FK
+    uuid person_id FK
+    varchar job
+}
+
+%% ============================================================
+%% RELATIONSHIPS
+%% ============================================================
+
+COUNTRY ||--o{ CONTENT : origin
+
+LANGUAGE ||--o{ CONTENT : language
+
+AGE_RATING ||--o{ CONTENT : rated
+
+STUDIO ||--o{ CONTENT : produces
+
+CONTENT ||--o{ SEASON : contains
+
+SEASON ||--o{ EPISODE : contains
+
+CONTENT ||--o{ CONTENT_GENRE : categorized
+
+GENRE ||--o{ CONTENT_GENRE : classifies
+
+CONTENT ||--o{ CONTENT_CATEGORY : grouped
+
+CATEGORY ||--o{ CONTENT_CATEGORY : organizes
+
+CONTENT ||--o{ CONTENT_CAST : includes
+
+PERSON ||--o{ CONTENT_CAST : performs
+
+CONTENT ||--o{ CONTENT_CREW : created_by
+
+PERSON ||--o{ CONTENT_CREW : participates

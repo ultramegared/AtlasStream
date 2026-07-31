@@ -1,0 +1,134 @@
+%% ============================================================
+%% Author: ultramegared
+%% Project: AtlasStream
+%% File: streaming.mmd
+%% Module: Streaming
+%% Language: Mermaid ER Diagram
+%% Description:
+%% Streaming and Playback Module
+%% ============================================================
+
+erDiagram
+
+%% ============================================================
+%% ENTITIES
+%% ============================================================
+
+APP_USER {
+    uuid id PK
+    citext email
+}
+
+CONTENT {
+    uuid id PK
+    varchar title
+    varchar content_type
+}
+
+VIDEO_ASSET {
+    uuid id PK
+    uuid content_id FK
+    varchar asset_type
+    varchar storage_provider
+    varchar storage_path
+    integer duration
+    bigint file_size
+}
+
+VIDEO_QUALITY {
+    uuid id PK
+    uuid video_asset_id FK
+    varchar resolution
+    varchar codec
+    integer bitrate
+    varchar playlist_url
+}
+
+AUDIO_TRACK {
+    uuid id PK
+    uuid video_asset_id FK
+    varchar language
+    varchar codec
+    boolean is_default
+}
+
+SUBTITLE_TRACK {
+    uuid id PK
+    uuid video_asset_id FK
+    varchar language
+    varchar format
+    boolean is_default
+}
+
+PLAYBACK_HISTORY {
+    uuid id PK
+    uuid user_id FK
+    uuid content_id FK
+    timestamptz watched_at
+    integer watched_seconds
+}
+
+VIEWING_PROGRESS {
+    uuid id PK
+    uuid user_id FK
+    uuid content_id FK
+    integer progress_seconds
+    decimal progress_percent
+    timestamptz updated_at
+}
+
+WATCHLIST {
+    uuid id PK
+    uuid user_id FK
+    uuid content_id FK
+    timestamptz created_at
+}
+
+FAVORITE {
+    uuid id PK
+    uuid user_id FK
+    uuid content_id FK
+    timestamptz created_at
+}
+
+STREAMING_SESSION {
+    uuid id PK
+    uuid user_id FK
+    uuid video_asset_id FK
+    varchar device
+    inet ip_address
+    timestamptz started_at
+    timestamptz ended_at
+}
+
+%% ============================================================
+%% RELATIONSHIPS
+%% ============================================================
+
+CONTENT ||--o{ VIDEO_ASSET : has
+
+VIDEO_ASSET ||--o{ VIDEO_QUALITY : encoded_as
+
+VIDEO_ASSET ||--o{ AUDIO_TRACK : contains
+
+VIDEO_ASSET ||--o{ SUBTITLE_TRACK : contains
+
+APP_USER ||--o{ PLAYBACK_HISTORY : watches
+
+CONTENT ||--o{ PLAYBACK_HISTORY : viewed
+
+APP_USER ||--o{ VIEWING_PROGRESS : tracks
+
+CONTENT ||--o{ VIEWING_PROGRESS : progress
+
+APP_USER ||--o{ WATCHLIST : saves
+
+CONTENT ||--o{ WATCHLIST : listed
+
+APP_USER ||--o{ FAVORITE : marks
+
+CONTENT ||--o{ FAVORITE : favorited
+
+APP_USER ||--o{ STREAMING_SESSION : starts
+
+VIDEO_ASSET ||--o{ STREAMING_SESSION : streams

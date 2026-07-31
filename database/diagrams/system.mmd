@@ -1,0 +1,30 @@
+%% ============================================================
+%% Author: ultramegared
+%% Project: AtlasStream
+%% File: system.mmd
+%% Module: System
+%% Language: Mermaid ER Diagram
+%% Description:
+%% System Configuration and Platform Management Module
+%% ============================================================
+
+erDiagram
+
+%% ============================================================
+%% ENTITIES
+%% ============================================================
+
+APP_USER {
+    uuid id PK
+    citext email
+}
+
+SYSTEM_SETTING {
+    uuid id PK
+    varchar setting_key
+    jsonb setting_value
+    text description
+    boolean is_public
+}
+
+FEATURE_FLAG

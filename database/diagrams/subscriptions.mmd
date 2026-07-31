@@ -1,0 +1,117 @@
+%% ============================================================
+%% Author: ultramegared
+%% Project: AtlasStream
+%% File: subscriptions.mmd
+%% Module: Subscriptions
+%% Language: Mermaid ER Diagram
+%% Description:
+%% Subscription and Billing Module
+%% ============================================================
+
+erDiagram
+
+%% ============================================================
+%% ENTITIES
+%% ============================================================
+
+APP_USER {
+    uuid id PK
+    citext email
+}
+
+PROFILE {
+    uuid id PK
+    uuid user_id FK
+    varchar profile_name
+    boolean is_kids
+    varchar avatar
+}
+
+SUBSCRIPTION_PLAN {
+    uuid id PK
+    varchar name
+    varchar slug
+    decimal monthly_price
+    decimal yearly_price
+    varchar max_resolution
+    integer max_profiles
+    integer max_devices
+    integer simultaneous_streams
+    boolean ads_enabled
+    boolean downloads_enabled
+}
+
+USER_SUBSCRIPTION {
+    uuid id PK
+    uuid user_id FK
+    uuid subscription_plan_id FK
+    varchar status
+    timestamptz starts_at
+    timestamptz expires_at
+    boolean auto_renew
+}
+
+PAYMENT_METHOD {
+    uuid id PK
+    uuid user_id FK
+    varchar provider
+    varchar method_type
+    varchar last_four
+    boolean is_default
+}
+
+PAYMENT {
+    uuid id PK
+    uuid user_subscription_id FK
+    uuid payment_method_id FK
+    decimal amount
+    varchar currency
+    varchar status
+    timestamptz paid_at
+}
+
+INVOICE {
+    uuid id PK
+    uuid payment_id FK
+    varchar invoice_number
+    decimal total
+    varchar currency
+    timestamptz issued_at
+}
+
+COUPON {
+    uuid id PK
+    varchar code
+    varchar discount_type
+    decimal discount_value
+    timestamptz expires_at
+}
+
+COUPON_REDEMPTION {
+    uuid id PK
+    uuid coupon_id FK
+    uuid user_id FK
+    timestamptz redeemed_at
+}
+
+%% ============================================================
+%% RELATIONSHIPS
+%% ============================================================
+
+APP_USER ||--o{ PROFILE : owns
+
+APP_USER ||--o{ USER_SUBSCRIPTION : subscribes
+
+SUBSCRIPTION_PLAN ||--o{ USER_SUBSCRIPTION : selected
+
+APP_USER ||--o{ PAYMENT_METHOD : stores
+
+PAYMENT_METHOD ||--o{ PAYMENT : processes
+
+USER_SUBSCRIPTION ||--o{ PAYMENT : generates
+
+PAYMENT ||--|| INVOICE : produces
+
+COUPON ||--o{ COUPON_REDEMPTION : redeemed
+
+APP_USER ||--o{ COUPON_REDEMPTION : uses

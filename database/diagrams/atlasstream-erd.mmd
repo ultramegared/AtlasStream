@@ -1,0 +1,153 @@
+%% ============================================================
+%% Author: ultramegared
+%% Project: AtlasStream
+%% File: atlasstream-erd.mmd
+%% Module: Database Diagrams
+%% Language: Mermaid ER Diagram
+%% Description:
+%% Master Entity Relationship Diagram for AtlasStream.
+%% ============================================================
+
+erDiagram
+
+%% ============================================================
+%% AUTH
+%% ============================================================
+
+ROLE ||--o{ USER_ROLE : assigns
+APP_USER ||--o{ USER_ROLE : has
+ROLE ||--o{ ROLE_PERMISSION : grants
+PERMISSION ||--o{ ROLE_PERMISSION : contains
+
+APP_USER ||--o{ USER_SESSION : owns
+APP_USER ||--o{ PASSWORD_RESET : requests
+APP_USER ||--o{ EMAIL_VERIFICATION : verifies
+
+%% ============================================================
+%% CATALOG
+%% ============================================================
+
+COUNTRY ||--o{ CONTENT : origin
+LANGUAGE ||--o{ CONTENT : language
+AGE_RATING ||--o{ CONTENT : rated
+STUDIO ||--o{ CONTENT : produces
+
+CONTENT ||--o{ SEASON : contains
+SEASON ||--o{ EPISODE : contains
+
+CONTENT ||--o{ CONTENT_GENRE : categorized
+GENRE ||--o{ CONTENT_GENRE : classifies
+
+CONTENT ||--o{ CONTENT_CATEGORY : appears_in
+CATEGORY ||--o{ CONTENT_CATEGORY : groups
+
+CONTENT ||--o{ CONTENT_CAST : includes
+PERSON ||--o{ CONTENT_CAST : performs
+
+CONTENT ||--o{ CONTENT_CREW : created_by
+PERSON ||--o{ CONTENT_CREW : works_on
+
+%% ============================================================
+%% STREAMING
+%% ============================================================
+
+CONTENT ||--o{ VIDEO_ASSET : has
+VIDEO_ASSET ||--o{ VIDEO_QUALITY : encoded_as
+
+VIDEO_ASSET ||--o{ AUDIO_TRACK : includes
+VIDEO_ASSET ||--o{ SUBTITLE_TRACK : includes
+
+APP_USER ||--o{ PLAYBACK_HISTORY : watches
+CONTENT ||--o{ PLAYBACK_HISTORY : viewed
+
+APP_USER ||--o{ VIEWING_PROGRESS : progresses
+CONTENT ||--o{ VIEWING_PROGRESS : tracked
+
+APP_USER ||--o{ WATCHLIST : saves
+CONTENT ||--o{ WATCHLIST : listed
+
+APP_USER ||--o{ FAVORITE : favorites
+CONTENT ||--o{ FAVORITE : marked
+
+APP_USER ||--o{ STREAMING_SESSION : streams
+VIDEO_ASSET ||--o{ STREAMING_SESSION : serves
+
+%% ============================================================
+%% SUBSCRIPTIONS
+%% ============================================================
+
+APP_USER ||--o{ PROFILE : owns
+
+SUBSCRIPTION_PLAN ||--o{ USER_SUBSCRIPTION : selected
+
+APP_USER ||--o{ USER_SUBSCRIPTION : subscribes
+
+APP_USER ||--o{ PAYMENT_METHOD : stores
+
+PAYMENT_METHOD ||--o{ PAYMENT : pays
+
+USER_SUBSCRIPTION ||--o{ PAYMENT : generates
+
+PAYMENT ||--|| INVOICE : produces
+
+COUPON ||--o{ COUPON_REDEMPTION : redeemed
+
+APP_USER ||--o{ COUPON_REDEMPTION : uses
+
+%% ============================================================
+%% NOTIFICATIONS
+%% ============================================================
+
+NOTIFICATION_TYPE ||--o{ NOTIFICATION_TEMPLATE : templates
+
+APP_USER ||--o{ NOTIFICATION_PREFERENCE : configures
+
+APP_USER ||--o{ NOTIFICATION : receives
+
+NOTIFICATION_TEMPLATE ||--o{ NOTIFICATION : creates
+
+APP_USER ||--o{ PUSH_DEVICE : registers
+
+NOTIFICATION ||--o{ NOTIFICATION_LOG : logs
+
+EMAIL_QUEUE ||--o{ NOTIFICATION_LOG : sends
+
+%% ============================================================
+%% ANALYTICS
+%% ============================================================
+
+APP_USER ||--o{ ANALYTICS_EVENT : generates
+
+CONTENT ||--o{ ANALYTICS_EVENT : relates_to
+
+CONTENT ||--o{ CONTENT_DAILY_STAT : aggregates
+
+APP_USER ||--o{ USER_DAILY_STAT : aggregates
+
+APP_USER ||--o{ SEARCH_ANALYTICS : searches
+
+APP_USER ||--o{ API_REQUEST_LOG : requests
+
+APP_USER ||--o{ AUDIT_LOG : audits
+
+APP_USER ||--o{ DEVICE_ANALYTICS : uses
+
+PAYMENT ||--o{ REVENUE_DAILY_STAT : contributes
+
+%% ============================================================
+%% SYSTEM
+%% ============================================================
+
+FEATURE_FLAG ||--o{ USER_FEATURE_FLAG : enables
+
+APP_USER ||--o{ USER_FEATURE_FLAG : overrides
+
+APPLICATION_VERSION ||--o{ BACKGROUND_JOB : deploys
+
+BACKGROUND_JOB ||--o{ SYSTEM_LOG : writes
+
+API_KEY ||--o{ API_REQUEST_LOG : authenticates
+
+BLOCKED_IP ||--o{ SYSTEM_LOG : blocks
+
+MAINTENANCE_WINDOW ||--o{ SYSTEM_LOG : affects

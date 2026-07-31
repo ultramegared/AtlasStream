@@ -1,0 +1,105 @@
+%% ============================================================
+%% Author: ultramegared
+%% Project: AtlasStream
+%% File: notifications.mmd
+%% Module: Notifications
+%% Language: Mermaid ER Diagram
+%% Description:
+%% Notifications Module
+%% ============================================================
+
+erDiagram
+
+%% ============================================================
+%% ENTITIES
+%% ============================================================
+
+APP_USER {
+    uuid id PK
+    citext email
+}
+
+NOTIFICATION_TYPE {
+    uuid id PK
+    varchar name
+    varchar channel
+    boolean enabled
+}
+
+NOTIFICATION_TEMPLATE {
+    uuid id PK
+    uuid notification_type_id FK
+    varchar name
+    varchar subject
+    text body
+    varchar locale
+    boolean active
+}
+
+NOTIFICATION_PREFERENCE {
+    uuid id PK
+    uuid user_id FK
+    uuid notification_type_id FK
+    boolean email_enabled
+    boolean push_enabled
+    boolean sms_enabled
+}
+
+NOTIFICATION {
+    uuid id PK
+    uuid user_id FK
+    uuid notification_template_id FK
+    varchar status
+    jsonb payload
+    timestamptz scheduled_at
+    timestamptz delivered_at
+}
+
+PUSH_DEVICE {
+    uuid id PK
+    uuid user_id FK
+    varchar platform
+    varchar device_token
+    varchar device_name
+    boolean active
+}
+
+EMAIL_QUEUE {
+    uuid id PK
+    uuid notification_id FK
+    varchar recipient
+    varchar subject
+    varchar status
+    integer retry_count
+    timestamptz queued_at
+    timestamptz sent_at
+}
+
+NOTIFICATION_LOG {
+    uuid id PK
+    uuid notification_id FK
+    varchar channel
+    varchar status
+    text response
+    timestamptz created_at
+}
+
+%% ============================================================
+%% RELATIONSHIPS
+%% ============================================================
+
+APP_USER ||--o{ NOTIFICATION_PREFERENCE : configures
+
+NOTIFICATION_TYPE ||--o{ NOTIFICATION_TEMPLATE : defines
+
+NOTIFICATION_TYPE ||--o{ NOTIFICATION_PREFERENCE : controls
+
+APP_USER ||--o{ NOTIFICATION : receives
+
+NOTIFICATION_TEMPLATE ||--o{ NOTIFICATION : generates
+
+APP_USER ||--o{ PUSH_DEVICE : registers
+
+NOTIFICATION ||--o{ EMAIL_QUEUE : queues
+
+NOTIFICATION ||--o{ NOTIFICATION_LOG : records

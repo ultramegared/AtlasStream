@@ -1,0 +1,138 @@
+%% ============================================================
+%% Author: ultramegared
+%% Project: AtlasStream
+%% File: analytics.mmd
+%% Module: Analytics
+%% Language: Mermaid ER Diagram
+%% Description:
+%% Analytics, Auditing and Metrics Module
+%% ============================================================
+
+erDiagram
+
+%% ============================================================
+%% ENTITIES
+%% ============================================================
+
+APP_USER {
+    uuid id PK
+    citext email
+}
+
+CONTENT {
+    uuid id PK
+    varchar title
+    varchar content_type
+}
+
+PAYMENT {
+    uuid id PK
+    decimal amount
+    varchar currency
+    varchar status
+}
+
+API_KEY {
+    uuid id PK
+    varchar name
+    boolean active
+}
+
+ANALYTICS_EVENT {
+    uuid id PK
+    uuid user_id FK
+    uuid content_id FK
+    varchar event_type
+    jsonb metadata
+    timestamptz occurred_at
+}
+
+CONTENT_DAILY_STAT {
+    uuid id PK
+    uuid content_id FK
+    date stat_date
+    bigint views
+    bigint unique_viewers
+    bigint watch_time_seconds
+}
+
+USER_DAILY_STAT {
+    uuid id PK
+    uuid user_id FK
+    date stat_date
+    integer sessions
+    integer streamed_minutes
+    integer completed_titles
+}
+
+SEARCH_ANALYTICS {
+    uuid id PK
+    uuid user_id FK
+    varchar search_query
+    integer results_count
+    timestamptz searched_at
+}
+
+API_REQUEST_LOG {
+    uuid id PK
+    uuid user_id FK
+    uuid api_key_id FK
+    varchar endpoint
+    varchar method
+    integer status_code
+    integer response_time_ms
+    inet ip_address
+    timestamptz requested_at
+}
+
+AUDIT_LOG {
+    uuid id PK
+    uuid user_id FK
+    varchar entity
+    varchar action
+    uuid entity_id
+    jsonb changes
+    timestamptz created_at
+}
+
+DEVICE_ANALYTICS {
+    uuid id PK
+    uuid user_id FK
+    varchar platform
+    varchar device_type
+    varchar app_version
+    varchar os_version
+    timestamptz collected_at
+}
+
+REVENUE_DAILY_STAT {
+    uuid id PK
+    uuid payment_id FK
+    date stat_date
+    decimal revenue
+    varchar currency
+}
+
+%% ============================================================
+%% RELATIONSHIPS
+%% ============================================================
+
+APP_USER ||--o{ ANALYTICS_EVENT : generates
+
+CONTENT ||--o{ ANALYTICS_EVENT : relates_to
+
+CONTENT ||--o{ CONTENT_DAILY_STAT : aggregates
+
+APP_USER ||--o{ USER_DAILY_STAT : aggregates
+
+APP_USER ||--o{ SEARCH_ANALYTICS : searches
+
+APP_USER ||--o{ API_REQUEST_LOG : performs
+
+API_KEY ||--o{ API_REQUEST_LOG : authenticates
+
+APP_USER ||--o{ AUDIT_LOG : audits
+
+APP_USER ||--o{ DEVICE_ANALYTICS : uses
+
+PAYMENT ||--o{ REVENUE_DAILY_STAT : contributes
