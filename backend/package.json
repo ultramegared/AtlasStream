@@ -1,56 +1,72 @@
 {
-  "name": "atlasstream-backend",
+  "name": "@atlasstream/backend",
   "version": "1.0.0",
-  "description": "AtlasStream Backend API (TypeScript)",
+  "description": "AtlasStream Backend API",
+  "private": true,
+  "license": "Proprietary",
+  "author": "ultramegared",
+  "type": "commonjs",
   "main": "dist/server.js",
+  "types": "dist/server.d.ts",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc --project tsconfig.json",
     "start": "node dist/server.js",
-    "db:migrate": "ts-node database/migrate.ts"
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "ts-node src/database/migrate.ts",
+    "db:seed": "ts-node src/database/seed.ts",
+    "db:reset": "ts-node src/database/reset.ts"
   },
   "keywords": [
     "atlasstream",
     "backend",
     "api",
-    "typescript",
     "express",
     "postgresql",
-    "english",
-    "espanol"
+    "typescript",
+    "streaming"
   ],
-  "author": "ultramegared",
-  "license": "Proprietary",
-  "type": "commonjs",
-  "engines": {
-    "node": ">=20"
-  },
   "atlasstream": {
     "project": "AtlasStream",
-    "programmingLanguage": "TypeScript",
-    "supportedLanguages": [
-      "English (en)",
-      "Español (es)"
-    ],
-    "credits": "Developed by ultramegared"
+    "module": "Backend",
+    "runtime": "Node.js 20",
+    "language": "TypeScript",
+    "framework": "Express 5",
+    "database": "PostgreSQL",
+    "developer": "ultramegared"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "pg": "^8.22.0"
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3",
+    "pino": "^9.7.0",
+    "pino-http": "^10.5.0",
+    "uuid": "^11.1.0",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
+    "@types/compression": "^1.8.1",
+    "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
+    "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^26.1.1",
-    "@types/pg": "^8.20.0",
+    "@types/node": "^24.3.0",
+    "@types/pg": "^8.15.5",
+    "@types/uuid": "^10.0.0",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.3"
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   }
 }

@@ -1,52 +1,69 @@
 /**
  * ----------------------------------------------------------------
- * AtlasStream Backend API
+ * AtlasStream
  * ----------------------------------------------------------------
+ * File: database.ts
+ * Path: backend/src/config/database.ts
  * Author: ultramegared
  * Project: AtlasStream
- * Programming Language: TypeScript
- * Supported Languages:
- *   - English (en)
- *   - Español (es)
- * License: Proprietary
+ * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * Configuración y conexión a la base de datos PostgreSQL.
+ * PostgreSQL connection pool configuration.
  * ----------------------------------------------------------------
  */
 
 import { Pool } from "pg";
-import dotenv from "dotenv";
 
-dotenv.config();
-
-const databaseUrl: string | undefined = process.env.DATABASE_URL;
-
-if (!databaseUrl) {
-  throw new Error("DATABASE_URL no está configurada en el archivo .env");
-}
+import env from "./env";
+import logger from "./logger";
 
 const pool = new Pool({
-  connectionString: databaseUrl,
+    host: env.DB_HOST,
+    port: env.DB_PORT,
+    database: env.DB_NAME,
+    user: env.DB_USER,
+    password: env.DB_PASSWORD,
 
-  ssl:
-    process.env.NODE_ENV === "production"
-      ? {
-          rejectUnauthorized: false,
+    ssl: env.DB_SSL
+        ? {
+            rejectUnauthorized: false
         }
-      : false,
+        : false,
 
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 5000,
+    max: 20,
+    min: 2,
+
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 5000,
+
+    allowExitOnIdle: true
 });
 
-pool.on("connect", (): void => {
-  console.log("🟢 PostgreSQL conectado");
+pool.on("connect", () => {
+    logger.info("PostgreSQL connection established.");
 });
 
-pool.on("error", (error: Error): void => {
-  console.error("🔴 Error inesperado en PostgreSQL:", error);
+pool.on("error", (error: Error) => {
+    logger.error(error, "Unexpected PostgreSQL error.");
 });
+
+export async function testDatabaseConnection(): Promise<void> {
+
+    const client = await pool.connect();
+
+    try {
+
+        await client.query("SELECT NOW()");
+
+        logger.info("Database connection test successful.");
+
+    } finally {
+
+        client.release();
+
+    }
+
+}
 
 export default pool;

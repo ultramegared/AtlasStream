@@ -1,42 +1,82 @@
 /**
  * ----------------------------------------------------------------
- * AtlasStream Backend API
+ * AtlasStream
  * ----------------------------------------------------------------
+ * File: server.ts
+ * Path: backend/src/server.ts
  * Author: ultramegared
  * Project: AtlasStream
- * Programming Language: TypeScript
- * Supported Languages:
- *   - English (en)
- *   - Español (es)
- * License: Proprietary
+ * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * Punto de entrada principal del servidor.
+ * Backend entry point.
+ * Initializes the HTTP server and verifies the database connection.
  * ----------------------------------------------------------------
  */
 
 import dotenv from "dotenv";
+import { Server } from "http";
+
 import app from "./app";
 import pool from "./config/database";
+import logger from "./config/logger";
 
 dotenv.config();
 
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT ?? 3000);
+
+let server: Server;
 
 async function startServer(): Promise<void> {
-  try {
-    await pool.query("SELECT NOW()");
+    try {
+        await pool.query("SELECT NOW()");
 
-    console.log("🟢 PostgreSQL conectado correctamente.");
+        logger.info("PostgreSQL connection established.");
 
-    app.listen(PORT, () => {
-      console.log(`🚀 Servidor iniciado en el puerto ${PORT}`);
-      console.log(`🌐 API disponible en http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error("🔴 Error al conectar con PostgreSQL:", error);
-    process.exit(1);
-  }
+        server = app.listen(PORT, () => {
+            logger.info(`AtlasStream Backend running on port ${PORT}`);
+            logger.info(`API: http://localhost:${PORT}`);
+        });
+
+        registerShutdownHandlers();
+
+    } catch (error) {
+        logger.fatal(error, "Unable to start AtlasStream Backend.");
+        process.exit(1);
+    }
 }
 
-startServer();
+function registerShutdownHandlers(): void {
+
+    const shutdown = async (signal: string): Promise<void> => {
+
+        logger.info(`${signal} received. Shutting down...`);
+
+        try {
+
+            if (server) {
+                server.close();
+            }
+
+            await pool.end();
+
+            logger.info("Shutdown completed.");
+
+            process.exit(0);
+
+        } catch (error) {
+
+            logger.error(error, "Error during shutdown.");
+
+            process.exit(1);
+
+        }
+
+    };
+
+    process.on("SIGINT", () => void shutdown("SIGINT"));
+    process.on("SIGTERM", () => void shutdown("SIGTERM"));
+
+}
+
+void startServer();

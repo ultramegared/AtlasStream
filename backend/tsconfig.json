@@ -1,59 +1,84 @@
 {
-  "// ----------------------------------------------------------------": "",
-  "// AtlasStream Backend": "",
-  "// -----------------------------------------------------------------": "",
-  "// Author": "ultramegared",
-  "// Project": "AtlasStream",
-  "// Programming Language": "TypeScript",
-  "// Supported Languages": [
-    "English (en)",
-    "Español (es)"
-  ],
-  "// License": "Proprietary",
-  "// Description": "TypeScript compiler configuration for AtlasStream Backend.",
-  "// ------------------------------------------------------------------": "",
-
   "compilerOptions": {
-    "rootDir": ".",
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+
+    "rootDir": "./src",
     "outDir": "./dist",
 
-    "module": "commonjs",
-    "target": "ES2022",
-    "lib": ["ES2022"],
-    "types": ["node"],
+    "lib": [
+      "ES2022"
+    ],
 
-    "sourceMap": true,
+    "types": [
+      "node"
+    ],
 
     "strict": true,
+
+    "noImplicitAny": true,
     "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": true,
 
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
 
+    "declaration": true,
+    "declarationMap": true,
+
+    "sourceMap": true,
+
+    "removeComments": false,
+
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+
+    "baseUrl": "./src",
+
+    "paths": {
+      "@/*": [
+        "*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@controllers/*": [
+        "controllers/*"
+      ],
+      "@database/*": [
+        "database/*"
+      ],
+      "@middleware/*": [
+        "middleware/*"
+      ],
+      "@models/*": [
+        "models/*"
+      ],
+      "@repositories/*": [
+        "repositories/*"
+      ],
+      "@routes/*": [
+        "routes/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
+    }
   },
 
   "include": [
-    "src/**/*",
-    "database/**/*"
+    "src/**/*.ts"
   ],
 
   "exclude": [
     "node_modules",
-    "dist",
-    "backup"
-  ],
-
-  "atlasstream": {
-    "author": "ultramegared",
-    "project": "AtlasStream",
-    "programmingLanguage": "TypeScript",
-    "supportedLanguages": [
-      "English (en)",
-      "Español (es)"
-    ],
-    "license": "Proprietary"
-  }
+    "dist"
+  ]
 }

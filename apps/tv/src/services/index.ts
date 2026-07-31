@@ -13,13 +13,16 @@
  * License: Proprietary
  * ----------------------------------------------------------------
  * Description:
- * Barrel file for all application services.
- * Exposes the API, authentication, storage and player
- * services through a single entry point.
+ * Barrel file for player services.
+ * Exposes the player service and related types through
+ * a single entry point.
  * ----------------------------------------------------------------
  */
 
-export * from './api';
-export * from './auth';
-export * from './player';
-export * from './storage';
+export { default as playerService } from './PlayerService';
+
+export type {
+  MediaSource,
+  PlayerAdapter,
+  PlayerState,
+} from './PlayerService';

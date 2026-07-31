@@ -1,74 +1,79 @@
 /**
- * -----------------------------------------------------------------------------
- * AtlasStream Backend
- * -----------------------------------------------------------------------------
- * File: database/migrate.ts
+ * ----------------------------------------------------------------
+ * AtlasStream
+ * ----------------------------------------------------------------
+ * File: migrate.ts
+ * Path: backend/src/database/migrate.ts
  * Author: ultramegared
- *
+ * Project: AtlasStream
+ * Language: TypeScript
+ * ----------------------------------------------------------------
  * Description:
- * Executes all SQL migration files located in the database/migrations folder.
- * This script is intended to initialize the database schema for AtlasStream.
- *
- * Supported Languages:
- * - English (en)
- * - Español (es)
- * -----------------------------------------------------------------------------
+ * Executes all SQL migrations from the project's database folder.
+ * ----------------------------------------------------------------
  */
 
-import fs from "fs";
+import { promises as fs } from "fs";
 import path from "path";
-import dotenv from "dotenv";
 
-import { pool } from "../src/config/database";
-
-dotenv.config();
+import { pool, logger } from "@/config";
 
 async function runMigrations(): Promise<void> {
+
     const client = await pool.connect();
 
     try {
-        const migrationsPath = path.join(__dirname, "migrations");
 
-        const files = fs
-            .readdirSync(migrationsPath)
+        const migrationsPath = path.resolve(
+            process.cwd(),
+            "../database/migrations"
+        );
+
+        const files = (await fs.readdir(migrationsPath))
             .filter(file => file.endsWith(".sql"))
             .sort();
 
-        console.log("\n====================================");
-        console.log(" AtlasStream Database Migrations");
-        console.log("====================================\n");
+        logger.info("----------------------------------------");
+        logger.info("AtlasStream Database Migration");
+        logger.info("----------------------------------------");
 
         await client.query("BEGIN");
 
         for (const file of files) {
-            console.log(`Running: ${file}`);
 
-            const sql = fs.readFileSync(
+            logger.info(`Running migration: ${file}`);
+
+            const sql = await fs.readFile(
                 path.join(migrationsPath, file),
                 "utf8"
             );
 
             await client.query(sql);
 
-            console.log(`✓ Completed: ${file}\n`);
+            logger.info(`Completed: ${file}`);
+
         }
 
         await client.query("COMMIT");
 
-        console.log("====================================");
-        console.log("All migrations completed successfully.");
-        console.log("====================================\n");
+        logger.info("All migrations executed successfully.");
+
     } catch (error) {
+
         await client.query("ROLLBACK");
 
-        console.error("\nMigration failed.\n");
-        console.error(error);
+        logger.error(error, "Migration failed.");
 
         process.exitCode = 1;
+
     } finally {
+
         client.release();
+
         await pool.end();
+
     }
+
 }
 
-runMigrations();
+void runMigrations();
