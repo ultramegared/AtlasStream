@@ -2,20 +2,20 @@
  * ----------------------------------------------------------------
  * AtlasStream
  * ----------------------------------------------------------------
- * File: user.routes.ts
- * Path: backend/src/routes/user.routes.ts
+ * File: category.routes.ts
+ * Path: backend/src/routes/category.routes.ts
  * Author: ultramegared
  * Project: AtlasStream
  * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * User routes.
+ * Category routes.
  * ----------------------------------------------------------------
  */
 
 import { Router } from "express";
 
-import userController from "@/controllers/user.controller";
+import categoryController from "@/controllers/category.controller";
 
 import {
     authenticate,
@@ -24,52 +24,51 @@ import {
 } from "@/middleware";
 
 import {
-    updateProfileSchema,
-    userIdSchema,
-    userListSchema
-} from "@/validators/users";
+    createCategorySchema,
+    updateCategorySchema,
+    categoryIdSchema,
+    categoryListSchema
+} from "@/validators/categories";
 
 import { USER_ROLES } from "@/utils";
 
 const router = Router();
 
 router.get(
-    "/me",
-    authenticate,
-    userController.getProfile
-);
-
-router.get(
     "/",
-    authenticate,
-    authorize(
-        USER_ROLES.ADMIN,
-        USER_ROLES.MODERATOR
-    ),
-    validate(userListSchema),
-    userController.getAll
+    validate(categoryListSchema),
+    categoryController.getAll
 );
 
 router.get(
     "/:id",
+    validate(categoryIdSchema),
+    categoryController.getById
+);
+
+router.post(
+    "/",
     authenticate,
-    validate(userIdSchema),
-    userController.getById
+    authorize(USER_ROLES.ADMIN),
+    validate(createCategorySchema),
+    categoryController.create
 );
 
 router.patch(
-    "/me",
+    "/:id",
     authenticate,
-    validate(updateProfileSchema),
-    userController.updateProfile
+    authorize(USER_ROLES.ADMIN),
+    validate(categoryIdSchema),
+    validate(updateCategorySchema),
+    categoryController.update
 );
 
 router.delete(
     "/:id",
     authenticate,
     authorize(USER_ROLES.ADMIN),
-    validate(userIdSchema),
-    userController.delete
+    validate(categoryIdSchema),
+    categoryController.delete
 );
 
 export default router;

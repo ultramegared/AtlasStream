@@ -2,14 +2,14 @@
  * ----------------------------------------------------------------
  * AtlasStream
  * ----------------------------------------------------------------
- * File: movie.controller.ts
- * Path: backend/src/controllers/movie.controller.ts
+ * File: season.controller.ts
+ * Path: backend/src/controllers/season.controller.ts
  * Author: ultramegared
  * Project: AtlasStream
  * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * Movie controller.
+ * Season controller.
  * ----------------------------------------------------------------
  */
 
@@ -18,7 +18,7 @@ import {
     Response
 } from "express";
 
-import movieService from "@/services/movie.service";
+import seasonService from "@/services/season.service";
 
 import {
     asyncHandler,
@@ -26,23 +26,25 @@ import {
     success
 } from "@/utils";
 
-class MovieController {
+class SeasonController {
 
-    public getAll = asyncHandler(
+    public getByContentId = asyncHandler(
 
         async (
             req: Request,
             res: Response
         ): Promise<void> => {
 
-            const movies = await movieService.getAll();
+            const seasons = await seasonService.getByContentId(
+                req.params.contentId
+            );
 
             success(
                 res,
                 {
                     statusCode: HTTP_STATUS.OK,
-                    message: "Movies retrieved successfully.",
-                    data: movies
+                    message: "Seasons retrieved successfully.",
+                    data: seasons
                 }
             );
 
@@ -57,7 +59,7 @@ class MovieController {
             res: Response
         ): Promise<void> => {
 
-            const movie = await movieService.getById(
+            const season = await seasonService.getById(
                 req.params.id
             );
 
@@ -65,32 +67,8 @@ class MovieController {
                 res,
                 {
                     statusCode: HTTP_STATUS.OK,
-                    message: "Movie retrieved successfully.",
-                    data: movie
-                }
-            );
-
-        }
-
-    );
-
-    public getBySlug = asyncHandler(
-
-        async (
-            req: Request,
-            res: Response
-        ): Promise<void> => {
-
-            const movie = await movieService.getBySlug(
-                req.params.slug
-            );
-
-            success(
-                res,
-                {
-                    statusCode: HTTP_STATUS.OK,
-                    message: "Movie retrieved successfully.",
-                    data: movie
+                    message: "Season retrieved successfully.",
+                    data: season
                 }
             );
 
@@ -100,4 +78,4 @@ class MovieController {
 
 }
 
-export default new MovieController();
+export default new SeasonController();

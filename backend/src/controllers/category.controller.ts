@@ -2,14 +2,14 @@
  * ----------------------------------------------------------------
  * AtlasStream
  * ----------------------------------------------------------------
- * File: user.controller.ts
- * Path: backend/src/controllers/user.controller.ts
+ * File: category.controller.ts
+ * Path: backend/src/controllers/category.controller.ts
  * Author: ultramegared
  * Project: AtlasStream
  * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * User controller.
+ * Category controller.
  * ----------------------------------------------------------------
  */
 
@@ -18,7 +18,7 @@ import {
     Response
 } from "express";
 
-import userService from "@/services/user.service";
+import categoryService from "@/services/category.service";
 
 import {
     asyncHandler,
@@ -26,25 +26,36 @@ import {
     success
 } from "@/utils";
 
-class UserController {
+class CategoryController {
 
-    public getProfile = asyncHandler(
+    public getAll = asyncHandler(
 
         async (
             req: Request,
             res: Response
         ): Promise<void> => {
 
-            const user = await userService.getById(
-                req.user!.id
-            );
+            const categories = await categoryService.getAll({
+
+                page: Number(req.query.page) || 1,
+
+                limit: Number(req.query.limit) || 20,
+
+                search: req.query.search as string,
+
+                isActive:
+                    req.query.isActive === undefined
+                        ? undefined
+                        : req.query.isActive === "true"
+
+            });
 
             success(
                 res,
                 {
                     statusCode: HTTP_STATUS.OK,
-                    message: "Profile retrieved successfully.",
-                    data: user
+                    message: "Categories retrieved successfully.",
+                    data: categories
                 }
             );
 
@@ -59,7 +70,7 @@ class UserController {
             res: Response
         ): Promise<void> => {
 
-            const user = await userService.getById(
+            const category = await categoryService.getById(
                 req.params.id
             );
 
@@ -67,8 +78,8 @@ class UserController {
                 res,
                 {
                     statusCode: HTTP_STATUS.OK,
-                    message: "User retrieved successfully.",
-                    data: user
+                    message: "Category retrieved successfully.",
+                    data: category
                 }
             );
 
@@ -76,33 +87,23 @@ class UserController {
 
     );
 
-    public getAll = asyncHandler(
+    public create = asyncHandler(
 
         async (
             req: Request,
             res: Response
         ): Promise<void> => {
 
-            const users = await userService.getAll({
-
-                page: Number(req.query.page) || 1,
-
-                limit: Number(req.query.limit) || 20,
-
-                search: req.query.search as string,
-
-                role: req.query.role as string,
-
-                status: req.query.status as string
-
-            });
+            const category = await categoryService.create(
+                req.body
+            );
 
             success(
                 res,
                 {
-                    statusCode: HTTP_STATUS.OK,
-                    message: "Users retrieved successfully.",
-                    data: users
+                    statusCode: HTTP_STATUS.CREATED,
+                    message: "Category created successfully.",
+                    data: category
                 }
             );
 
@@ -110,16 +111,16 @@ class UserController {
 
     );
 
-    public updateProfile = asyncHandler(
+    public update = asyncHandler(
 
         async (
             req: Request,
             res: Response
         ): Promise<void> => {
 
-            const user = await userService.updateProfile(
+            const category = await categoryService.update(
 
-                req.user!.id,
+                req.params.id,
 
                 req.body
 
@@ -129,8 +130,8 @@ class UserController {
                 res,
                 {
                     statusCode: HTTP_STATUS.OK,
-                    message: "Profile updated successfully.",
-                    data: user
+                    message: "Category updated successfully.",
+                    data: category
                 }
             );
 
@@ -145,7 +146,7 @@ class UserController {
             res: Response
         ): Promise<void> => {
 
-            await userService.delete(
+            await categoryService.delete(
                 req.params.id
             );
 
@@ -153,7 +154,7 @@ class UserController {
                 res,
                 {
                     statusCode: HTTP_STATUS.OK,
-                    message: "User deleted successfully."
+                    message: "Category deleted successfully."
                 }
             );
 
@@ -163,4 +164,4 @@ class UserController {
 
 }
 
-export default new UserController();
+export default new CategoryController();

@@ -1,524 +1,94 @@
 /**
  * ----------------------------------------------------------------
- * AtlasStream Backend API
+ * AtlasStream
  * ----------------------------------------------------------------
+ * File: movie.service.ts
+ * Path: backend/src/services/movie.service.ts
  * Author: ultramegared
  * Project: AtlasStream
- * Programming Language: TypeScript
- * Supported Languages:
- *   - English (en)
- *   - Español (es)
- * License: Proprietary
+ * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * Servicio para la gestión de películas.
+ * Movie business logic.
  * ----------------------------------------------------------------
  */
 
-import pool from "../config/database";
-import { Movie } from "../models/movie.model";
+import contentRepository from "@/repositories/content.repository";
 
-/**
- * Obtiene todas las películas activas.
- */
-export async function getAllMovies(): Promise<Movie[]> {
-  const result = await pool.query(`
-    SELECT
-      id,
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active,
-      created_at,
-      updated_at
-    FROM movies
-    WHERE is_active = TRUE
-    ORDER BY release_date DESC NULLS LAST, created_at DESC
-  `);
+import {
+    ApiError,
+    HTTP_STATUS
+} from "@/utils";
 
-  return result.rows;
+import {
+    Content,
+    ContentFilters
+} from "@/models/content.model";
+
+class MovieService {
+
+    public async getAll(): Promise<Content[]> {
+
+        return contentRepository.findAll({
+
+            contentType: "movie",
+
+            page: 1,
+
+            limit: 20
+
+        });
+
+    }
+
+    public async getById(
+        id: string
+    ): Promise<Content> {
+
+        const movie = await contentRepository.findById(id);
+
+        if (!movie || movie.contentType !== "movie") {
+
+            throw new ApiError(
+
+                HTTP_STATUS.NOT_FOUND,
+
+                "MOVIE_NOT_FOUND",
+
+                "Movie not found."
+
+            );
+
+        }
+
+        return movie;
+
+    }
+
+    public async getBySlug(
+        slug: string
+    ): Promise<Content> {
+
+        const movie = await contentRepository.findBySlug(slug);
+
+        if (!movie || movie.contentType !== "movie") {
+
+            throw new ApiError(
+
+                HTTP_STATUS.NOT_FOUND,
+
+                "MOVIE_NOT_FOUND",
+
+                "Movie not found."
+
+            );
+
+        }
+
+        return movie;
+
+    }
+
 }
 
-/**
- * Obtiene una película por su ID.
- */
-export async function getMovieById(id: string): Promise<Movie> {
-  const result = await pool.query(
-    `
-    SELECT
-      id,
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active,
-      created_at,
-      updated_at
-    FROM movies
-    WHERE id = $1
-      AND is_active = TRUE
-    LIMIT 1
-    `,
-    [id]
-  );
-
-  if (result.rows.length === 0) {
-    throw new Error("Película no encontrada.");
-  }
-
-  return result.rows[0];
-}
-
-/**
- * Obtiene una película por su slug.
- */
-export async function getMovieBySlug(slug: string): Promise<Movie> {
-  const result = await pool.query(
-    `
-    SELECT
-      id,
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active,
-      created_at,
-      updated_at
-    FROM movies
-    WHERE slug = $1
-      AND is_active = TRUE
-    LIMIT 1
-    `,
-    [slug]
-  );
-
-  if (result.rows.length === 0) {
-    throw new Error("Película no encontrada.");
-  }
-
-  return result.rows[0];
-}
-
-/**
- * Obtiene las películas destacadas.
- */
-export async function getFeaturedMovies(): Promise<Movie[]> {
-  const result = await pool.query(`
-    SELECT
-      id,
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active,
-      created_at,
-      updated_at
-    FROM movies
-    WHERE featured = TRUE
-      AND is_active = TRUE
-    ORDER BY popularity DESC
-    LIMIT 10
-  `);
-
-  return result.rows;
-}
-
-/**
- * Obtiene las películas en tendencia.
- */
-export async function getTrendingMovies(): Promise<Movie[]> {
-  const result = await pool.query(`
-    SELECT
-      id,
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active,
-      created_at,
-      updated_at
-    FROM movies
-    WHERE trending = TRUE
-      AND is_active = TRUE
-    ORDER BY popularity DESC
-    LIMIT 10
-  `);
-
-  return result.rows;
-}
-
-/**
- * Obtiene las últimas películas.
- */
-export async function getLatestMovies(): Promise<Movie[]> {
-  const result = await pool.query(`
-    SELECT
-      id,
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active,
-      created_at,
-      updated_at
-    FROM movies
-    WHERE is_active = TRUE
-    ORDER BY release_date DESC NULLS LAST
-    LIMIT 20
-  `);
-
-  return result.rows;
-}
-
-/**
- * Obtiene las películas recomendadas.
- */
-export async function getRecommendedMovies(): Promise<Movie[]> {
-  const result = await pool.query(`
-    SELECT
-      id,
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active,
-      created_at,
-      updated_at
-    FROM movies
-    WHERE recommended = TRUE
-      AND is_active = TRUE
-    ORDER BY popularity DESC
-    LIMIT 20
-  `);
-
-  return result.rows;
-}
-
-/**
- * Crea una nueva película.
- */
-export async function createMovie(movie: Movie): Promise<Movie> {
-  const result = await pool.query(
-    `
-    INSERT INTO movies (
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active
-    )
-    VALUES (
-      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,
-      $11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22
-    )
-    RETURNING
-      id,
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active,
-      created_at,
-      updated_at
-    `,
-    [
-      movie.title,
-      movie.original_title ?? null,
-      movie.slug,
-      movie.overview,
-      movie.tagline ?? null,
-      movie.poster_url,
-      movie.backdrop_url,
-      movie.logo_url ?? null,
-      movie.trailer_url ?? null,
-      movie.video_url ?? null,
-      movie.release_date ?? null,
-      movie.runtime ?? null,
-      movie.imdb_rating ?? null,
-      movie.atlas_rating ?? 0,
-      movie.maturity_rating ?? null,
-      movie.popularity ?? 0,
-      movie.views ?? 0,
-      movie.featured ?? false,
-      movie.trending ?? false,
-      movie.recommended ?? false,
-      movie.premium ?? false,
-      movie.is_active ?? true,
-    ]
-  );
-
-  return result.rows[0];
-}
-
-/**
- * Actualiza una película existente.
- */
-export async function updateMovie(
-  id: string,
-  movie: Partial<Movie>
-): Promise<Movie> {
-  const result = await pool.query(
-    `
-    UPDATE movies
-    SET
-      title = COALESCE($2, title),
-      original_title = COALESCE($3, original_title),
-      slug = COALESCE($4, slug),
-      overview = COALESCE($5, overview),
-      tagline = COALESCE($6, tagline),
-      poster_url = COALESCE($7, poster_url),
-      backdrop_url = COALESCE($8, backdrop_url),
-      logo_url = COALESCE($9, logo_url),
-      trailer_url = COALESCE($10, trailer_url),
-      video_url = COALESCE($11, video_url),
-      release_date = COALESCE($12, release_date),
-      runtime = COALESCE($13, runtime),
-      imdb_rating = COALESCE($14, imdb_rating),
-      atlas_rating = COALESCE($15, atlas_rating),
-      maturity_rating = COALESCE($16, maturity_rating),
-      popularity = COALESCE($17, popularity),
-      views = COALESCE($18, views),
-      featured = COALESCE($19, featured),
-      trending = COALESCE($20, trending),
-      recommended = COALESCE($21, recommended),
-      premium = COALESCE($22, premium),
-      is_active = COALESCE($23, is_active),
-      updated_at = NOW()
-    WHERE id = $1
-    RETURNING
-      id,
-      title,
-      original_title,
-      slug,
-      overview,
-      tagline,
-      poster_url,
-      backdrop_url,
-      logo_url,
-      trailer_url,
-      video_url,
-      release_date,
-      runtime,
-      imdb_rating,
-      atlas_rating,
-      maturity_rating,
-      popularity,
-      views,
-      featured,
-      trending,
-      recommended,
-      premium,
-      is_active,
-      created_at,
-      updated_at
-    `,
-    [
-      id,
-      movie.title ?? null,
-      movie.original_title ?? null,
-      movie.slug ?? null,
-      movie.overview ?? null,
-      movie.tagline ?? null,
-      movie.poster_url ?? null,
-      movie.backdrop_url ?? null,
-      movie.logo_url ?? null,
-      movie.trailer_url ?? null,
-      movie.video_url ?? null,
-      movie.release_date ?? null,
-      movie.runtime ?? null,
-      movie.imdb_rating ?? null,
-      movie.atlas_rating ?? null,
-      movie.maturity_rating ?? null,
-      movie.popularity ?? null,
-      movie.views ?? null,
-      movie.featured ?? null,
-      movie.trending ?? null,
-      movie.recommended ?? null,
-      movie.premium ?? null,
-      movie.is_active ?? null,
-    ]
-  );
-
-  if (result.rows.length === 0) {
-    throw new Error("Película no encontrada.");
-  }
-
-  return result.rows[0];
-}
-
-/**
- * Desactiva una película.
- */
-export async function deleteMovie(id: string): Promise<boolean> {
-  const result = await pool.query(
-    `
-    UPDATE movies
-    SET
-      is_active = FALSE,
-      updated_at = NOW()
-    WHERE id = $1
-    RETURNING id
-    `,
-    [id]
-  );
-
-  if (result.rows.length === 0) {
-    throw new Error("Película no encontrada.");
-  }
-
-  return true;
-}
+export default new MovieService();

@@ -2,47 +2,47 @@
  * ----------------------------------------------------------------
  * AtlasStream
  * ----------------------------------------------------------------
- * File: movie.routes.ts
- * Path: backend/src/routes/movie.routes.ts
+ * File: series.routes.ts
+ * Path: backend/src/routes/series.routes.ts
  * Author: ultramegared
  * Project: AtlasStream
  * Language: TypeScript
  * ----------------------------------------------------------------
  * Description:
- * Movie routes.
+ * Series routes.
  * ----------------------------------------------------------------
  */
 
 import { Router } from "express";
 
-import movieController from "@/controllers/movie.controller";
+import seriesController from "@/controllers/series.controller";
 
 import { validate } from "@/middleware";
 
 import {
-    movieIdSchema,
-    movieSlugSchema,
-    movieListSchema
-} from "@/validators/movies";
+    seriesIdSchema,
+    seriesSlugSchema,
+    seriesListSchema
+} from "@/validators/series";
 
 const router = Router();
 
 router.get(
     "/",
-    validate(movieListSchema),
-    movieController.getAll
+    validate(seriesListSchema),
+    seriesController.getAll
 );
 
 router.get(
     "/slug/:slug",
-    validate(movieSlugSchema),
-    movieController.getBySlug
+    validate(seriesSlugSchema),
+    seriesController.getBySlug
 );
 
 router.get(
     "/:id",
-    validate(movieIdSchema),
-    movieController.getById
+    validate(seriesIdSchema),
+    seriesController.getById
 );
 
 export default router;
