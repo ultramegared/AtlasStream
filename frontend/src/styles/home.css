@@ -1,0 +1,135 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: home.css
+Module: Frontend
+Language: CSS3
+Description:
+Home page styles.
+===============================================================
+*/
+
+/*
+===============================================================
+Hero Banner
+===============================================================
+*/
+
+.welcome {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 1rem;
+
+    min-height: 70vh;
+
+    padding: 2rem;
+
+}
+
+.welcome span {
+
+    color: #E50914;
+
+    font-size: .9rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+}
+
+.welcome h2 {
+
+    color: #FFFFFF;
+
+    font-size: 3rem;
+
+    font-weight: 800;
+
+}
+
+.welcome p {
+
+    max-width: 600px;
+
+    color: #B0B3C0;
+
+    font-size: 1rem;
+
+    line-height: 1.8;
+
+}
+
+.hero-actions {
+
+    display: flex;
+
+    gap: 1rem;
+
+}
+
+.hero-actions button {
+
+    padding: .9rem 1.8rem;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #E50914;
+
+    color: #FFFFFF;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.hero-actions button:last-child {
+
+    background: #23252F;
+
+}
+
+.hero-actions button:hover {
+
+    opacity: .9;
+
+}
+
+/*
+===============================================================
+Content Row
+===============================================================
+*/
+
+.content-row {
+
+    display: flex;
+
+    gap: 1.5rem;
+
+    overflow-x: auto;
+
+    padding: 1rem 0;
+
+}
+
+/*
+===============================================================
+Content Card
+===============================================================
+*/
+
+.content-card {
+
+    width: 180px

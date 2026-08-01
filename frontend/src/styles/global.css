@@ -1,0 +1,100 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: global.css
+Module: Frontend
+Language: CSS3
+Description:
+Global application styles.
+===============================================================
+*/
+
+@import "./variables.css";
+
+*,
+*::before,
+*::after {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+html {
+
+    font-size: 16px;
+
+    scroll-behavior: smooth;
+
+}
+
+body {
+
+    min-width: 320px;
+    min-height: 100vh;
+
+    background-color: #0B0F1A;
+
+    color: #FFFFFF;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    line-height: 1.5;
+
+    overflow-x: hidden;
+
+}
+
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+button {
+
+    border: none;
+
+    background: none;
+
+    font: inherit;
+
+    cursor: pointer;
+
+}
+
+img {
+
+    display: block;
+
+    max-width: 100%;
+
+}
+
+ul,
+ol {
+
+    list-style: none;
+
+}
+
+input,
+textarea,
+select {
+
+    font: inherit;
+
+    outline: none;
+
+}
+@import "./home.css";

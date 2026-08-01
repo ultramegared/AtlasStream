@@ -1,0 +1,55 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: variables.css
+Module: Frontend
+Language: CSS3
+Description:
+Global CSS variables.
+===============================================================
+*/
+
+:root {
+
+    /*
+    ===============================================================
+    Colors
+    ===============================================================
+    */
+
+    --color-primary: #0066FF;
+
+    --color-background: #0B0F1A;
+
+    --color-surface: #171B2A;
+
+    --color-surface-hover: #23283A;
+
+    --color-border: #1F2435;
+
+    --color-text: #FFFFFF;
+
+    --color-text-secondary: #B0B3C0;
+
+    /*
+    ===============================================================
+    Border Radius
+    ===============================================================
+    */
+
+    --radius-small: 8px;
+
+    --radius-medium: 12px;
+
+    --radius-large: 16px;
+
+    /*
+    ===============================================================
+    Transition
+    ===============================================================
+    */
+
+    --transition-default: .3s ease;
+
+}
