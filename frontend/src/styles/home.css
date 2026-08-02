@@ -54,45 +54,65 @@ Content Sections
 
 }
 
-.content-section__controls {
+/*
+===============================================================
+Swiper Content Row
+===============================================================
+*/
 
-    display: flex;
+.content-row {
 
-    gap: .75rem;
+    width: 100%;
+
+    padding: .5rem 0 1.5rem;
 
 }
 
-.content-section__button {
+.content-row .swiper-wrapper {
 
-    width: 42px;
+    align-items: stretch;
 
-    height: 42px;
+}
 
-    display: flex;
+.content-row .swiper-slide {
 
-    align-items: center;
+    width: auto;
 
-    justify-content: center;
+    height: auto;
 
-    border: none;
+}
+
+/*
+===============================================================
+Swiper Navigation
+===============================================================
+*/
+
+.content-row .swiper-button-prev,
+.content-row .swiper-button-next {
+
+    width: 46px;
+
+    height: 46px;
 
     border-radius: 50%;
 
-    background: rgba(255,255,255,.08);
+    background: rgba(12, 17, 28, .82);
 
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(18px);
 
-    -webkit-backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(18px);
 
     color: #ffffff;
 
-    cursor: pointer;
+    transition: .30s ease;
 
-    transition: .25s ease;
+    box-shadow: 0 8px 24px rgba(0,0,0,.35);
 
 }
 
-.content-section__button:hover {
+.content-row .swiper-button-prev:hover,
+.content-row .swiper-button-next:hover {
 
     background: #E50914;
 
@@ -100,33 +120,12 @@ Content Sections
 
 }
 
-/*
-===============================================================
-Content Row
-===============================================================
-*/
+.content-row .swiper-button-prev::after,
+.content-row .swiper-button-next::after {
 
-.content-row {
+    font-size: 16px;
 
-    display: flex;
-
-    gap: 1.5rem;
-
-    overflow-x: auto;
-
-    overflow-y: hidden;
-
-    padding: .5rem 0 1rem;
-
-    scrollbar-width: none;
-
-    scroll-behavior: smooth;
-
-}
-
-.content-row::-webkit-scrollbar {
-
-    display: none;
+    font-weight: 700;
 
 }
 
@@ -166,11 +165,10 @@ Responsive
 
     }
 
-    .content-section__button {
+    .content-row .swiper-button-prev,
+    .content-row .swiper-button-next {
 
-        width: 36px;
-
-        height: 36px;
+        display: none;
 
     }
 
