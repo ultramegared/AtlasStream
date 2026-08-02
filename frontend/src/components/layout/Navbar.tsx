@@ -6,12 +6,17 @@
  * Module: Frontend
  * Language: TypeScript React
  * Description:
- * Main navigation bar.
+ * Premium navigation bar.
  * ===============================================================
  */
 
+import {
+    FaSearch,
+    FaBell,
+    FaChevronDown
+} from "react-icons/fa";
+
 import Logo from "../common/Logo";
-import "../../styles/navbar.css";
 
 function Navbar() {
 
@@ -27,14 +32,10 @@ function Navbar() {
 
                     <ul className="navbar__menu">
 
-                        <li>Home</li>
-
+                        <li className="active">Home</li>
                         <li>Movies</li>
-
                         <li>Series</li>
-
                         <li>TV Live</li>
-
                         <li>My List</li>
 
                     </ul>
@@ -47,19 +48,31 @@ function Navbar() {
 
                 <button className="navbar__icon">
 
-                    Search
+                    <FaSearch />
 
                 </button>
 
-                <button className="navbar__icon">
+                <button className="navbar__icon notification">
 
-                    Notifications
+                    <FaBell />
+
+                    <span className="notification__badge">
+
+                        3
+
+                    </span>
 
                 </button>
 
                 <button className="navbar__profile">
 
                     U
+
+                </button>
+
+                <button className="navbar__icon">
+
+                    <FaChevronDown />
 
                 </button>
 
@@ -71,4 +84,4 @@ function Navbar() {
 
 }
 
-export default Navbar;  
+export default Navbar;
