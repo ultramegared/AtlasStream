@@ -13,8 +13,8 @@
 import {
 
     FaHeart,
-    FaPlay,
-    FaInfoCircle
+    FaInfoCircle,
+    FaPlay
 
 } from "react-icons/fa";
 
@@ -84,7 +84,7 @@ function ContentCard({
 
                         <button
                             className="content-card__action"
-                            aria-label="More Info"
+                            aria-label="More Information"
                         >
 
                             <FaInfoCircle />
@@ -120,6 +120,74 @@ function ContentCard({
                                 {content.year}
 
                             </span>
+
+                            <span>
+
+                                {content.duration}
+
+                            </span>
+
+                        </div>
+
+                        <div
+                            className="content-card__badges"
+                        >
+
+                            <span>
+
+                                {content.type}
+
+                            </span>
+
+                            <span>
+
+                                {content.quality}
+
+                            </span>
+
+                            <span>
+
+                                {content.language}
+
+                            </span>
+
+                        </div>
+
+                        <p
+                            className="content-card__description"
+                        >
+
+                            {content.description}
+
+                        </p>
+
+                        <div
+                            className="content-card__genres"
+                        >
+
+                            {
+
+                                content.genres.map(
+
+                                    (
+
+                                        genre
+
+                                    ) => (
+
+                                        <span
+                                            key={genre}
+                                        >
+
+                                            {genre}
+
+                                        </span>
+
+                                    )
+
+                                )
+
+                            }
 
                         </div>
 
