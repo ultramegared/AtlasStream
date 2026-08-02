@@ -6,14 +6,23 @@
  * Module: Frontend
  * Language: TypeScript React
  * Description:
- * Content card component.
+ * Premium content card component.
  * ===============================================================
  */
 
+import {
+
+    FaHeart,
+    FaPlay
+
+} from "react-icons/fa";
+
 import Content from "../../types/Content";
+
 import "./ContentCard.css";
 
-interface ContentCardProps {
+interface ContentCardProps
+{
 
     content: Content;
 
@@ -23,31 +32,70 @@ function ContentCard({
 
     content
 
-}: ContentCardProps) {
+}: ContentCardProps)
+{
 
     return (
 
-        <article className="content-card">
+        <article
+            className="content-card"
+        >
 
-            <img
+            <div
+                className="content-card__image"
+            >
 
-                className="content-card__poster"
+                <img
 
-                src={content.poster}
+                    className="content-card__poster"
 
-                alt={content.title}
+                    src={content.poster}
 
-            />
+                    alt={content.title}
 
-            <div className="content-card__info">
+                />
 
-                <h3 className="content-card__title">
+                <div
+                    className="content-card__overlay"
+                >
+
+                    <button
+                        className="content-card__action content-card__action--play"
+                        aria-label="Play"
+                    >
+
+                        <FaPlay />
+
+                    </button>
+
+                    <button
+                        className="content-card__action"
+                        aria-label="Favorite"
+                    >
+
+                        <FaHeart />
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div
+                className="content-card__info"
+            >
+
+                <h3
+                    className="content-card__title"
+                >
 
                     {content.title}
 
                 </h3>
 
-                <div className="content-card__meta">
+                <div
+                    className="content-card__meta"
+                >
 
                     <span>
 
