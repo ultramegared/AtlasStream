@@ -10,6 +10,8 @@
  * ===============================================================
  */
 
+import heroBackground from "../assets/images/hero-background.jpg";
+
 export interface FeaturedMovie
 {
 
@@ -45,7 +47,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "Humanity's last hope travels beyond the stars to uncover the origin of an ancient signal while fighting for the survival of civilization.",
 
-        image: "/images/hero-background.jpg",
+        image: heroBackground,
 
         year: "2026",
 
@@ -77,7 +79,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "A secret buried beneath the ocean awakens an ancient force capable of changing the future of mankind.",
 
-        image: "/images/hero-background.jpg",
+        image: heroBackground,
 
         year: "2025",
 
@@ -109,7 +111,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "The final colony on Mars fights to survive after losing all communication with Earth.",
 
-        image: "/images/hero-background.jpg",
+        image: heroBackground,
 
         year: "2024",
 
@@ -141,7 +143,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "A legendary hacker discovers an artificial intelligence hidden inside the world's largest network.",
 
-        image: "/images/hero-background.jpg",
+        image: heroBackground,
 
         year: "2026",
 
@@ -173,7 +175,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "An unexpected solar eclipse reveals a parallel world where history took a different path.",
 
-        image: "/images/hero-background.jpg",
+        image: heroBackground,
 
         year: "2025",
 
