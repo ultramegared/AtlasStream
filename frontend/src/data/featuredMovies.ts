@@ -10,7 +10,11 @@
  * ===============================================================
  */
 
-import heroBackground from "../assets/images/hero-background.jpg";
+import heroNebulaRising from "../assets/images/hero-nebula-rising.jpg";
+import heroDarkOrigin from "../assets/images/hero-dark-origin.jpg";
+import heroLastHorizon from "../assets/images/hero-last-horizon.jpg";
+import heroCodeAlpha from "../assets/images/hero-code-alpha.jpg";
+import heroEclipseTomorrow from "../assets/images/hero-eclipse-tomorrow.jpg";
 
 export interface FeaturedMovie
 {
@@ -47,7 +51,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "Humanity's last hope travels beyond the stars to uncover the origin of an ancient signal while fighting for the survival of civilization.",
 
-        image: heroBackground,
+        image: heroNebulaRising,
 
         year: "2026",
 
@@ -79,7 +83,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "A secret buried beneath the ocean awakens an ancient force capable of changing the future of mankind.",
 
-        image: heroBackground,
+        image: heroDarkOrigin,
 
         year: "2025",
 
@@ -111,7 +115,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "The final colony on Mars fights to survive after losing all communication with Earth.",
 
-        image: heroBackground,
+        image: heroLastHorizon,
 
         year: "2024",
 
@@ -143,7 +147,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "A legendary hacker discovers an artificial intelligence hidden inside the world's largest network.",
 
-        image: heroBackground,
+        image: heroCodeAlpha,
 
         year: "2026",
 
@@ -175,7 +179,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "An unexpected solar eclipse reveals a parallel world where history took a different path.",
 
-        image: heroBackground,
+        image: heroEclipseTomorrow,
 
         year: "2025",
 
