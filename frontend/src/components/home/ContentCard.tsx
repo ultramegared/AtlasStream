@@ -18,6 +18,12 @@ import {
 
 } from "react-icons/fa";
 
+import {
+
+    useNavigate
+
+} from "react-router-dom";
+
 import Content from "../../types/Content";
 
 import "./ContentCard.css";
@@ -36,10 +42,27 @@ function ContentCard({
 }: ContentCardProps)
 {
 
+    const navigate = useNavigate();
+
+    function openDetails()
+    {
+
+        navigate(
+
+            `/movies/${content.id}`
+
+        );
+
+    }
+
     return (
 
         <article
+
             className="content-card"
+
+            onClick={openDetails}
+
         >
 
             <div
@@ -65,8 +88,19 @@ function ContentCard({
                     >
 
                         <button
+
                             className="content-card__action content-card__action--play"
+
                             aria-label="Play"
+
+                            onClick={(event) => {
+
+                                event.stopPropagation();
+
+                                navigate(`/movies/${content.id}`);
+
+                            }}
+
                         >
 
                             <FaPlay />
@@ -74,8 +108,17 @@ function ContentCard({
                         </button>
 
                         <button
+
                             className="content-card__action"
+
                             aria-label="Favorite"
+
+                            onClick={(event) => {
+
+                                event.stopPropagation();
+
+                            }}
+
                         >
 
                             <FaHeart />
@@ -83,8 +126,19 @@ function ContentCard({
                         </button>
 
                         <button
+
                             className="content-card__action"
+
                             aria-label="More Information"
+
+                            onClick={(event) => {
+
+                                event.stopPropagation();
+
+                                openDetails();
+
+                            }}
+
                         >
 
                             <FaInfoCircle />
@@ -96,111 +150,5 @@ function ContentCard({
                     <div
                         className="content-card__details"
                     >
-
-                        <h3
-                            className="content-card__title"
-                        >
-
-                            {content.title}
-
-                        </h3>
-
-                        <div
-                            className="content-card__meta"
-                        >
-
-                            <span>
-
-                                ⭐ {content.rating}
-
-                            </span>
-
-                            <span>
-
-                                {content.year}
-
-                            </span>
-
-                            <span>
-
-                                {content.duration}
-
-                            </span>
-
-                        </div>
-
-                        <div
-                            className="content-card__badges"
-                        >
-
-                            <span>
-
-                                {content.type}
-
-                            </span>
-
-                            <span>
-
-                                {content.quality}
-
-                            </span>
-
-                            <span>
-
-                                {content.language}
-
-                            </span>
-
-                        </div>
-
-                        <p
-                            className="content-card__description"
-                        >
-
-                            {content.description}
-
-                        </p>
-
-                        <div
-                            className="content-card__genres"
-                        >
-
-                            {
-
-                                content.genres.map(
-
-                                    (
-
-                                        genre
-
-                                    ) => (
-
-                                        <span
-                                            key={genre}
-                                        >
-
-                                            {genre}
-
-                                        </span>
-
-                                    )
-
-                                )
-
-                            }
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-    );
-
-}
-
-export default ContentCard;
+                    
+                    

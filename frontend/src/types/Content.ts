@@ -33,6 +33,10 @@ export default interface Content
 
     format: string;
 
+    type: string;
+
+    language: string;
+
     genres: string[];
 
     director: string;
