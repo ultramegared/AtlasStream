@@ -1,0 +1,121 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: navbar.css
+Module: Frontend
+Language: CSS3
+Description:
+Navbar styles.
+===============================================================
+*/
+
+.navbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 1.5rem 3rem;
+
+    background: var(--color-navbar);
+
+    border-bottom: 1px solid var(--color-border);
+
+}
+
+.navbar__left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 3rem;
+
+}
+
+.navbar__menu {
+
+    display: flex;
+
+    gap: 2rem;
+
+}
+
+.navbar__menu li {
+
+    color: var(--color-text-secondary);
+
+    font-size: .95rem;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: var(--transition-default);
+
+}
+
+.navbar__menu li:hover {
+
+    color: var(--color-text);
+
+}
+
+.navbar__right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+}
+
+.navbar__icon {
+
+    padding: .6rem 1rem;
+
+    border: none;
+
+    border-radius: var(--radius-medium);
+
+    background: transparent;
+
+    color: var(--color-text-secondary);
+
+    cursor: pointer;
+
+    transition: var(--transition-default);
+
+}
+
+.navbar__icon:hover {
+
+    background: var(--color-surface);
+
+    color: var(--color-text);
+
+}
+
+.navbar__profile {
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--color-accent);
+
+    color: var(--color-text);
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}

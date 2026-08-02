@@ -10,44 +10,60 @@
  * ===============================================================
  */
 
+import heroBackground from "../../assets/images/hero-background.jpg";
+
 function HeroBanner() {
 
     return (
 
-        <section className="welcome">
+        <section
 
-            <span>
+            className="hero"
 
-                Featured
+            style={{
 
-            </span>
+                backgroundImage: `url(${heroBackground})`
 
-            <h2>
+            }}
 
-                Nebula Rising
+        >
 
-            </h2>
+            <div className="hero__content">
 
-            <p>
+                <span className="hero__badge">
 
-                Humanity's last hope travels beyond the stars to
-                uncover the origin of an ancient signal.
+                    Featured
 
-            </p>
+                </span>
 
-            <div>
+                <h1 className="hero__title">
 
-                <button>
+                    Nebula Rising
 
-                    ▶ Watch Now
+                </h1>
 
-                </button>
+                <p className="hero__description">
 
-                <button>
+                    Humanity's last hope travels beyond the stars
+                    to uncover the origin of an ancient signal.
 
-                    + My List
+                </p>
 
-                </button>
+                <div className="hero__actions">
+
+                    <button className="hero__button hero__button--primary">
+
+                        ▶ Watch Now
+
+                    </button>
+
+                    <button className="hero__button hero__button--secondary">
+
+                        + My List
+
+                    </button>
+
+                </div>
 
             </div>
 

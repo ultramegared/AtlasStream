@@ -1,0 +1,39 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: logo.css
+Module: Frontend
+Language: CSS3
+Description:
+Logo styles.
+===============================================================
+*/
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    font-size: 1.8rem;
+
+    font-weight: 900;
+
+    user-select: none;
+
+}
+
+.logo__atlas {
+
+    color: var(--color-text);
+
+}
+
+.logo__stream {
+
+    margin-left: .15rem;
+
+    color: var(--color-accent);
+
+}

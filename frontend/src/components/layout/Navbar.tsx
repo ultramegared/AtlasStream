@@ -10,46 +10,64 @@
  * ===============================================================
  */
 
+import Logo from "../common/Logo";
+
 function Navbar() {
 
     return (
 
-        <nav className="navbar">
+        <header className="navbar">
 
-            <div className="navbar__logo">
+            <div className="navbar__left">
 
-                AtlasStream
+                <Logo />
 
-            </div>
+                <nav>
 
-            <ul className="navbar__menu">
+                    <ul className="navbar__menu">
 
-                <li>Home</li>
+                        <li>Home</li>
 
-                <li>Movies</li>
+                        <li>Movies</li>
 
-                <li>Series</li>
+                        <li>Series</li>
 
-                <li>TV Live</li>
+                        <li>TV Live</li>
 
-                <li>My List</li>
+                        <li>My List</li>
 
-            </ul>
+                    </ul>
 
-            <div className="navbar__actions">
-
-                🔍
-
-                🔔
-
-                👤
+                </nav>
 
             </div>
 
-        </nav>
+            <div className="navbar__right">
+
+                <button className="navbar__icon">
+
+                    Search
+
+                </button>
+
+                <button className="navbar__icon">
+
+                    Notifications
+
+                </button>
+
+                <button className="navbar__profile">
+
+                    U
+
+                </button>
+
+            </div>
+
+        </header>
 
     );
 
 }
 
-export default Navbar;
+export default Navbar;  

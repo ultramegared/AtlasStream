@@ -10,15 +10,18 @@
  * ===============================================================
  */
 
+import Content from "../../types/Content";
+import "./ContentCard.css";
+
 interface ContentCardProps {
 
-    title: string;
+    content: Content;
 
 }
 
 function ContentCard({
 
-    title
+    content
 
 }: ContentCardProps) {
 
@@ -26,17 +29,41 @@ function ContentCard({
 
         <article className="content-card">
 
-            <div className="content-card__poster">
+            <img
 
-                Poster
+                className="content-card__poster"
+
+                src={content.poster}
+
+                alt={content.title}
+
+            />
+
+            <div className="content-card__info">
+
+                <h3 className="content-card__title">
+
+                    {content.title}
+
+                </h3>
+
+                <div className="content-card__meta">
+
+                    <span>
+
+                        {content.year}
+
+                    </span>
+
+                    <span>
+
+                        ⭐ {content.rating}
+
+                    </span>
+
+                </div>
 
             </div>
-
-            <h3 className="content-card__title">
-
-                {title}
-
-            </h3>
 
         </article>
 

@@ -1,3 +1,9 @@
+@import "./variables.css";
+@import "./logo.css";
+@import "./navbar.css";
+@import "./hero.css";
+@import "./home.css";
+
 /*
 ===============================================================
 Author: ultramegared
@@ -10,13 +16,12 @@ Global application styles.
 ===============================================================
 */
 
-@import "./variables.css";
-
 *,
 *::before,
 *::after {
 
     margin: 0;
+
     padding: 0;
 
     box-sizing: border-box;
@@ -34,11 +39,12 @@ html {
 body {
 
     min-width: 320px;
+
     min-height: 100vh;
 
-    background-color: #0B0F1A;
+    background: var(--color-background);
 
-    color: #FFFFFF;
+    color: var(--color-text);
 
     font-family:
         Inter,
@@ -63,13 +69,11 @@ a {
 
 button {
 
-    border: none;
-
-    background: none;
-
     font: inherit;
 
-    cursor: pointer;
+    border: none;
+
+    outline: none;
 
 }
 
@@ -87,14 +91,3 @@ ol {
     list-style: none;
 
 }
-
-input,
-textarea,
-select {
-
-    font: inherit;
-
-    outline: none;
-
-}
-@import "./home.css";

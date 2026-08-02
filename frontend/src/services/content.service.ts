@@ -10,6 +10,8 @@
  * ===============================================================
  */
 
+import placeholderPoster from "../assets/images/placeholder-poster.jpg";
+
 import Content from "../types/Content";
 
 class ContentService {
@@ -21,22 +23,30 @@ class ContentService {
             {
                 id: "1",
                 title: "Nebula Rising",
-                poster: ""
+                poster: placeholderPoster,
+                year: 2025,
+                rating: 9.4
             },
             {
                 id: "2",
                 title: "The Last Kingdom",
-                poster: ""
+                poster: placeholderPoster,
+                year: 2024,
+                rating: 8.9
             },
             {
                 id: "3",
                 title: "Dark Horizon",
-                poster: ""
+                poster: placeholderPoster,
+                year: 2025,
+                rating: 9.1
             },
             {
                 id: "4",
                 title: "Cyber City",
-                poster: ""
+                poster: placeholderPoster,
+                year: 2025,
+                rating: 8.8
             }
 
         ];
