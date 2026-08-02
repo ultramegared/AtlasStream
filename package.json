@@ -6,6 +6,7 @@
   "author": "ultramegared",
   "license": "UNLICENSED",
   "workspaces": [
+    "frontend",
     "apps/*",
     "packages/*",
     "backend"
