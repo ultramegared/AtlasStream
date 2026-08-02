@@ -31,10 +31,16 @@ export default interface Content
 
     quality: string;
 
-    language: string;
-
-    type: "Movie" | "Series";
+    format: string;
 
     genres: string[];
+
+    director: string;
+
+    cast: string[];
+
+    languages: string[];
+
+    subtitles: string[];
 
 }

@@ -6,7 +6,7 @@
  * Module: Frontend
  * Language: TypeScript
  * Description:
- * Content service.
+ * Mock content service.
  * ===============================================================
  */
 
@@ -15,156 +15,98 @@ import Content from "../types/Content";
 class ContentService
 {
 
+    private readonly contents: Content[] = [
+
+        {
+
+            id: "1",
+
+            title: "Nebula Rising",
+
+            description:
+                "Humanity's last hope travels beyond the stars to uncover the origin of an ancient signal while fighting for the survival of civilization.",
+
+            poster:
+                "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+
+            backdrop:
+                "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1920&q=80",
+
+            year: 2026,
+
+            duration: "2h 18m",
+
+            rating: 8.9,
+
+            quality: "HDR",
+
+            format: "4K",
+
+            genres: [
+
+                "Science Fiction",
+
+                "Adventure",
+
+                "Action"
+
+            ],
+
+            director: "James Carter",
+
+            cast: [
+
+                "Emma Stone",
+
+                "Chris Evans",
+
+                "Oscar Isaac"
+
+            ],
+
+            languages: [
+
+                "English",
+
+                "Spanish"
+
+            ],
+
+            subtitles: [
+
+                "English",
+
+                "Spanish",
+
+                "Portuguese"
+
+            ]
+
+        }
+
+    ];
+
     public getTrending(): Content[]
     {
 
-        return [
+        return this.contents;
 
-            {
+    }
 
-                id: "1",
+    public getById(
+        id: string
+    ): Content | undefined
+    {
 
-                title: "Nebula Rising",
+        return this.contents.find(
 
-                description: "Humanity's last hope travels beyond the stars to uncover the origin of an ancient signal.",
+            (
 
-                poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+                content
 
-                backdrop: "https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+            ) => content.id === id
 
-                year: 2025,
-
-                duration: "2h 18m",
-
-                rating: 9.4,
-
-                quality: "4K HDR",
-
-                language: "EN",
-
-                type: "Movie",
-
-                genres: [
-
-                    "Science Fiction",
-
-                    "Adventure",
-
-                    "Action"
-
-                ]
-
-            },
-
-            {
-
-                id: "2",
-
-                title: "The Last Kingdom",
-
-                description: "A legendary warrior fights to unite kingdoms during the Viking invasion.",
-
-                poster: "https://image.tmdb.org/t/p/w500/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
-
-                backdrop: "https://image.tmdb.org/t/p/original/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
-
-                year: 2024,
-
-                duration: "1h 58m",
-
-                rating: 8.9,
-
-                quality: "4K",
-
-                language: "EN",
-
-                type: "Series",
-
-                genres: [
-
-                    "Drama",
-
-                    "Action",
-
-                    "History"
-
-                ]
-
-            },
-
-            {
-
-                id: "3",
-
-                title: "Dark Horizon",
-
-                description: "A mysterious object appears beyond the solar system threatening mankind.",
-
-                poster: "https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
-
-                backdrop: "https://image.tmdb.org/t/p/original/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
-
-                year: 2025,
-
-                duration: "2h 05m",
-
-                rating: 9.1,
-
-                quality: "4K HDR",
-
-                language: "EN",
-
-                type: "Movie",
-
-                genres: [
-
-                    "Sci-Fi",
-
-                    "Thriller",
-
-                    "Adventure"
-
-                ]
-
-            },
-
-            {
-
-                id: "4",
-
-                title: "Cyber City",
-
-                description: "A cyber detective uncovers the biggest conspiracy in a futuristic metropolis.",
-
-                poster: "https://image.tmdb.org/t/p/w500/6izwz7rsy95ARzTR3poZ8H6c5pp.jpg",
-
-                backdrop: "https://image.tmdb.org/t/p/original/6izwz7rsy95ARzTR3poZ8H6c5pp.jpg",
-
-                year: 2025,
-
-                duration: "2h 09m",
-
-                rating: 8.8,
-
-                quality: "Dolby Vision",
-
-                language: "EN",
-
-                type: "Movie",
-
-                genres: [
-
-                    "Cyberpunk",
-
-                    "Action",
-
-                    "Thriller"
-
-                ]
-
-            }
-
-        ];
+        );
 
     }
 

@@ -1,0 +1,361 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: details.css
+Module: Frontend
+Language: CSS3
+Description:
+Movie details page styles.
+===============================================================
+*/
+
+/*
+===============================================================
+Details Hero
+===============================================================
+*/
+
+.details {
+
+    min-height: 100vh;
+
+    background: var(--color-background);
+
+}
+
+.details__hero {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    background-position: center;
+
+    background-size: cover;
+
+    background-repeat: no-repeat;
+
+    padding: 120px 60px 80px;
+
+}
+
+.details__overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            rgba(8,10,20,.96) 0%,
+
+            rgba(8,10,20,.78) 45%,
+
+            rgba(8,10,20,.45) 100%
+
+        );
+
+}
+
+.details__content {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 760px;
+
+}
+
+.details__badge {
+
+    display: inline-block;
+
+    padding: .7rem 1.6rem;
+
+    border-radius: 999px;
+
+    background: #E50914;
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    letter-spacing: .12rem;
+
+    margin-bottom: 1.8rem;
+
+}
+
+.details__title {
+
+    color: #ffffff;
+
+    font-size: clamp(3rem,7vw,5rem);
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+    margin-bottom: 1.5rem;
+
+}
+
+.details__meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: .8rem;
+
+    margin-bottom: 2rem;
+
+}
+
+.details__meta span {
+
+    padding: .75rem 1.2rem;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.10);
+
+    backdrop-filter: blur(16px);
+
+    color: #ffffff;
+
+}
+
+/*
+===============================================================
+Description
+===============================================================
+*/
+
+.details__description {
+
+    color: rgba(255,255,255,.88);
+
+    font-size: 1.1rem;
+
+    line-height: 1.8;
+
+    margin-bottom: 2rem;
+
+}
+
+/*
+===============================================================
+Genres
+===============================================================
+*/
+
+.details__genres {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: .8rem;
+
+    margin-bottom: 2.5rem;
+
+}
+
+.details__genres span {
+
+    padding: .65rem 1.2rem;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.08);
+
+    color: #ffffff;
+
+    font-size: .92rem;
+
+}
+
+/*
+===============================================================
+Buttons
+===============================================================
+*/
+
+.details__actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 1rem;
+
+    margin-bottom: 3rem;
+
+}
+
+.details__button {
+
+    padding: .95rem 1.8rem;
+
+    border: none;
+
+    border-radius: var(--radius-large);
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    transition: .30s ease;
+
+}
+
+.details__button--primary {
+
+    background: #E50914;
+
+    color: #ffffff;
+
+}
+
+.details__button--primary:hover {
+
+    transform: translateY(-2px);
+
+    background: #ff1f2d;
+
+}
+
+.details__button--secondary {
+
+    background: rgba(255,255,255,.10);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    color: #ffffff;
+
+}
+
+.details__button--secondary:hover {
+
+    background: rgba(255,255,255,.18);
+
+}
+
+/*
+===============================================================
+Information
+===============================================================
+*/
+
+.details__information {
+
+    margin-top: 3rem;
+
+}
+
+.details__information h2 {
+
+    color: #ffffff;
+
+    margin-bottom: 1rem;
+
+    font-size: 1.5rem;
+
+}
+
+.details__information p {
+
+    color: rgba(255,255,255,.75);
+
+    line-height: 1.9;
+
+}
+
+/*
+===============================================================
+Specifications
+===============================================================
+*/
+
+.details__specifications {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+
+    gap: 1.5rem;
+
+    margin-top: 3rem;
+
+}
+
+.details__specifications div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .45rem;
+
+}
+
+.details__specifications strong {
+
+    color: #ffffff;
+
+}
+
+.details__specifications span {
+
+    color: rgba(255,255,255,.70);
+
+}
+
+/*
+===============================================================
+Responsive
+===============================================================
+*/
+
+@media (max-width: 900px) {
+
+    .details__hero {
+
+        padding: 110px 24px 60px;
+
+    }
+
+    .details__title {
+
+        font-size: 2.5rem;
+
+    }
+
+    .details__actions {
+
+        flex-direction: column;
+
+    }
+
+    .details__button {
+
+        width: 100%;
+
+    }
+
+}
