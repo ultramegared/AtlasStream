@@ -30,6 +30,78 @@ Home Container
 
 /*
 ===============================================================
+Content Sections
+===============================================================
+*/
+
+.content-section {
+
+    position: relative;
+
+    padding: 0 48px;
+
+}
+
+.content-section__header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 1rem;
+
+}
+
+.content-section__controls {
+
+    display: flex;
+
+    gap: .75rem;
+
+}
+
+.content-section__button {
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    backdrop-filter: blur(16px);
+
+    -webkit-backdrop-filter: blur(16px);
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+    transition: .25s ease;
+
+}
+
+.content-section__button:hover {
+
+    background: #E50914;
+
+    transform: scale(1.08);
+
+}
+
+/*
+===============================================================
 Content Row
 ===============================================================
 */
@@ -44,7 +116,7 @@ Content Row
 
     overflow-y: hidden;
 
-    padding: 1rem 0;
+    padding: .5rem 0 1rem;
 
     scrollbar-width: none;
 
@@ -60,95 +132,11 @@ Content Row
 
 /*
 ===============================================================
-Content Card
+Section Title
 ===============================================================
 */
-
-.content-card {
-
-    width: 180px;
-
-    flex-shrink: 0;
-
-    cursor: pointer;
-
-    transition: transform .30s ease;
-
-}
-
-.content-card:hover {
-
-    transform: translateY(-6px);
-
-}
-
-.content-card__poster {
-
-    width: 180px;
-
-    height: 260px;
-
-    object-fit: cover;
-
-    border-radius: var(--radius-large);
-
-    background: var(--color-surface);
-
-    transition: transform .30s ease;
-
-}
-
-.content-card:hover .content-card__poster {
-
-    transform: scale(1.04);
-
-}
-
-.content-card__info {
-
-    padding-top: .75rem;
-
-}
-
-.content-card__title {
-
-    color: var(--color-text);
-
-    font-size: .95rem;
-
-    font-weight: 600;
-
-}
-
-.content-card__meta {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-top: .35rem;
-
-    color: var(--color-text-secondary);
-
-    font-size: .85rem;
-
-}
-
-/*
-===============================================================
-Sections
-===============================================================
-*/
-
-section {
-
-    padding: 0 48px;
-
-}
 
 section h2 {
-
-    margin-bottom: 1rem;
 
     color: var(--color-text);
 
@@ -172,23 +160,17 @@ Responsive
 
     }
 
-    section {
+    .content-section {
 
         padding: 0 20px;
 
     }
 
-    .content-card {
+    .content-section__button {
 
-        width: 145px;
+        width: 36px;
 
-    }
-
-    .content-card__poster {
-
-        width: 145px;
-
-        height: 210px;
+        height: 36px;
 
     }
 
