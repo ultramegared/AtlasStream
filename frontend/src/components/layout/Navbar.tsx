@@ -10,40 +10,139 @@
  * ===============================================================
  */
 
-import { useState } from "react";
+import {
+
+    useEffect,
+    useState
+
+} from "react";
 
 import {
-    FaSearch,
+
+    FaBars,
     FaBell,
-    FaBars
+    FaSearch
+
 } from "react-icons/fa";
 
 import Logo from "../common/Logo";
 import MobileMenu from "./MobileMenu";
 
-function Navbar() {
+function Navbar()
+{
 
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [
+
+        menuOpen,
+
+        setMenuOpen
+
+    ] = useState(false);
+
+    const [
+
+        scrolled,
+
+        setScrolled
+
+    ] = useState(false);
+
+    useEffect(
+
+        () =>
+
+        {
+
+            function handleScroll()
+            {
+
+                setScrolled(
+
+                    window.scrollY > 40
+
+                );
+
+            }
+
+            window.addEventListener(
+
+                "scroll",
+
+                handleScroll
+
+            );
+
+            return () =>
+
+                window.removeEventListener(
+
+                    "scroll",
+
+                    handleScroll
+
+                );
+
+        },
+
+        []
+
+    );
 
     return (
 
         <>
 
-            <header className="navbar">
+            <header
 
-                <div className="navbar__left">
+                className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}
+
+            >
+
+                <div
+
+                    className="navbar__left"
+
+                >
 
                     <Logo />
 
                     <nav>
 
-                        <ul className="navbar__menu">
+                        <ul
 
-                            <li className="active">Home</li>
-                            <li>Movies</li>
-                            <li>Series</li>
-                            <li>TV Live</li>
-                            <li>My List</li>
+                            className="navbar__menu"
+
+                        >
+
+                            <li className="active">
+
+                                Home
+
+                            </li>
+
+                            <li>
+
+                                Movies
+
+                            </li>
+
+                            <li>
+
+                                Series
+
+                            </li>
+
+                            <li>
+
+                                TV Live
+
+                            </li>
+
+                            <li>
+
+                                My List
+
+                            </li>
 
                         </ul>
 
@@ -51,11 +150,18 @@ function Navbar() {
 
                 </div>
 
-                <div className="navbar__right">
+                <div
+
+                    className="navbar__right"
+
+                >
 
                     <button
+
                         className="navbar__icon"
+
                         aria-label="Search"
+
                     >
 
                         <FaSearch />
@@ -63,13 +169,20 @@ function Navbar() {
                     </button>
 
                     <button
+
                         className="navbar__icon notification"
+
                         aria-label="Notifications"
+
                     >
 
                         <FaBell />
 
-                        <span className="notification__badge">
+                        <span
+
+                            className="notification__badge"
+
+                        >
 
                             3
 
@@ -78,8 +191,11 @@ function Navbar() {
                     </button>
 
                     <button
+
                         className="navbar__profile"
+
                         aria-label="Profile"
+
                     >
 
                         U
@@ -87,9 +203,13 @@ function Navbar() {
                     </button>
 
                     <button
+
                         className="navbar__hamburger"
+
                         aria-label="Open menu"
+
                         onClick={() => setMenuOpen(true)}
+
                     >
 
                         <FaBars />

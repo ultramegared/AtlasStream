@@ -6,13 +6,7 @@ File: navbar.css
 Module: Frontend
 Language: CSS3
 Description:
-Navbar styles.
-===============================================================
-*/
-
-/*
-===============================================================
-Navbar
+Premium navbar styles.
 ===============================================================
 */
 
@@ -28,28 +22,41 @@ Navbar
 
     height: 78px;
 
+    padding: 0 48px;
+
     display: flex;
 
     justify-content: space-between;
 
     align-items: center;
 
-    padding: 0 48px;
+    background: transparent;
 
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, .80),
-        rgba(0, 0, 0, .20),
-        transparent
-    );
+    transition:
+
+        background .35s ease,
+
+        backdrop-filter .35s ease,
+
+        box-shadow .35s ease,
+
+        border-color .35s ease;
+
+    z-index: 1000;
+
+}
+
+.navbar--scrolled {
+
+    background: rgba(10,15,25,.78);
 
     backdrop-filter: blur(18px);
 
     -webkit-backdrop-filter: blur(18px);
 
-    z-index: 2000;
+    border-bottom: 1px solid rgba(255,255,255,.08);
 
-    transition: .30s ease;
+    box-shadow: 0 10px 35px rgba(0,0,0,.35);
 
 }
 
@@ -67,23 +74,19 @@ Navbar
 
     display: flex;
 
-    align-items: center;
-
     gap: 28px;
 
 }
 
 .navbar__menu li {
 
-    color: var(--color-text-secondary);
-
-    font-size: .95rem;
+    color: rgba(255,255,255,.72);
 
     font-weight: 500;
 
     cursor: pointer;
 
-    transition: .25s;
+    transition: .25s ease;
 
 }
 
@@ -113,31 +116,33 @@ Navbar
 
     position: relative;
 
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
     width: 42px;
 
     height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
 
     border-radius: 50%;
 
     background: transparent;
 
-    color: #ffffff;
+    color: white;
 
     cursor: pointer;
 
-    transition: .25s;
+    transition: .25s ease;
 
 }
 
 .navbar__icon:hover {
 
-    background: rgba(255,255,255,.08);
+    background: rgba(255,255,255,.10);
 
 }
 
@@ -145,9 +150,9 @@ Navbar
 
     position: absolute;
 
-    top: -2px;
+    top: -4px;
 
-    right: -2px;
+    right: -4px;
 
     width: 18px;
 
@@ -161,11 +166,13 @@ Navbar
 
     font-size: .65rem;
 
+    font-weight: 700;
+
     display: flex;
 
-    justify-content: center;
-
     align-items: center;
+
+    justify-content: center;
 
 }
 
@@ -175,267 +182,63 @@ Navbar
 
     height: 42px;
 
+    border: none;
+
     border-radius: 50%;
 
-    background: #E50914;
+    background: linear-gradient(
+        135deg,
+        #E50914,
+        #ff3848
+    );
 
-    color: #ffffff;
+    color: white;
 
     font-weight: 700;
 
     cursor: pointer;
 
-    transition: .25s;
+    transition: .25s ease;
 
 }
 
 .navbar__profile:hover {
 
-    transform: scale(1.05);
+    transform: scale(1.08);
+
+    box-shadow: 0 8px 22px rgba(229,9,20,.45);
 
 }
-
-/*
-===============================================================
-Hamburger
-===============================================================
-*/
 
 .navbar__hamburger {
 
     display: none;
 
-    justify-content: center;
-
-    align-items: center;
-
     width: 42px;
 
     height: 42px;
 
+    border: none;
+
+    border-radius: 50%;
+
     background: transparent;
 
-    color: #ffffff;
+    color: white;
 
     cursor: pointer;
 
-    font-size: 1.35rem;
+    transition: .25s ease;
 
 }
 
-/*
-===============================================================
-Overlay
-===============================================================
-*/
+.navbar__hamburger:hover {
 
-.mobile-overlay {
-
-    position: fixed;
-
-    inset: 0;
-
-    background: rgba(0,0,0,.55);
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    pointer-events: none;
-
-    transition: .30s ease;
-
-    z-index: 2500;
+    background: rgba(255,255,255,.10);
 
 }
 
-.mobile-overlay.show {
-
-    opacity: 1;
-
-    visibility: visible;
-
-    pointer-events: auto;
-
-}
-
-/*
-===============================================================
-Mobile Menu
-===============================================================
-*/
-
-.mobile-menu {
-
-    position: fixed;
-
-    top: 0;
-
-    right: -320px;
-
-    width: 300px;
-
-    height: 100dvh;
-
-    display: flex;
-
-    flex-direction: column;
-
-    padding: 28px;
-
-    background: rgba(16,18,27,.92);
-
-    backdrop-filter: blur(30px);
-
-    -webkit-backdrop-filter: blur(30px);
-
-    box-shadow: -12px 0 40px rgba(0,0,0,.45);
-
-    transition: right .35s ease;
-
-    z-index: 2600;
-
-}
-
-.mobile-menu.open {
-
-    right: 0;
-
-}
-
-.mobile-menu__header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 32px;
-
-}
-
-.mobile-menu__header h2 {
-
-    color: #ffffff;
-
-}
-
-.mobile-menu__close {
-
-    width: 40px;
-
-    height: 40px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,.08);
-
-    color: #ffffff;
-
-    cursor: pointer;
-
-}
-
-.mobile-menu__profile {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 16px;
-
-    margin-bottom: 30px;
-
-}
-
-.mobile-menu__avatar {
-
-    width: 54px;
-
-    height: 54px;
-
-    border-radius: 50%;
-
-    background: #E50914;
-
-    color: #ffffff;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    font-weight: 700;
-
-}
-
-.mobile-menu__profile h3 {
-
-    color: #ffffff;
-
-}
-
-.mobile-menu__profile span {
-
-    color: rgba(255,255,255,.65);
-
-    font-size: .85rem;
-
-}
-
-.mobile-menu__list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 6px;
-
-}
-
-.mobile-menu__list li {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 16px;
-
-    padding: 14px;
-
-    color: #ffffff;
-
-    border-radius: 12px;
-
-    cursor: pointer;
-
-    transition: .25s;
-
-}
-
-.mobile-menu__list li:hover {
-
-    background: rgba(255,255,255,.08);
-
-    color: #E50914;
-
-}
-
-/*
-===============================================================
-Responsive
-===============================================================
-*/
-
-@media (max-width: 900px) {
+@media (max-width:900px) {
 
     .navbar {
 
@@ -449,15 +252,49 @@ Responsive
 
     }
 
-    .navbar__profile {
-
-        display: none;
-
-    }
-
     .navbar__hamburger {
 
         display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+    }
+
+}
+
+@media (max-width:600px) {
+
+    .navbar {
+
+        height: 72px;
+
+        padding: 0 16px;
+
+    }
+
+    .navbar__left {
+
+        gap: 20px;
+
+    }
+
+    .navbar__right {
+
+        gap: 10px;
+
+    }
+
+    .navbar__icon,
+
+    .navbar__profile,
+
+    .navbar__hamburger {
+
+        width: 38px;
+
+        height: 38px;
 
     }
 
