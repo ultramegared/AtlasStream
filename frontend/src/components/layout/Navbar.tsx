@@ -3,82 +3,98 @@
  * Author: ultramegared
  * Project: AtlasStream
  * File: Navbar.tsx
- * Module: Frontend
- * Language: TypeScript React
- * Description:
- * Premium navigation bar.
  * ===============================================================
  */
+
+import { useState } from "react";
 
 import {
     FaSearch,
     FaBell,
-    FaChevronDown
+    FaBars
 } from "react-icons/fa";
 
 import Logo from "../common/Logo";
+import MobileMenu from "./MobileMenu";
 
 function Navbar() {
 
+    const [menuOpen, setMenuOpen] = useState(false);
+
     return (
 
-        <header className="navbar">
+        <>
 
-            <div className="navbar__left">
+            <header className="navbar">
 
-                <Logo />
+                <div className="navbar__left">
 
-                <nav>
+                    <Logo />
 
-                    <ul className="navbar__menu">
+                    <nav>
 
-                        <li className="active">Home</li>
-                        <li>Movies</li>
-                        <li>Series</li>
-                        <li>TV Live</li>
-                        <li>My List</li>
+                        <ul className="navbar__menu">
 
-                    </ul>
+                            <li className="active">Home</li>
+                            <li>Movies</li>
+                            <li>Series</li>
+                            <li>TV Live</li>
+                            <li>My List</li>
 
-                </nav>
+                        </ul>
 
-            </div>
+                    </nav>
 
-            <div className="navbar__right">
+                </div>
 
-                <button className="navbar__icon">
+                <div className="navbar__right">
 
-                    <FaSearch />
+                    <button className="navbar__icon">
 
-                </button>
+                        <FaSearch />
 
-                <button className="navbar__icon notification">
+                    </button>
 
-                    <FaBell />
+                    <button className="navbar__icon notification">
 
-                    <span className="notification__badge">
+                        <FaBell />
 
-                        3
+                        <span className="notification__badge">
 
-                    </span>
+                            3
 
-                </button>
+                        </span>
 
-                <button className="navbar__profile">
+                    </button>
 
-                    U
+                    <button className="navbar__profile">
 
-                </button>
+                        U
 
-                <button className="navbar__icon">
+                    </button>
 
-                    <FaChevronDown />
+                    <button
+                        className="navbar__hamburger"
+                        onClick={() => setMenuOpen(true)}
+                    >
 
-                </button>
+                        <FaBars />
 
-            </div>
+                    </button>
 
-        </header>
+                </div>
+
+            </header>
+
+            <MobileMenu
+
+                open={menuOpen}
+
+                onClose={() => setMenuOpen(false)}
+
+            />
+
+        </>
 
     );
 
