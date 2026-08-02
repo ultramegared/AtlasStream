@@ -10,139 +10,258 @@
  * ===============================================================
  */
 
-import { featuredMovies } from "../../data/featuredMovies";
+import {
+
+    Autoplay,
+    EffectFade,
+    Pagination
+
+} from "swiper/modules";
+
+import {
+
+    Swiper,
+    SwiperSlide
+
+} from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/pagination";
+
+import {
+
+    featuredMovies
+
+} from "../../data/featuredMovies";
 
 function HeroBanner()
 {
 
-    const movie = featuredMovies[0];
-
     return (
 
-        <section
+        <Swiper
+
             className="hero"
-            style={{
-                backgroundImage: `url(${movie.image})`
+
+            modules={[
+
+                Autoplay,
+
+                EffectFade,
+
+                Pagination
+
+            ]}
+
+            slidesPerView={1}
+
+            spaceBetween={0}
+
+            effect="fade"
+
+            loop={true}
+
+            autoplay={{
+
+                delay: 8000,
+
+                disableOnInteraction: false
+
             }}
+
+            pagination={{
+
+                clickable: true
+
+            }}
+
         >
 
-            <div className="hero__overlay">
+            {
 
-                <div className="hero__content">
+                featuredMovies.map(
 
-                    <span
-                        className="hero__badge"
-                    >
+                    (
 
-                        FEATURED
+                        movie
 
-                    </span>
+                    ) => (
 
-                    <h1
-                        className="hero__title"
-                    >
+                        <SwiperSlide
 
-                        {movie.title}
+                            key={movie.id}
 
-                    </h1>
+                        >
 
-                    <div
-                        className="hero__meta"
-                    >
+                            <section
 
-                        <span>
+                                className="hero"
 
-                            ⭐ {movie.rating}
+                                style={{
 
-                        </span>
+                                    backgroundImage: `url(${movie.image})`
 
-                        <span>
+                                }}
 
-                            {movie.year}
+                            >
 
-                        </span>
+                                <div
 
-                        <span>
+                                    className="hero__overlay"
 
-                            {movie.duration}
+                                >
 
-                        </span>
+                                    <div
 
-                        <span>
+                                        className="hero__content"
 
-                            {movie.quality}
-
-                        </span>
-
-                        <span>
-
-                            {movie.format}
-
-                        </span>
-
-                    </div>
-
-                    <p
-                        className="hero__description"
-                    >
-
-                        {movie.description}
-
-                    </p>
-
-                    <div
-                        className="hero__genres"
-                    >
-
-                        {
-
-                            movie.genres.map(
-
-                                (genre) => (
-
-                                    <span
-                                        key={genre}
                                     >
 
-                                        {genre}
+                                        <span
 
-                                    </span>
+                                            className="hero__badge"
 
-                                )
+                                        >
 
-                            )
+                                            FEATURED
 
-                        }
+                                        </span>
 
-                    </div>
+                                        <h1
 
-                    <div
-                        className="hero__actions"
-                    >
+                                            className="hero__title"
 
-                        <button
-                            className="hero__button hero__button--primary"
-                        >
+                                        >
 
-                            ▶ Watch Now
+                                            {movie.title}
 
-                        </button>
+                                        </h1>
 
-                        <button
-                            className="hero__button hero__button--secondary"
-                        >
+                                        <div
 
-                            ℹ More Info
+                                            className="hero__meta"
 
-                        </button>
+                                        >
 
-                    </div>
+                                            <span>
 
-                </div>
+                                                ⭐ {movie.rating}
 
-            </div>
+                                            </span>
 
-        </section>
+                                            <span>
+
+                                                {movie.year}
+
+                                            </span>
+
+                                            <span>
+
+                                                {movie.duration}
+
+                                            </span>
+
+                                            <span>
+
+                                                {movie.quality}
+
+                                            </span>
+
+                                            <span>
+
+                                                {movie.format}
+
+                                            </span>
+
+                                        </div>
+
+                                        <p
+
+                                            className="hero__description"
+
+                                        >
+
+                                            {movie.description}
+
+                                        </p>
+
+                                        <div
+
+                                            className="hero__genres"
+
+                                        >
+
+                                            {
+
+                                                movie.genres.map(
+
+                                                    (
+
+                                                        genre
+
+                                                    ) => (
+
+                                                        <span
+
+                                                            key={genre}
+
+                                                        >
+
+                                                            {genre}
+
+                                                        </span>
+
+                                                    )
+
+                                                )
+
+                                            }
+
+                                        </div>
+
+                                        <div
+
+                                            className="hero__actions"
+
+                                        >
+                                                                                    <button
+
+                                                className="hero__button hero__button--primary"
+
+                                            >
+
+                                                ▶ Watch Now
+
+                                            </button>
+
+                                            <button
+
+                                                className="hero__button hero__button--secondary"
+
+                                            >
+
+                                                ℹ More Info
+
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+                        </SwiperSlide>
+
+                    )
+
+                )
+
+            }
+
+        </Swiper>
 
     );
 
