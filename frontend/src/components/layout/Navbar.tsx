@@ -3,6 +3,10 @@
  * Author: ultramegared
  * Project: AtlasStream
  * File: Navbar.tsx
+ * Module: Frontend
+ * Language: TypeScript React
+ * Description:
+ * Premium responsive navigation bar.
  * ===============================================================
  */
 
@@ -49,13 +53,19 @@ function Navbar() {
 
                 <div className="navbar__right">
 
-                    <button className="navbar__icon">
+                    <button
+                        className="navbar__icon"
+                        aria-label="Search"
+                    >
 
                         <FaSearch />
 
                     </button>
 
-                    <button className="navbar__icon notification">
+                    <button
+                        className="navbar__icon notification"
+                        aria-label="Notifications"
+                    >
 
                         <FaBell />
 
@@ -67,7 +77,10 @@ function Navbar() {
 
                     </button>
 
-                    <button className="navbar__profile">
+                    <button
+                        className="navbar__profile"
+                        aria-label="Profile"
+                    >
 
                         U
 
@@ -75,6 +88,7 @@ function Navbar() {
 
                     <button
                         className="navbar__hamburger"
+                        aria-label="Open menu"
                         onClick={() => setMenuOpen(true)}
                     >
 

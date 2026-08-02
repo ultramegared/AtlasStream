@@ -10,11 +10,14 @@
  * ===============================================================
  */
 
+import "../../styles/home.css";
+
 import Navbar from "../../components/layout/Navbar";
 import HeroBanner from "../../components/home/HeroBanner";
 import ContentRow from "../../components/home/ContentRow";
 
-function HomePage() {
+function HomePage()
+{
 
     return (
 
