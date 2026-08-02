@@ -20,6 +20,14 @@ import {
 
 import {
 
+    Autoplay,
+    EffectFade,
+    Pagination
+
+} from "swiper/modules";
+
+import {
+
     Swiper,
     SwiperSlide
 
@@ -59,6 +67,11 @@ function HeroBanner()
             spaceBetween={0}
 
             effect="fade"
+            fadeEffect={{
+
+    crossFade: true
+
+}}
 
             loop={true}
 
