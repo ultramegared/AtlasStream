@@ -10,6 +10,7 @@
  * ===============================================================
  */
 
+import Navbar from "../../components/layout/Navbar";
 import HeroBanner from "../../components/home/HeroBanner";
 import ContentRow from "../../components/home/ContentRow";
 
@@ -17,7 +18,9 @@ function HomePage() {
 
     return (
 
-        <>
+        <main className="home">
+
+            <Navbar />
 
             <HeroBanner />
 
@@ -33,7 +36,7 @@ function HomePage() {
                 title="Continue Watching"
             />
 
-        </>
+        </main>
 
     );
 
