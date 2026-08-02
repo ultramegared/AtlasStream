@@ -13,6 +13,8 @@
 import "../../styles/home.css";
 
 import Navbar from "../../components/layout/Navbar";
+import Footer from "../../components/layout/Footer";
+
 import HeroBanner from "../../components/home/HeroBanner";
 import ContentRow from "../../components/home/ContentRow";
 
@@ -38,6 +40,8 @@ function HomePage()
             <ContentRow
                 title="Continue Watching"
             />
+
+            <Footer />
 
         </main>
 
