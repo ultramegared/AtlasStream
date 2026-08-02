@@ -10,12 +10,6 @@
  * ===============================================================
  */
 
-import heroNebulaRising from "../assets/images/hero-nebula-rising.jpg";
-import heroDarkOrigin from "../assets/images/hero-dark-origin.jpg";
-import heroLastHorizon from "../assets/images/hero-last-horizon.jpg";
-import heroCodeAlpha from "../assets/images/hero-code-alpha.jpg";
-import heroEclipseTomorrow from "../assets/images/hero-eclipse-tomorrow.jpg";
-
 export interface FeaturedMovie
 {
 
@@ -51,7 +45,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "Humanity's last hope travels beyond the stars to uncover the origin of an ancient signal while fighting for the survival of civilization.",
 
-        image: heroNebulaRising,
+        image: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1920&q=80",
 
         year: "2026",
 
@@ -83,7 +77,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "A secret buried beneath the ocean awakens an ancient force capable of changing the future of mankind.",
 
-        image: heroDarkOrigin,
+        image: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1920&q=80",
 
         year: "2025",
 
@@ -115,7 +109,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "The final colony on Mars fights to survive after losing all communication with Earth.",
 
-        image: heroLastHorizon,
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80",
 
         year: "2024",
 
@@ -147,7 +141,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "A legendary hacker discovers an artificial intelligence hidden inside the world's largest network.",
 
-        image: heroCodeAlpha,
+        image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1920&q=80",
 
         year: "2026",
 
@@ -179,7 +173,7 @@ export const featuredMovies: FeaturedMovie[] = [
 
         description: "An unexpected solar eclipse reveals a parallel world where history took a different path.",
 
-        image: heroEclipseTomorrow,
+        image: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1920&q=80",
 
         year: "2025",
 
