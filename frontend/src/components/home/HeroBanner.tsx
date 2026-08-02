@@ -12,56 +12,115 @@
 
 import heroBackground from "../../assets/images/hero-background.jpg";
 
-function HeroBanner() {
+function HeroBanner()
+{
 
     return (
 
         <section
-
             className="hero"
-
             style={{
-
                 backgroundImage: `url(${heroBackground})`
-
             }}
-
         >
 
-            <div className="hero__content">
+            <div className="hero__overlay">
 
-                <span className="hero__badge">
+                <div className="hero__content">
 
-                    Featured
+                    <span className="hero__badge">
 
-                </span>
+                        FEATURED
 
-                <h1 className="hero__title">
+                    </span>
 
-                    Nebula Rising
+                    <h1 className="hero__title">
 
-                </h1>
+                        Nebula Rising
 
-                <p className="hero__description">
+                    </h1>
 
-                    Humanity's last hope travels beyond the stars
-                    to uncover the origin of an ancient signal.
+                    <div className="hero__meta">
 
-                </p>
+                        <span>
 
-                <div className="hero__actions">
+                            ⭐ 8.9 IMDb
 
-                    <button className="hero__button hero__button--primary">
+                        </span>
 
-                        ▶ Watch Now
+                        <span>
 
-                    </button>
+                            2026
 
-                    <button className="hero__button hero__button--secondary">
+                        </span>
 
-                        + My List
+                        <span>
 
-                    </button>
+                            2h 18m
+
+                        </span>
+
+                        <span>
+
+                            HDR
+
+                        </span>
+
+                        <span>
+
+                            4K
+
+                        </span>
+
+                    </div>
+
+                    <p className="hero__description">
+
+                        Humanity's last hope travels beyond the stars to uncover the origin of an ancient signal while fighting for the survival of civilization.
+
+                    </p>
+
+                    <div className="hero__genres">
+
+                        <span>
+
+                            Science Fiction
+
+                        </span>
+
+                        <span>
+
+                            Adventure
+
+                        </span>
+
+                        <span>
+
+                            Action
+
+                        </span>
+
+                    </div>
+
+                    <div className="hero__actions">
+
+                        <button
+                            className="hero__button hero__button--primary"
+                        >
+
+                            ▶ Watch Now
+
+                        </button>
+
+                        <button
+                            className="hero__button hero__button--secondary"
+                        >
+
+                            ℹ More Info
+
+                        </button>
+
+                    </div>
 
                 </div>
 
