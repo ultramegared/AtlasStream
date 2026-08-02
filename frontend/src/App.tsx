@@ -6,11 +6,9 @@
  * Module: Frontend
  * Language: TypeScript React
  * Description:
- * Root application component.
+ * Main application component.
  * ===============================================================
  */
-
-import MainLayout from "./components/layout/MainLayout";
 
 import HomePage from "./pages/home/HomePage";
 
@@ -18,11 +16,7 @@ function App() {
 
     return (
 
-        <MainLayout>
-
-            <HomePage />
-
-        </MainLayout>
+        <HomePage />
 
     );
 

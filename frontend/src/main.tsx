@@ -6,7 +6,7 @@
  * Module: Frontend
  * Language: TypeScript React
  * Description:
- * AtlasStream application entry point.
+ * Application entry point.
  * ===============================================================
  */
 
