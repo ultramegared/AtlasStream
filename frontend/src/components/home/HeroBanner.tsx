@@ -10,17 +10,19 @@
  * ===============================================================
  */
 
-import heroBackground from "../../assets/images/hero-background.jpg";
+import { featuredMovies } from "../../data/featuredMovies";
 
 function HeroBanner()
 {
+
+    const movie = featuredMovies[0];
 
     return (
 
         <section
             className="hero"
             style={{
-                backgroundImage: `url(${heroBackground})`
+                backgroundImage: `url(${movie.image})`
             }}
         >
 
@@ -28,81 +30,95 @@ function HeroBanner()
 
                 <div className="hero__content">
 
-                    <span className="hero__badge">
+                    <span
+                        className="hero__badge"
+                    >
 
                         FEATURED
 
                     </span>
 
-                    <h1 className="hero__title">
+                    <h1
+                        className="hero__title"
+                    >
 
-                        Nebula Rising
+                        {movie.title}
 
                     </h1>
 
-                    <div className="hero__meta">
+                    <div
+                        className="hero__meta"
+                    >
 
                         <span>
 
-                            ⭐ 8.9 IMDb
+                            ⭐ {movie.rating}
 
                         </span>
 
                         <span>
 
-                            2026
+                            {movie.year}
 
                         </span>
 
                         <span>
 
-                            2h 18m
+                            {movie.duration}
 
                         </span>
 
                         <span>
 
-                            HDR
+                            {movie.quality}
 
                         </span>
 
                         <span>
 
-                            4K
+                            {movie.format}
 
                         </span>
 
                     </div>
 
-                    <p className="hero__description">
+                    <p
+                        className="hero__description"
+                    >
 
-                        Humanity's last hope travels beyond the stars to uncover the origin of an ancient signal while fighting for the survival of civilization.
+                        {movie.description}
 
                     </p>
 
-                    <div className="hero__genres">
+                    <div
+                        className="hero__genres"
+                    >
 
-                        <span>
+                        {
 
-                            Science Fiction
+                            movie.genres.map(
 
-                        </span>
+                                (genre) => (
 
-                        <span>
+                                    <span
+                                        key={genre}
+                                    >
 
-                            Adventure
+                                        {genre}
 
-                        </span>
+                                    </span>
 
-                        <span>
+                                )
 
-                            Action
+                            )
 
-                        </span>
+                        }
 
                     </div>
 
-                    <div className="hero__actions">
+                    <div
+                        className="hero__actions"
+                    >
 
                         <button
                             className="hero__button hero__button--primary"
