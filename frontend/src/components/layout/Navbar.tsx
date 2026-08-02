@@ -11,6 +11,7 @@
  */
 
 import Logo from "../common/Logo";
+import "../../styles/navbar.css";
 
 function Navbar() {
 
