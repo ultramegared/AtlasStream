@@ -13,7 +13,8 @@
 import {
 
     FaHeart,
-    FaPlay
+    FaPlay,
+    FaInfoCircle
 
 } from "react-icons/fa";
 
@@ -59,55 +60,70 @@ function ContentCard({
                     className="content-card__overlay"
                 >
 
-                    <button
-                        className="content-card__action content-card__action--play"
-                        aria-label="Play"
+                    <div
+                        className="content-card__buttons"
                     >
 
-                        <FaPlay />
+                        <button
+                            className="content-card__action content-card__action--play"
+                            aria-label="Play"
+                        >
 
-                    </button>
+                            <FaPlay />
 
-                    <button
-                        className="content-card__action"
-                        aria-label="Favorite"
+                        </button>
+
+                        <button
+                            className="content-card__action"
+                            aria-label="Favorite"
+                        >
+
+                            <FaHeart />
+
+                        </button>
+
+                        <button
+                            className="content-card__action"
+                            aria-label="More Info"
+                        >
+
+                            <FaInfoCircle />
+
+                        </button>
+
+                    </div>
+
+                    <div
+                        className="content-card__details"
                     >
 
-                        <FaHeart />
+                        <h3
+                            className="content-card__title"
+                        >
 
-                    </button>
+                            {content.title}
 
-                </div>
+                        </h3>
 
-            </div>
+                        <div
+                            className="content-card__meta"
+                        >
 
-            <div
-                className="content-card__info"
-            >
+                            <span>
 
-                <h3
-                    className="content-card__title"
-                >
+                                ⭐ {content.rating}
 
-                    {content.title}
+                            </span>
 
-                </h3>
+                            <span>
 
-                <div
-                    className="content-card__meta"
-                >
+                                {content.year}
 
-                    <span>
+                            </span>
 
-                        {content.year}
+                        </div>
 
-                    </span>
-
-                    <span>
-
-                        ⭐ {content.rating}
-
-                    </span>
+                    </div>
 
                 </div>
 
