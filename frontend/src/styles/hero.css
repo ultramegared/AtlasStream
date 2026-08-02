@@ -18,9 +18,11 @@ Hero Banner styles.
 
     align-items: center;
 
-    min-height: 85vh;
+    width: 100%;
 
-    padding: 5rem;
+    min-height: 100vh;
+
+    padding: 0 80px;
 
     background-position: center;
 
@@ -46,11 +48,13 @@ Hero Banner styles.
 
             90deg,
 
-            rgba(11,15,26,.95) 0%,
+            rgba(8,10,18,.96) 0%,
 
-            rgba(11,15,26,.65) 45%,
+            rgba(8,10,18,.82) 28%,
 
-            rgba(11,15,26,.20) 100%
+            rgba(8,10,18,.42) 58%,
+
+            rgba(8,10,18,.08) 100%
 
         ),
 
@@ -58,69 +62,153 @@ Hero Banner styles.
 
             180deg,
 
-            rgba(11,15,26,0) 60%,
+            rgba(8,10,18,.10) 0%,
 
-            rgba(11,15,26,1) 100%
+            rgba(8,10,18,.10) 60%,
+
+            rgba(8,10,18,1) 100%
 
         );
 
+    z-index: 1;
+
 }
 
-.hero__content {
+.hero__overlay {
 
     position: relative;
 
     z-index: 2;
 
-    max-width: 650px;
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding-top: 90px;
+
+}
+
+.hero__content {
+
+    max-width: 720px;
 
 }
 
 .hero__badge {
 
-    display: inline-block;
+    display: inline-flex;
 
-    padding: .45rem 1rem;
+    align-items: center;
 
-    margin-bottom: 1.25rem;
+    justify-content: center;
 
-    border-radius: var(--radius-large);
+    padding: .6rem 1.4rem;
 
-    background: var(--color-accent);
+    margin-bottom: 1.5rem;
 
-    color: var(--color-text);
+    border-radius: 999px;
 
-    font-size: .8rem;
+    background: #E50914;
+
+    color: #ffffff;
+
+    font-size: .85rem;
 
     font-weight: 700;
 
-    text-transform: uppercase;
+    letter-spacing: .08em;
 
 }
 
 .hero__title {
 
-    font-size: 4.5rem;
+    margin-bottom: 1.5rem;
 
-    color: var(--color-text);
+    color: #ffffff;
+
+    font-size: clamp(3.8rem, 7vw, 6.5rem);
 
     font-weight: 900;
 
-    line-height: 1.05;
+    line-height: .95;
+
+}
+
+.hero__meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: .75rem;
+
+    margin-bottom: 1.5rem;
+
+}
+
+.hero__meta span {
+
+    padding: .45rem .9rem;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.08);
+
+    backdrop-filter: blur(16px);
+
+    -webkit-backdrop-filter: blur(16px);
+
+    color: #ffffff;
+
+    font-size: .85rem;
+
+    font-weight: 600;
 
 }
 
 .hero__description {
 
-    margin-top: 1.5rem;
+    max-width: 620px;
 
-    max-width: 560px;
+    margin-bottom: 2rem;
 
-    color: var(--color-text-secondary);
+    color: rgba(255,255,255,.78);
 
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 
     line-height: 1.8;
+
+}
+
+.hero__genres {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: .75rem;
+
+    margin-bottom: 2.5rem;
+
+}
+
+.hero__genres span {
+
+    padding: .45rem 1rem;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.06);
+
+    color: rgba(255,255,255,.92);
+
+    font-size: .9rem;
 
 }
 
@@ -128,46 +216,152 @@ Hero Banner styles.
 
     display: flex;
 
-    gap: 1rem;
+    flex-wrap: wrap;
 
-    margin-top: 2.5rem;
+    gap: 1rem;
 
 }
 
 .hero__button {
 
+    min-width: 190px;
+
     padding: 1rem 2rem;
 
-    border-radius: var(--radius-medium);
+    border-radius: 14px;
 
-    cursor: pointer;
+    font-size: 1rem;
 
     font-weight: 700;
 
-    transition: var(--transition-default);
+    cursor: pointer;
+
+    transition: .30s ease;
 
 }
 
 .hero__button--primary {
 
-    background: var(--color-accent);
+    background: #E50914;
 
-    color: var(--color-text);
+    color: #ffffff;
+
+    box-shadow: 0 14px 40px rgba(229,9,20,.35);
+
+}
+
+.hero__button--primary:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 18px 48px rgba(229,9,20,.45);
 
 }
 
 .hero__button--secondary {
 
-    background: rgba(255,255,255,.12);
+    background: rgba(255,255,255,.08);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
 
-    color: var(--color-text);
+    -webkit-backdrop-filter: blur(20px);
+
+    color: #ffffff;
 
 }
 
-.hero__button:hover {
+.hero__button--secondary:hover {
 
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+
+    background: rgba(255,255,255,.14);
+
+}
+
+@media (max-width: 900px) {
+
+    .hero {
+
+        min-height: 92vh;
+
+        padding: 0 28px;
+
+    }
+
+    .hero__overlay {
+
+        padding-top: 90px;
+
+    }
+
+    .hero__title {
+
+        font-size: 4.2rem;
+
+    }
+
+    .hero__description {
+
+        font-size: 1.05rem;
+
+        line-height: 1.7;
+
+    }
+
+    .hero__button {
+
+        flex: 1;
+
+        min-width: 150px;
+
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .hero {
+
+        min-height: 88vh;
+
+        padding: 0 22px;
+
+    }
+
+    .hero__title {
+
+        font-size: 3.4rem;
+
+    }
+
+    .hero__meta {
+
+        gap: .5rem;
+
+    }
+
+    .hero__meta span {
+
+        font-size: .75rem;
+
+    }
+
+    .hero__genres {
+
+        gap: .5rem;
+
+    }
+
+    .hero__genres span {
+
+        font-size: .8rem;
+
+    }
+
+    .hero__button {
+
+        min-width: 100%;
+
+    }
 
 }
