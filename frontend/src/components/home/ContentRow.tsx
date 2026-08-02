@@ -10,14 +10,21 @@
  * ===============================================================
  */
 
-import { useRef } from "react";
+import {
+
+    Navigation
+
+} from "swiper/modules";
 
 import {
 
-    FaChevronLeft,
-    FaChevronRight
+    Swiper,
+    SwiperSlide
 
-} from "react-icons/fa";
+} from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
 
 import SectionTitle from "./SectionTitle";
 import ContentCard from "./ContentCard";
@@ -40,34 +47,6 @@ function ContentRow({
 
     const contentList = contentService.getTrending();
 
-    const rowRef = useRef<HTMLDivElement>(null);
-
-    function scrollLeft()
-    {
-
-        rowRef.current?.scrollBy({
-
-            left: -800,
-
-            behavior: "smooth"
-
-        });
-
-    }
-
-    function scrollRight()
-    {
-
-        rowRef.current?.scrollBy({
-
-            left: 800,
-
-            behavior: "smooth"
-
-        });
-
-    }
-
     return (
 
         <section
@@ -84,45 +63,49 @@ function ContentRow({
 
                 />
 
-                <div
-                    className="content-section__controls"
-                >
-
-                    <button
-
-                        className="content-section__button"
-
-                        onClick={scrollLeft}
-
-                        aria-label="Previous"
-
-                    >
-
-                        <FaChevronLeft />
-
-                    </button>
-
-                    <button
-
-                        className="content-section__button"
-
-                        onClick={scrollRight}
-
-                        aria-label="Next"
-
-                    >
-
-                        <FaChevronRight />
-
-                    </button>
-
-                </div>
-
             </div>
 
-            <div
+            <Swiper
 
-                ref={rowRef}
+                modules={[
+
+                    Navigation
+
+                ]}
+
+                navigation
+
+                spaceBetween={24}
+
+                slidesPerView={2}
+
+                breakpoints={{
+
+                    640: {
+
+                        slidesPerView: 3
+
+                    },
+
+                    900: {
+
+                        slidesPerView: 4
+
+                    },
+
+                    1200: {
+
+                        slidesPerView: 5
+
+                    },
+
+                    1600: {
+
+                        slidesPerView: 6
+
+                    }
+
+                }}
 
                 className="content-row"
 
@@ -138,13 +121,19 @@ function ContentRow({
 
                         ) => (
 
-                            <ContentCard
+                            <SwiperSlide
 
                                 key={content.id}
 
-                                content={content}
+                            >
+                            
+                                                            <ContentCard
 
-                            />
+                                    content={content}
+
+                                />
+
+                            </SwiperSlide>
 
                         )
 
@@ -152,7 +141,7 @@ function ContentRow({
 
                 }
 
-            </div>
+            </Swiper>
 
         </section>
 
