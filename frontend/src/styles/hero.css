@@ -365,3 +365,177 @@ Hero Banner styles.
     }
 
 }
+
+/*
+===============================================================
+Hero Premium Slider
+===============================================================
+*/
+
+.hero__actions {
+
+    display: flex;
+
+    gap: 1rem;
+
+    align-items: center;
+
+}
+
+.hero__button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: .75rem;
+
+}
+
+.hero__button svg {
+
+    font-size: 1rem;
+
+}
+
+.hero__slider {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .75rem;
+
+    margin-top: 3rem;
+
+}
+
+.hero__dot {
+
+    width: 12px;
+
+    height: 12px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.35);
+
+    cursor: pointer;
+
+    transition: .35s ease;
+
+}
+
+.hero__dot:hover {
+
+    background: rgba(255,255,255,.7);
+
+    transform: scale(1.2);
+
+}
+
+.hero__dot--active {
+
+    width: 34px;
+
+    border-radius: 999px;
+
+    background: #E50914;
+
+}
+
+.hero__progress {
+
+    margin-top: 1.5rem;
+
+    width: 320px;
+
+    height: 4px;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+
+    background: rgba(255,255,255,.15);
+
+}
+
+.hero__progress-bar {
+
+    height: 100%;
+
+    width: 100%;
+
+    background: #E50914;
+
+    transform-origin: left;
+
+    animation: heroProgress 7s linear forwards;
+
+}
+
+@keyframes heroProgress {
+
+    from {
+
+        transform: scaleX(0);
+
+    }
+
+    to {
+
+        transform: scaleX(1);
+
+    }
+
+}
+
+/*
+===============================================================
+Hero Animations
+===============================================================
+*/
+
+.hero__badge,
+
+.hero__title,
+
+.hero__meta,
+
+.hero__description,
+
+.hero__genres,
+
+.hero__actions,
+
+.hero__slider,
+
+.hero__progress {
+
+    animation: heroFade .8s ease;
+
+}
+
+@keyframes heroFade {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(25px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}

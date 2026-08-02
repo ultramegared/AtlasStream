@@ -6,275 +6,295 @@
  * Module: Frontend
  * Language: TypeScript React
  * Description:
- * Home hero banner component.
+ * Premium hero banner component.
  * ===============================================================
  */
 
 import {
 
-    Autoplay,
-    EffectFade,
-    Pagination
+    useEffect,
+    useState
 
-} from "swiper/modules";
-
-import {
-
-    Autoplay,
-    EffectFade,
-    Pagination
-
-} from "swiper/modules";
+} from "react";
 
 import {
 
-    Swiper,
-    SwiperSlide
+    FaInfoCircle,
+    FaPlay
 
-} from "swiper/react";
+} from "react-icons/fa";
 
-import "swiper/css";
-import "swiper/css/effect-fade";
-import "swiper/css/pagination";
-
-import {
-
-    featuredMovies
-
-} from "../../data/featuredMovies";
+import { featuredMovies } from "../../data/featuredMovies";
 
 function HeroBanner()
 {
 
+    const [
+
+        currentMovie,
+
+        setCurrentMovie
+
+    ] = useState(0);
+
+    useEffect(
+
+        () =>
+
+        {
+
+            const interval = setInterval(
+
+                () =>
+
+                    setCurrentMovie(
+
+                        (
+
+                            previous
+
+                        ) =>
+
+                            (
+
+                                previous + 1
+
+                            ) % featuredMovies.length
+
+                    ),
+
+                7000
+
+            );
+
+            return () => clearInterval(interval);
+
+        },
+
+        []
+
+    );
+
+    const movie = featuredMovies[currentMovie];
+
     return (
 
-        <Swiper
+        <section
 
             className="hero"
 
-            modules={[
+            style={{
 
-                Autoplay,
-
-                EffectFade,
-
-                Pagination
-
-            ]}
-
-            slidesPerView={1}
-
-            spaceBetween={0}
-
-            effect="fade"
-            fadeEffect={{
-
-    crossFade: true
-
-}}
-
-            loop={true}
-
-            autoplay={{
-
-                delay: 8000,
-
-                disableOnInteraction: false
-
-            }}
-
-            pagination={{
-
-                clickable: true
+                backgroundImage: `url(${movie.image})`
 
             }}
 
         >
 
-            {
+            <div className="hero__overlay">
 
-                featuredMovies.map(
+                <div className="hero__content">
 
-                    (
+                    <span
 
-                        movie
+                        className="hero__badge"
 
-                    ) => (
+                    >
 
-                        <SwiperSlide
+                        FEATURED
 
-                            key={movie.id}
+                    </span>
 
-                        >
+                    <h1
 
-                            <section
+                        className="hero__title"
 
-                                className="hero"
+                    >
 
-                                style={{
+                        {movie.title}
 
-                                    backgroundImage: `url(${movie.image})`
+                    </h1>
 
-                                }}
+                    <div
 
-                            >
+                        className="hero__meta"
 
-                                <div
+                    >
 
-                                    className="hero__overlay"
+                        <span>
 
-                                >
+                            ⭐ {movie.rating}
 
-                                    <div
+                        </span>
 
-                                        className="hero__content"
+                        <span>
+
+                            {movie.year}
+
+                        </span>
+
+                        <span>
+
+                            {movie.duration}
+
+                        </span>
+
+                        <span>
+
+                            {movie.quality}
+
+                        </span>
+
+                        <span>
+
+                            {movie.format}
+
+                        </span>
+
+                    </div>
+
+                    <p
+
+                        className="hero__description"
+
+                    >
+
+                        {movie.description}
+
+                    </p>
+
+                    <div
+
+                        className="hero__genres"
+
+                    >
+
+                        {
+
+                            movie.genres.map(
+
+                                (
+
+                                    genre
+
+                                ) => (
+
+                                    <span
+
+                                        key={genre}
 
                                     >
 
-                                        <span
+                                        {genre}
 
-                                            className="hero__badge"
+                                    </span>
 
-                                        >
+                                )
 
-                                            FEATURED
+                            )
 
-                                        </span>
+                        }
 
-                                        <h1
+                    </div>
 
-                                            className="hero__title"
+                    <div
 
-                                        >
+                        className="hero__actions"
 
-                                            {movie.title}
+                    >
 
-                                        </h1>
+                        <button
 
+                            className="hero__button hero__button--primary"
+
+                        >
+
+                            <FaPlay />
+
+                            <span>
+
+                                Watch Now
+
+                            </span>
+
+                        </button>
+
+                        <button
+
+                            className="hero__button hero__button--secondary"
+
+                        >
+
+                            <FaInfoCircle />
+
+                            <span>
+
+                                More Info
+
+                            </span>
+
+                        </button>
+
+                    </div>
                                         <div
 
-                                            className="hero__meta"
+                        className="hero__slider"
 
-                                        >
+                    >
 
-                                            <span>
+                        {
 
-                                                ⭐ {movie.rating}
+                            featuredMovies.map(
 
-                                            </span>
+                                (
 
-                                            <span>
+                                    _,
 
-                                                {movie.year}
+                                    index
 
-                                            </span>
+                                ) => (
 
-                                            <span>
+                                    <button
 
-                                                {movie.duration}
+                                        key={index}
 
-                                            </span>
+                                        className={`hero__dot ${currentMovie === index ? "hero__dot--active" : ""}`}
 
-                                            <span>
+                                        onClick={() => setCurrentMovie(index)}
 
-                                                {movie.quality}
+                                        aria-label={`Go to slide ${index + 1}`}
 
-                                            </span>
+                                    />
 
-                                            <span>
+                                )
 
-                                                {movie.format}
+                            )
 
-                                            </span>
+                        }
 
-                                        </div>
+                    </div>
 
-                                        <p
+                    <div
 
-                                            className="hero__description"
+                        className="hero__progress"
 
-                                        >
+                    >
 
-                                            {movie.description}
+                        <div
 
-                                        </p>
+                            key={currentMovie}
 
-                                        <div
+                            className="hero__progress-bar"
 
-                                            className="hero__genres"
+                        />
 
-                                        >
+                    </div>
 
-                                            {
+                </div>
 
-                                                movie.genres.map(
+            </div>
 
-                                                    (
-
-                                                        genre
-
-                                                    ) => (
-
-                                                        <span
-
-                                                            key={genre}
-
-                                                        >
-
-                                                            {genre}
-
-                                                        </span>
-
-                                                    )
-
-                                                )
-
-                                            }
-
-                                        </div>
-
-                                        <div
-
-                                            className="hero__actions"
-
-                                        >
-                                                                                    <button
-
-                                                className="hero__button hero__button--primary"
-
-                                            >
-
-                                                ▶ Watch Now
-
-                                            </button>
-
-                                            <button
-
-                                                className="hero__button hero__button--secondary"
-
-                                            >
-
-                                                ℹ More Info
-
-                                            </button>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </section>
-
-                        </SwiperSlide>
-
-                    )
-
-                )
-
-            }
-
-        </Swiper>
+        </section>
 
     );
 
