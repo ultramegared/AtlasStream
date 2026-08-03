@@ -15,9 +15,8 @@ import {
     useParams
 
 } from "react-router-dom";
-
-import Navbar from "../../components/navigation/Navbar";
-import Footer from "../../components/common/Footer";
+import Navbar from "../../components/layout/Navbar";
+import Footer from "../../components/layout/Footer";
 
 import contentService from "../../services/content.service";
 
