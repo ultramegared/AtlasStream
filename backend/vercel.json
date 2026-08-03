@@ -1,5 +1,4 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "express",
-  "entrypoint": "src/server.ts"
+  "framework": "express"
 }
