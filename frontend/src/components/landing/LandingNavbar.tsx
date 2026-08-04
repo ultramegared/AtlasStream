@@ -20,23 +20,23 @@ function LandingNavbar() {
 
         <header className="landing-navbar">
 
-            <div className="landing-navbar__actions">
+            <div className="landing-navbar__container">
 
-    <Link
-        to="/login"
-        className="landing-navbar__login"
-    >
-        Iniciar sesión
-    </Link>
+                <div className="landing-navbar__logo">
 
-    <Link
-        to="/register"
-        className="landing-navbar__register"
-    >
-        Crear cuenta
-    </Link>
+                    <span className="landing-navbar__atlas">
 
-</div>
+                        Atlas
+
+                    </span>
+
+                    <span className="landing-navbar__stream">
+
+                        Stream
+
+                    </span>
+
+                </div>
 
                 <nav className="landing-navbar__menu">
 
@@ -49,12 +49,6 @@ function LandingNavbar() {
                     <a href="#movies">
 
                         Películas
-
-                    </a>
-
-                    <a href="#series">
-
-                        Series
 
                     </a>
 
@@ -74,21 +68,23 @@ function LandingNavbar() {
 
                 <div className="landing-navbar__actions">
 
-                    <button
+                    <Link
+                        to="/login"
                         className="landing-navbar__login"
                     >
 
                         Iniciar sesión
 
-                    </button>
+                    </Link>
 
-                    <button
+                    <Link
+                        to="/register"
                         className="landing-navbar__register"
                     >
 
                         Crear cuenta
 
-                    </button>
+                    </Link>
 
                 </div>
 
