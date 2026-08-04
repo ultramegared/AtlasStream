@@ -1,0 +1,463 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: auth.css
+Module: Frontend
+Language: CSS3
+Description:
+Authentication pages styles.
+===============================================================
+*/
+
+/*
+===============================================================
+BODY
+===============================================================
+*/
+
+body{
+
+    margin:0;
+
+    background:#06080f;
+
+    font-family:Inter,sans-serif;
+
+}
+
+/*
+===============================================================
+HEADER
+===============================================================
+*/
+
+.auth-header{
+
+    height:80px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 60px;
+
+    position:absolute;
+
+    width:100%;
+
+    z-index:10;
+
+    box-sizing:border-box;
+
+}
+
+.auth-header__logo{
+
+    display:flex;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+}
+
+.auth-header__logo span:first-child{
+
+    color:#ffffff;
+
+}
+
+.auth-header__logo span:last-child{
+
+    color:#E50914;
+
+}
+
+.auth-header__login{
+
+    background:transparent;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    color:white;
+
+    padding:12px 28px;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.auth-header__login:hover{
+
+    background:#E50914;
+
+    border-color:#E50914;
+
+}
+
+/*
+===============================================================
+LAYOUT
+===============================================================
+*/
+
+.auth-layout{
+
+    min-height:100vh;
+
+    display:grid;
+
+    grid-template-columns:1fr 520px;
+
+    align-items:center;
+
+    padding:120px 80px;
+
+    gap:80px;
+
+    background:
+
+    linear-gradient(
+
+    rgba(4,8,18,.92),
+
+    rgba(4,8,18,.95)
+
+    ),
+
+    url("/images/background.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+}
+
+.auth-layout__left h1{
+
+    color:white;
+
+    font-size:3.8rem;
+
+    line-height:1.1;
+
+    margin-bottom:24px;
+
+}
+
+.auth-layout__left p{
+
+    color:#bfc7d7;
+
+    font-size:1.15rem;
+
+    line-height:1.8;
+
+    margin-bottom:40px;
+
+}
+
+.auth-layout__features{
+
+    list-style:none;
+
+    padding:0;
+
+}
+
+.auth-layout__features li{
+
+    color:white;
+
+    font-size:1.05rem;
+
+    margin-bottom:18px;
+
+}
+
+/*
+===============================================================
+REGISTER FORM
+===============================================================
+*/
+
+.register-form{
+
+    background:rgba(20,25,35,.72);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:45px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.register-form h2{
+
+    color:white;
+
+    font-size:2rem;
+
+    margin:0;
+
+}
+
+.register-form p{
+
+    color:#b8c1d2;
+
+    margin-bottom:10px;
+
+}
+
+.register-form input,
+
+.register-form select{
+
+    background:#141b29;
+
+    border:none;
+
+    border-radius:14px;
+
+    color:white;
+
+    padding:16px;
+
+    font-size:1rem;
+
+    outline:none;
+
+}
+
+.register-form input::placeholder{
+
+    color:#8c96a8;
+
+}
+
+.register-form__checkbox{
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:flex-start;
+
+    color:#c2cad8;
+
+    font-size:.92rem;
+
+}
+
+.register-form__button{
+
+    margin-top:10px;
+
+    height:56px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#E50914;
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.register-form__button:hover{
+
+    background:#ff1f2b;
+
+    transform:translateY(-2px);
+
+}
+
+/*
+===============================================================
+RESPONSIVE
+===============================================================
+*/
+
+@media(max-width:1000px){
+
+    .auth-layout{
+
+        grid-template-columns:1fr;
+
+        padding:120px 24px 60px;
+
+    }
+
+    .auth-layout__left{
+
+        display:none;
+
+    }
+
+    .auth-header{
+
+        padding:0 24px;
+
+    }
+
+    .register-form{
+
+        padding:30px;
+
+    }
+
+}
+
+/*
+===============================================================
+PROGRESS STEPS
+===============================================================
+*/
+
+.progress-steps{
+
+    margin-bottom:50px;
+
+}
+
+.progress-steps__title{
+
+    display:block;
+
+    color:white;
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.progress-steps__bar{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+.progress-steps__item{
+
+    flex:1;
+
+    height:8px;
+
+    border-radius:20px;
+
+    background:#2b3244;
+
+    transition:.35s;
+
+}
+
+.progress-steps__item.active{
+
+    background:#E50914;
+
+}
+
+.progress-steps__counter{
+
+    display:block;
+
+    margin-top:14px;
+
+    color:#aeb7ca;
+
+}
+
+/*
+===============================================================
+PROGRESS STEPS
+===============================================================
+*/
+
+.progress-steps{
+
+    margin-bottom:50px;
+
+}
+
+.progress-steps__title{
+
+    display:block;
+
+    color:white;
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.progress-steps__bar{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+.progress-steps__item{
+
+    flex:1;
+
+    height:8px;
+
+    border-radius:20px;
+
+    background:#2b3244;
+
+    transition:.35s;
+
+}
+
+.progress-steps__item.active{
+
+    background:#E50914;
+
+}
+
+.progress-steps__counter{
+
+    display:block;
+
+    margin-top:14px;
+
+    color:#aeb7ca;
+
+}

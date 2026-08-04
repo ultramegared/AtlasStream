@@ -1,0 +1,323 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: subscription.css
+Module: Frontend
+Language: CSS3
+Description:
+Subscription plans page styles.
+===============================================================
+*/
+
+/*
+===============================================================
+PAGE
+===============================================================
+*/
+
+.subscription-page {
+
+    min-height: 100vh;
+
+    padding: 140px 60px 80px;
+
+    background: linear-gradient(
+        180deg,
+        #070b15 0%,
+        #090f1f 100%
+    );
+
+}
+
+.subscription-page__header {
+
+    text-align: center;
+
+    margin-bottom: 70px;
+
+}
+
+.subscription-page__header h1 {
+
+    color: white;
+
+    font-size: 3rem;
+
+    margin-bottom: 18px;
+
+}
+
+.subscription-page__header p {
+
+    color: #9fa9bc;
+
+    font-size: 1.15rem;
+
+}
+
+/*
+===============================================================
+GRID
+===============================================================
+*/
+
+.subscription-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 32px;
+
+    max-width: 1400px;
+
+    margin: auto;
+
+}
+
+/*
+===============================================================
+CARD
+===============================================================
+*/
+
+.plan-card {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    padding: 40px;
+
+    border-radius: 24px;
+
+    background: rgba(22, 28, 42, .85);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    backdrop-filter: blur(18px);
+
+    transition: .35s;
+
+}
+
+.plan-card:hover {
+
+    transform: translateY(-10px);
+
+    box-shadow: 0 20px 50px rgba(0,0,0,.45);
+
+}
+
+/*
+===============================================================
+BADGE
+===============================================================
+*/
+
+.plan-card__badge {
+
+    display: inline-flex;
+
+    align-self: flex-start;
+
+    padding: 8px 18px;
+
+    border-radius: 50px;
+
+    color: white;
+
+    font-size: .78rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 25px;
+
+}
+
+/*
+===============================================================
+PLAN COLORS
+===============================================================
+*/
+
+.plan-card--basic {
+
+    border-top: 6px solid #22c55e;
+
+}
+
+.plan-card--basic .plan-card__badge {
+
+    background: #22c55e;
+
+}
+
+.plan-card--platino {
+
+    transform: scale(1.05);
+
+    border-top: 6px solid #3b82f6;
+
+}
+
+.plan-card--platino .plan-card__badge {
+
+    background: #3b82f6;
+
+}
+
+.plan-card--premium {
+
+    border-top: 6px solid #f59e0b;
+
+}
+
+.plan-card--premium .plan-card__badge {
+
+    background: #f59e0b;
+
+}
+
+/*
+===============================================================
+TEXT
+===============================================================
+*/
+
+.plan-card h2 {
+
+    color: white;
+
+    font-size: 2rem;
+
+    margin-bottom: 20px;
+
+}
+
+.plan-card h3 {
+
+    color: white;
+
+    font-size: 2.6rem;
+
+    margin-bottom: 30px;
+
+}
+
+.plan-card h3 small {
+
+    color: #9fa9bc;
+
+    font-size: 1rem;
+
+    font-weight: 400;
+
+}
+
+.plan-card ul {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0 0 40px;
+
+}
+
+.plan-card li {
+
+    color: #d6dce8;
+
+    margin-bottom: 18px;
+
+    font-size: 1rem;
+
+}
+
+/*
+===============================================================
+BUTTON
+===============================================================
+*/
+
+.plan-card button {
+
+    height: 56px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: #E50914;
+
+    color: white;
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+.plan-card button:hover {
+
+    background: #ff2530;
+
+    transform: scale(1.02);
+
+}
+
+/*
+===============================================================
+RESPONSIVE
+===============================================================
+*/
+
+@media (max-width:1100px){
+
+    .subscription-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .plan-card--platino{
+
+        transform:none;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .subscription-page{
+
+        padding:120px 24px 60px;
+
+    }
+
+    .subscription-page__header h1{
+
+        font-size:2.2rem;
+
+    }
+
+    .plan-card{
+
+        padding:30px;
+
+    }
+
+}
