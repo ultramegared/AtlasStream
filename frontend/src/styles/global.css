@@ -1,8 +1,15 @@
 @import "./variables.css";
+
 @import "./logo.css";
 @import "./navbar.css";
 @import "./mobile-menu.css";
 @import "./hero.css";
+@import "./landing.css";
+
+@import "./auth.css";
+@import "./subscription.css";
+@import "./payment.css";
+
 @import "./home.css";
 @import "./footer.css";
 
