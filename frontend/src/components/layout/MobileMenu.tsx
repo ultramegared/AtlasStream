@@ -10,6 +10,8 @@
  * ===============================================================
  */
 
+import { Link, useNavigate } from "react-router-dom";
+
 import {
     FaTimes,
     FaHome,
@@ -18,8 +20,12 @@ import {
     FaHeart,
     FaGlobe,
     FaCog,
-    FaUser
+    FaUser,
+    FaUsers,
+    FaSignOutAlt
 } from "react-icons/fa";
+
+import Logo from "../common/Logo";
 
 interface MobileMenuProps {
 
@@ -37,31 +43,54 @@ function MobileMenu({
 
 }: MobileMenuProps) {
 
+    const navigate = useNavigate();
+
+    const profileName =
+
+        localStorage.getItem("activeProfile") ||
+
+        "User";
+
+    function handleLogout() {
+
+        localStorage.removeItem("activeProfile");
+
+        onClose();
+
+        navigate("/login");
+
+    }
+
     return (
 
         <>
 
             <div
+
                 className={`mobile-overlay ${open ? "show" : ""}`}
+
                 onClick={onClose}
+
             />
 
             <aside
+
                 className={`mobile-menu ${open ? "open" : ""}`}
+
             >
 
                 <div className="mobile-menu__header">
 
-                    <h2>
-
-                        AtlasStream
-
-                    </h2>
+                    <Logo />
 
                     <button
+
                         className="mobile-menu__close"
+
                         onClick={onClose}
+
                         aria-label="Close menu"
+
                     >
 
                         <FaTimes />
@@ -74,7 +103,7 @@ function MobileMenu({
 
                     <div className="mobile-menu__avatar">
 
-                        U
+                        {profileName.charAt(0).toUpperCase()}
 
                     </div>
 
@@ -82,7 +111,7 @@ function MobileMenu({
 
                         <h3>
 
-                            User
+                            {profileName}
 
                         </h3>
 
@@ -100,97 +129,161 @@ function MobileMenu({
 
                     <ul className="mobile-menu__list">
 
-                        <li onClick={onClose}>
+                        <li>
 
-                            <FaHome />
+                            <Link to="/home" onClick={onClose}>
 
-                            <span>
+                                <FaHome />
 
-                                Home
+                                <span>
 
-                            </span>
+                                    Home
 
-                        </li>
+                                </span>
 
-                        <li onClick={onClose}>
-
-                            <FaFilm />
-
-                            <span>
-
-                                Movies
-
-                            </span>
+                            </Link>
 
                         </li>
 
-                        <li onClick={onClose}>
+                        <li>
 
-                            <FaTv />
+                            <Link to="/movies" onClick={onClose}>
 
-                            <span>
+                                <FaFilm />
 
-                                Series
+                                <span>
 
-                            </span>
+                                    Movies
 
-                        </li>
+                                </span>
 
-                        <li onClick={onClose}>
-
-                            <FaTv />
-
-                            <span>
-
-                                TV Live
-
-                            </span>
+                            </Link>
 
                         </li>
 
-                        <li onClick={onClose}>
+                        <li>
 
-                            <FaHeart />
+                            <Link to="/series" onClick={onClose}>
 
-                            <span>
+                                <FaTv />
 
-                                My List
+                                <span>
 
-                            </span>
+                                    Series
 
-                        </li>
+                                </span>
 
-                        <li onClick={onClose}>
-
-                            <FaGlobe />
-
-                            <span>
-
-                                Language
-
-                            </span>
+                            </Link>
 
                         </li>
 
-                        <li onClick={onClose}>
+                        <li>
 
-                            <FaCog />
+                            <Link to="/live" onClick={onClose}>
 
-                            <span>
+                                <FaTv />
 
-                                Settings
+                                <span>
 
-                            </span>
+                                    TV Live
+
+                                </span>
+
+                            </Link>
 
                         </li>
 
-                        <li onClick={onClose}>
+                        <li>
 
-                            <FaUser />
+                            <Link to="/my-list" onClick={onClose}>
+
+                                <FaHeart />
+
+                                <span>
+
+                                    My List
+
+                                </span>
+
+                            </Link>
+
+                        </li>
+
+                        <li>
+
+                            <Link to="/profiles" onClick={onClose}>
+
+                                <FaUsers />
+
+                                <span>
+
+                                    Cambiar perfil
+
+                                </span>
+
+                            </Link>
+
+                        </li>
+
+                        <li>
+
+                            <Link to="/profiles/manage" onClick={onClose}>
+
+                                <FaUser />
+
+                                <span>
+
+                                    Administrar perfiles
+
+                                </span>
+
+                            </Link>
+
+                        </li>
+
+                        <li>
+
+                            <Link to="/settings" onClick={onClose}>
+
+                                <FaCog />
+
+                                <span>
+
+                                    Configuración
+
+                                </span>
+
+                            </Link>
+
+                        </li>
+
+                        <li>
+
+                            <Link to="/language" onClick={onClose}>
+
+                                <FaGlobe />
+
+                                <span>
+
+                                    Idioma
+
+                                </span>
+
+                            </Link>
+
+                        </li>
+
+                        <li
+
+                            onClick={handleLogout}
+
+                        >
+
+                            <FaSignOutAlt />
 
                             <span>
 
-                                Profile
+                                Cerrar sesión
 
                             </span>
 

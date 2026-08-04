@@ -12,19 +12,68 @@
 
 import "../../styles/auth.css";
 
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import AuthContainer from "../../components/auth/AuthContainer";
+
+interface SelectedPlan {
+
+    id: string;
+
+    name: string;
+
+    price: string;
+
+    profiles: number;
+
+    streams: number;
+
+}
 
 function PaymentPage() {
 
     const navigate = useNavigate();
 
+    const [paymentMethod, setPaymentMethod] = useState("");
+
+    const storedPlan = localStorage.getItem("selectedPlan");
+
+    const plan: SelectedPlan = storedPlan
+
+        ? JSON.parse(storedPlan)
+
+        : {
+
+            id: "premium",
+
+            name: "Premium",
+
+            price: "S/. XX.XX",
+
+            profiles: 4,
+
+            streams: 3
+
+        };
+
     function handleContinue() {
 
-        // TODO:
-        // Aquí se integrará el proveedor
-        // de pagos (Stripe, PayPal, etc.)
+        if (!paymentMethod) {
+
+            alert("Selecciona un método de pago.");
+
+            return;
+
+        }
+
+        localStorage.setItem(
+
+            "paymentMethod",
+
+            paymentMethod
+
+        );
 
         navigate("/profiles/create");
 
@@ -76,7 +125,7 @@ function PaymentPage() {
 
                         <strong>
 
-                            Premium
+                            {plan.name}
 
                         </strong>
 
@@ -92,7 +141,7 @@ function PaymentPage() {
 
                         <strong>
 
-                            4
+                            {plan.profiles}
 
                         </strong>
 
@@ -108,7 +157,7 @@ function PaymentPage() {
 
                         <strong>
 
-                            3 simultáneas
+                            {plan.streams} simultánea{plan.streams > 1 ? "s" : ""}
 
                         </strong>
 
@@ -124,7 +173,7 @@ function PaymentPage() {
 
                         <strong>
 
-                            S/. XX.XX
+                            {plan.price}
 
                         </strong>
 
@@ -134,25 +183,49 @@ function PaymentPage() {
 
                 <section className="payment-methods">
 
-                    <button type="button">
+                    <button
+
+                        type="button"
+
+                        onClick={() => setPaymentMethod("Tarjeta")}
+
+                    >
 
                         💳 Tarjeta de crédito o débito
 
                     </button>
 
-                    <button type="button">
+                    <button
+
+                        type="button"
+
+                        onClick={() => setPaymentMethod("Google Pay")}
+
+                    >
 
                         Google Pay
 
                     </button>
 
-                    <button type="button">
+                    <button
+
+                        type="button"
+
+                        onClick={() => setPaymentMethod("Apple Pay")}
+
+                    >
 
                         Apple Pay
 
                     </button>
 
-                    <button type="button">
+                    <button
+
+                        type="button"
+
+                        onClick={() => setPaymentMethod("PayPal")}
+
+                    >
 
                         PayPal
 

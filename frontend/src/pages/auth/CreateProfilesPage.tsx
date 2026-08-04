@@ -12,19 +12,96 @@
 
 import "../../styles/auth.css";
 
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import AuthContainer from "../../components/auth/AuthContainer";
+
+interface SelectedPlan {
+
+    id: string;
+
+    name: string;
+
+    price: string;
+
+    profiles: number;
+
+    streams: number;
+
+}
 
 function CreateProfilesPage() {
 
     const navigate = useNavigate();
 
+    const [profileName, setProfileName] = useState("");
+
+    const [kids, setKids] = useState(false);
+
+    const [pin, setPin] = useState(false);
+
+    const storedPlan = localStorage.getItem("selectedPlan");
+
+    const plan: SelectedPlan = storedPlan
+
+        ? JSON.parse(storedPlan)
+
+        : {
+
+            id: "premium",
+
+            name: "Premium",
+
+            price: "",
+
+            profiles: 4,
+
+            streams: 3
+
+        };
+
     function handleContinue() {
 
-        // TODO:
-        // Aquí se guardarán los perfiles
-        // creados por el usuario.
+        if (!profileName.trim()) {
+
+            alert("Ingresa el nombre del perfil.");
+
+            return;
+
+        }
+
+        const profiles = [
+
+            {
+
+                id: Date.now(),
+
+                name: profileName,
+
+                kids,
+
+                pin
+
+            }
+
+        ];
+
+        localStorage.setItem(
+
+            "profiles",
+
+            JSON.stringify(profiles)
+
+        );
+
+        localStorage.setItem(
+
+            "activeProfile",
+
+            profileName
+
+        );
 
         navigate("/profiles");
 
@@ -52,7 +129,7 @@ function CreateProfilesPage() {
 
                     <p>
 
-                        Tu plan Premium permite crear hasta 4 perfiles.
+                        Tu plan {plan.name} permite crear hasta {plan.profiles} perfiles.
 
                     </p>
 
@@ -74,6 +151,10 @@ function CreateProfilesPage() {
 
                             placeholder="Nombre del perfil"
 
+                            value={profileName}
+
+                            onChange={(e) => setProfileName(e.target.value)}
+
                         />
 
                         <label>
@@ -81,6 +162,14 @@ function CreateProfilesPage() {
                             <input
 
                                 type="checkbox"
+
+                                checked={kids}
+
+                                onChange={(e) =>
+
+                                    setKids(e.target.checked)
+
+                                }
 
                             />
 
@@ -94,59 +183,19 @@ function CreateProfilesPage() {
 
                                 type="checkbox"
 
+                                checked={pin}
+
+                                onChange={(e) =>
+
+                                    setPin(e.target.checked)
+
+                                }
+
                             />
 
                             Proteger con PIN
 
                         </label>
-
-                    </article>
-
-                    <article className="profile-slot empty">
-
-                        <div className="profile-slot__add">
-
-                            +
-
-                        </div>
-
-                        <span>
-
-                            Agregar perfil
-
-                        </span>
-
-                    </article>
-
-                    <article className="profile-slot empty">
-
-                        <div className="profile-slot__add">
-
-                            +
-
-                        </div>
-
-                        <span>
-
-                            Agregar perfil
-
-                        </span>
-
-                    </article>
-
-                    <article className="profile-slot empty">
-
-                        <div className="profile-slot__add">
-
-                            +
-
-                        </div>
-
-                        <span>
-
-                            Agregar perfil
-
-                        </span>
 
                     </article>
 
@@ -162,7 +211,7 @@ function CreateProfilesPage() {
 
                     >
 
-                        Continuar
+                        Guardar perfil
 
                     </button>
 

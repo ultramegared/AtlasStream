@@ -14,17 +14,39 @@ import "../../styles/auth.css";
 
 import { useNavigate } from "react-router-dom";
 
+interface UserProfile {
+
+    id: number;
+
+    name: string;
+
+    kids: boolean;
+
+    pin: boolean;
+
+}
+
 function ProfileSelectionPage() {
 
     const navigate = useNavigate();
 
-    function openHome(profile: string) {
+    const storedProfiles = localStorage.getItem("profiles");
 
-        // TODO:
-        // Guardar el perfil activo
-        // antes de ingresar al Home.
+    const profiles: UserProfile[] = storedProfiles
 
-        console.log("Perfil seleccionado:", profile);
+        ? JSON.parse(storedProfiles)
+
+        : [];
+
+    function openHome(profile: UserProfile) {
+
+        localStorage.setItem(
+
+            "activeProfile",
+
+            profile.name
+
+        );
 
         navigate("/home");
 
@@ -52,93 +74,69 @@ function ProfileSelectionPage() {
 
             <section className="profile-selection__grid">
 
-                <article
+                {
 
-                    className="viewer-card"
+                    profiles.length > 0 ? (
 
-                    onClick={() => openHome("José")}
+                        profiles.map((profile) => (
 
-                >
+                            <article
 
-                    <div className="viewer-card__avatar">
+                                key={profile.id}
 
-                        👨
+                                className="viewer-card"
 
-                    </div>
+                                onClick={() => openHome(profile)}
 
-                    <h3>
+                            >
 
-                        José
+                                <div className="viewer-card__avatar">
 
-                    </h3>
+                                    {
 
-                </article>
+                                        profile.kids
 
-                <article
+                                            ? "🧸"
 
-                    className="viewer-card"
+                                            : profile.name.charAt(0).toUpperCase()
 
-                    onClick={() => openHome("María")}
+                                    }
 
-                >
+                                </div>
 
-                    <div className="viewer-card__avatar">
+                                <h3>
 
-                        👩
+                                    {profile.name}
 
-                    </div>
+                                </h3>
 
-                    <h3>
+                            </article>
 
-                        María
+                        ))
 
-                    </h3>
+                    ) : (
 
-                </article>
+                        <p
 
-                <article
+                            style={{
 
-                    className="viewer-card"
+                                color: "white",
 
-                    onClick={() => openHome("Kevin")}
+                                textAlign: "center",
 
-                >
+                                gridColumn: "1 / -1"
 
-                    <div className="viewer-card__avatar">
+                            }}
 
-                        👦
+                        >
 
-                    </div>
+                            No hay perfiles creados.
 
-                    <h3>
+                        </p>
 
-                        Kevin
+                    )
 
-                    </h3>
-
-                </article>
-
-                <article
-
-                    className="viewer-card"
-
-                    onClick={() => openHome("Kids")}
-
-                >
-
-                    <div className="viewer-card__avatar">
-
-                        🧸
-
-                    </div>
-
-                    <h3>
-
-                        Kids
-
-                    </h3>
-
-                </article>
+                }
 
             </section>
 
@@ -147,6 +145,8 @@ function ProfileSelectionPage() {
                 <button
 
                     type="button"
+
+                    onClick={() => navigate("/profiles/create")}
 
                 >
 

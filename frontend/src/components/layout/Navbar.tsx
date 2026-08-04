@@ -47,6 +47,14 @@ function Navbar()
 
     ] = useState(false);
 
+    const [
+
+        profile,
+
+        setProfile
+
+    ] = useState("U");
+
     useEffect(
 
         () =>
@@ -81,6 +89,38 @@ function Navbar()
                     handleScroll
 
                 );
+
+        },
+
+        []
+
+    );
+
+    useEffect(
+
+        () =>
+
+        {
+
+            const activeProfile =
+
+                localStorage.getItem("activeProfile");
+
+            if (
+
+                activeProfile &&
+
+                activeProfile.trim() !== ""
+
+            ) {
+
+                setProfile(
+
+                    activeProfile.charAt(0).toUpperCase()
+
+                );
+
+            }
 
         },
 
@@ -198,7 +238,7 @@ function Navbar()
 
                     >
 
-                        U
+                        {profile}
 
                     </button>
 

@@ -16,17 +16,81 @@ import { useNavigate } from "react-router-dom";
 
 import AuthContainer from "../../components/auth/AuthContainer";
 
+interface SelectedPlan {
+
+    id: string;
+
+    name: string;
+
+    price: string;
+
+    profiles: number;
+
+    streams: number;
+
+}
+
 function SubscriptionPage() {
 
     const navigate = useNavigate();
 
-    function selectPlan(plan: string) {
+    function selectPlan(planId: string) {
 
-        // TODO:
-        // Guardar el plan seleccionado
-        // en Context API o Backend.
+        const plans: Record<string, SelectedPlan> = {
 
-        console.log("Plan seleccionado:", plan);
+            basic: {
+
+                id: "basic",
+
+                name: "Basic",
+
+                price: "S/. XX.XX",
+
+                profiles: 2,
+
+                streams: 1
+
+            },
+
+            platino: {
+
+                id: "platino",
+
+                name: "Platino",
+
+                price: "S/. XX.XX",
+
+                profiles: 3,
+
+                streams: 2
+
+            },
+
+            premium: {
+
+                id: "premium",
+
+                name: "Premium",
+
+                price: "S/. XX.XX",
+
+                profiles: 4,
+
+                streams: 3
+
+            }
+
+        };
+
+        const selectedPlan = plans[planId];
+
+        localStorage.setItem(
+
+            "selectedPlan",
+
+            JSON.stringify(selectedPlan)
+
+        );
 
         navigate("/payment");
 
@@ -100,6 +164,8 @@ function SubscriptionPage() {
 
                         <button
 
+                            type="button"
+
                             onClick={() => selectPlan("basic")}
 
                         >
@@ -147,6 +213,8 @@ function SubscriptionPage() {
                         </ul>
 
                         <button
+
+                            type="button"
 
                             onClick={() => selectPlan("platino")}
 
@@ -199,6 +267,8 @@ function SubscriptionPage() {
                         </ul>
 
                         <button
+
+                            type="button"
 
                             onClick={() => selectPlan("premium")}
 
