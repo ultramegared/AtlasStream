@@ -19,9 +19,19 @@ import {
 
 function SocialLogin() {
 
+    function handleProvider(provider: string) {
+
+        alert(
+
+            `${provider} estará disponible próximamente.`
+
+        );
+
+    }
+
     return (
 
-        <div className="social-login">
+        <section className="social-login">
 
             <div className="social-login__divider">
 
@@ -34,7 +44,13 @@ function SocialLogin() {
             </div>
 
             <button
-                className="social-login__button"
+
+                type="button"
+
+                className="social-login__button social-login__button--google"
+
+                onClick={() => handleProvider("Google")}
+
             >
 
                 <FaGoogle />
@@ -48,7 +64,13 @@ function SocialLogin() {
             </button>
 
             <button
-                className="social-login__button"
+
+                type="button"
+
+                className="social-login__button social-login__button--apple"
+
+                onClick={() => handleProvider("Apple")}
+
             >
 
                 <FaApple />
@@ -61,7 +83,7 @@ function SocialLogin() {
 
             </button>
 
-        </div>
+        </section>
 
     );
 

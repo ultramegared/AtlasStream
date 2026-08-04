@@ -1,0 +1,145 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: social-login.css
+Module: Frontend
+Language: CSS3
+Description:
+Social authentication styles.
+===============================================================
+*/
+
+/*
+===============================================================
+SOCIAL LOGIN
+===============================================================
+*/
+
+.social-login{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    margin-top:12px;
+
+}
+
+.social-login__divider{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    color:#9ca8bd;
+
+    font-size:.92rem;
+
+    font-weight:500;
+
+}
+
+.social-login__divider::before,
+
+.social-login__divider::after{
+
+    content:"";
+
+    flex:1;
+
+    height:1px;
+
+    background:rgba(255,255,255,.10);
+
+}
+
+.social-login__button{
+
+    width:100%;
+
+    height:58px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:14px;
+
+    background:#151d2b;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:16px;
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+    transition:all .30s ease;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+}
+
+.social-login__button svg{
+
+    font-size:1.3rem;
+
+    transition:.30s;
+
+}
+
+.social-login__button:hover{
+
+    background:#1c2637;
+
+    border-color:#E50914;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+
+        0 12px 35px rgba(0,0,0,.35);
+
+}
+
+.social-login__button:active{
+
+    transform:translateY(0);
+
+}
+
+.social-login__button--google:hover svg{
+
+    color:#EA4335;
+
+}
+
+.social-login__button--apple:hover svg{
+
+    color:#ffffff;
+
+}
+
+.social-login__button span{
+
+    letter-spacing:.2px;
+
+}
+
+.social-login__button:disabled{
+
+    opacity:.55;
+
+    cursor:not-allowed;
+
+}

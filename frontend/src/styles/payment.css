@@ -1,0 +1,225 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: payment.css
+Module: Frontend
+Language: CSS3
+Description:
+Payment page styles.
+===============================================================
+*/
+
+/*
+===============================================================
+PAYMENT PAGE
+===============================================================
+*/
+
+.payment-page{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:36px;
+
+}
+
+.payment-page__header{
+
+    text-align:center;
+
+}
+
+.payment-page__header h1{
+
+    color:#ffffff;
+
+    font-size:2.2rem;
+
+    margin-bottom:12px;
+
+}
+
+.payment-page__header p{
+
+    color:#aeb7ca;
+
+}
+
+/*
+===============================================================
+SUMMARY
+===============================================================
+*/
+
+.payment-summary{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+}
+
+.payment-summary__card{
+
+    background:rgba(20,25,35,.75);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    transition:.25s;
+
+}
+
+.payment-summary__card:hover{
+
+    border-color:#E50914;
+
+    transform:translateY(-4px);
+
+}
+
+.payment-summary__card span{
+
+    display:block;
+
+    color:#9ea8bb;
+
+    margin-bottom:8px;
+
+    font-size:.9rem;
+
+}
+
+.payment-summary__card strong{
+
+    color:#ffffff;
+
+    font-size:1.15rem;
+
+}
+
+/*
+===============================================================
+PAYMENT METHODS
+===============================================================
+*/
+
+.payment-methods{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+}
+
+.payment-methods button{
+
+    height:64px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:#141b29;
+
+    color:#ffffff;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.payment-methods button:hover{
+
+    border-color:#E50914;
+
+    background:#1b2333;
+
+    transform:translateY(-3px);
+
+}
+
+/*
+===============================================================
+FOOTER
+===============================================================
+*/
+
+.payment-footer{
+
+    margin-top:10px;
+
+}
+
+.payment-footer__button{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#E50914;
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.payment-footer__button:hover{
+
+    background:#ff2935;
+
+    transform:translateY(-2px);
+
+}
+
+/*
+===============================================================
+RESPONSIVE
+===============================================================
+*/
+
+@media(max-width:900px){
+
+    .payment-summary{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .payment-methods{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

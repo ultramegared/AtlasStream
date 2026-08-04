@@ -1,0 +1,407 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: profiles.css
+Module: Frontend
+Language: CSS3
+Description:
+Create Profiles & Profile Selection styles.
+===============================================================
+*/
+
+/*
+===============================================================
+CREATE PROFILES
+===============================================================
+*/
+
+.profiles-page{
+
+    width:100%;
+
+}
+
+.profiles-page__header{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+.profiles-page__header h1{
+
+    color:#ffffff;
+
+    font-size:2.2rem;
+
+    margin-bottom:12px;
+
+}
+
+.profiles-page__header p{
+
+    color:#aeb7ca;
+
+}
+
+.profiles-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:24px;
+
+}
+
+.profile-slot{
+
+    background:rgba(20,25,35,.78);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:28px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    transition:.30s;
+
+}
+
+.profile-slot:hover{
+
+    transform:translateY(-6px);
+
+    border-color:#E50914;
+
+}
+
+.profile-slot__avatar{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:#E50914;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:2.4rem;
+
+    margin:auto;
+
+}
+
+.profile-slot input[type="text"]{
+
+    height:52px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#141b29;
+
+    color:white;
+
+    padding:0 16px;
+
+    outline:none;
+
+}
+
+.profile-slot label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#d4d9e6;
+
+}
+
+.profile-slot.empty{
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+}
+
+.profile-slot__add{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:#141b29;
+
+    color:#E50914;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:3rem;
+
+    transition:.30s;
+
+}
+
+.profile-slot.empty:hover .profile-slot__add{
+
+    background:#E50914;
+
+    color:white;
+
+}
+
+.profiles-page__footer{
+
+    margin-top:36px;
+
+}
+
+.profiles-page__footer button{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#E50914;
+
+    color:white;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.profiles-page__footer button:hover{
+
+    background:#ff2935;
+
+}
+
+/*
+===============================================================
+PROFILE SELECTION
+===============================================================
+*/
+
+.profile-selection{
+
+    min-height:100vh;
+
+    padding:120px 60px;
+
+    background:#06080f;
+
+}
+
+.profile-selection__header{
+
+    text-align:center;
+
+    margin-bottom:60px;
+
+}
+
+.profile-selection__header h1{
+
+    color:white;
+
+    font-size:3rem;
+
+    margin-bottom:10px;
+
+}
+
+.profile-selection__header p{
+
+    color:#aeb7ca;
+
+}
+
+.profile-selection__grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:32px;
+
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+.viewer-card{
+
+    cursor:pointer;
+
+    text-align:center;
+
+    transition:.30s;
+
+}
+
+.viewer-card:hover{
+
+    transform:translateY(-10px);
+
+}
+
+.viewer-card__avatar{
+
+    width:150px;
+
+    height:150px;
+
+    margin:auto;
+
+    border-radius:24px;
+
+    background:#141b29;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:4rem;
+
+    border:2px solid transparent;
+
+    transition:.30s;
+
+}
+
+.viewer-card:hover .viewer-card__avatar{
+
+    border-color:#E50914;
+
+}
+
+.viewer-card h3{
+
+    color:white;
+
+    margin-top:18px;
+
+}
+
+.profile-selection__footer{
+
+    margin-top:70px;
+
+    text-align:center;
+
+}
+
+.profile-selection__footer button{
+
+    padding:16px 36px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    background:transparent;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.profile-selection__footer button:hover{
+
+    background:#E50914;
+
+    border-color:#E50914;
+
+}
+
+/*
+===============================================================
+RESPONSIVE
+===============================================================
+*/
+
+@media(max-width:900px){
+
+    .profiles-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .profile-selection{
+
+        padding:120px 24px;
+
+    }
+
+    .profile-selection__grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .viewer-card__avatar{
+
+        width:120px;
+
+        height:120px;
+
+        font-size:3rem;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .profile-selection__grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

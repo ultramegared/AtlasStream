@@ -6,9 +6,17 @@ File: auth.css
 Module: Frontend
 Language: CSS3
 Description:
-Authentication pages styles.
+Authentication styles entry point.
 ===============================================================
 */
+
+@import "./auth-header.css";
+@import "./register.css";
+@import "./subscription.css";
+@import "./payment.css";
+@import "./profiles.css";
+@import "./social-login.css";
+@import "./progress-steps.css";
 
 /*
 ===============================================================

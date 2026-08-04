@@ -1,0 +1,149 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: progress-steps.css
+Module: Frontend
+Language: CSS3
+Description:
+Authentication progress steps.
+===============================================================
+*/
+
+/*
+===============================================================
+PROGRESS STEPS
+===============================================================
+*/
+
+.progress-steps{
+
+    margin-bottom:48px;
+
+}
+
+.progress-steps__title{
+
+    color:#ffffff;
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+    margin-bottom:24px;
+
+}
+
+.progress-steps__wrapper{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+.progress-steps__item{
+
+    flex:1;
+
+    height:10px;
+
+    border-radius:999px;
+
+    background:#232d40;
+
+    overflow:hidden;
+
+    position:relative;
+
+    transition:.35s ease;
+
+}
+
+.progress-steps__item.active{
+
+    background:linear-gradient(
+        90deg,
+        #E50914,
+        #ff3a46
+    );
+
+    box-shadow:
+
+        0 0 18px rgba(229,9,20,.35);
+
+}
+
+.progress-steps__counter{
+
+    margin-top:18px;
+
+    color:#9ea8bb;
+
+    font-size:.92rem;
+
+    font-weight:500;
+
+}
+
+.progress-steps__labels{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:18px;
+
+    gap:10px;
+
+}
+
+.progress-steps__labels span{
+
+    flex:1;
+
+    text-align:center;
+
+    font-size:.88rem;
+
+    color:#77839b;
+
+    transition:.25s;
+
+}
+
+.progress-steps__labels span.active{
+
+    color:#ffffff;
+
+    font-weight:700;
+
+}
+
+/*
+===============================================================
+RESPONSIVE
+===============================================================
+*/
+
+@media(max-width:768px){
+
+    .progress-steps{
+
+        margin-bottom:32px;
+
+    }
+
+    .progress-steps__title{
+
+        font-size:1.3rem;
+
+    }
+
+    .progress-steps__labels{
+
+        display:none;
+
+    }
+
+}

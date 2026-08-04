@@ -1,0 +1,274 @@
+/*
+===============================================================
+Author: ultramegared
+Project: AtlasStream
+File: register.css
+Module: Frontend
+Language: CSS3
+Description:
+Register and Login styles.
+===============================================================
+*/
+
+/*
+===============================================================
+AUTH LAYOUT
+===============================================================
+*/
+
+.auth-layout{
+
+    min-height:100vh;
+
+    display:grid;
+
+    grid-template-columns:1fr 520px;
+
+    gap:80px;
+
+    align-items:center;
+
+    padding:120px 80px;
+
+    background:
+    linear-gradient(
+        rgba(5,10,20,.92),
+        rgba(5,10,20,.96)
+    ),
+    url("/images/background.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+}
+
+.auth-layout__left{
+
+    color:white;
+
+}
+
+.auth-layout__left h1{
+
+    font-size:3.8rem;
+
+    line-height:1.08;
+
+    margin-bottom:24px;
+
+}
+
+.auth-layout__left p{
+
+    color:#bfc7d7;
+
+    font-size:1.15rem;
+
+    line-height:1.8;
+
+    margin-bottom:40px;
+
+}
+
+.auth-layout__features{
+
+    list-style:none;
+
+    padding:0;
+
+}
+
+.auth-layout__features li{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+    font-size:1.05rem;
+
+}
+
+/*
+===============================================================
+REGISTER FORM
+===============================================================
+*/
+
+.register-form{
+
+    background:rgba(20,25,35,.78);
+
+    backdrop-filter:blur(24px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+
+        0 20px 70px rgba(0,0,0,.45);
+
+    border-radius:28px;
+
+    padding:48px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.register-form h2{
+
+    color:white;
+
+    font-size:2rem;
+
+    text-align:center;
+
+    margin:0;
+
+}
+
+.register-form p{
+
+    color:#bfc7d7;
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+}
+
+.register-form input,
+
+.register-form select{
+
+    width:100%;
+
+    height:56px;
+
+    background:#101725;
+
+    border:1px solid transparent;
+
+    border-radius:14px;
+
+    color:white;
+
+    padding:0 18px;
+
+    font-size:1rem;
+
+    transition:.25s;
+
+    outline:none;
+
+}
+
+.register-form input::placeholder{
+
+    color:#8c96a8;
+
+}
+
+.register-form input:focus,
+
+.register-form select:focus{
+
+    border-color:#E50914;
+
+    box-shadow:
+
+        0 0 0 4px rgba(229,9,20,.15);
+
+}
+
+.register-form__checkbox{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    color:#c2cad8;
+
+    font-size:.92rem;
+
+}
+
+.register-form__button{
+
+    width:100%;
+
+    height:58px;
+
+    margin-top:10px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#E50914;
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.register-form__button:hover{
+
+    background:#ff2733;
+
+    transform:translateY(-2px);
+
+}
+
+.register-form__button:active{
+
+    transform:translateY(0);
+
+}
+
+/*
+===============================================================
+RESPONSIVE
+===============================================================
+*/
+
+@media(max-width:1000px){
+
+    .auth-layout{
+
+        grid-template-columns:1fr;
+
+        padding:120px 24px 60px;
+
+    }
+
+    .auth-layout__left{
+
+        display:none;
+
+    }
+
+    .register-form{
+
+        padding:32px;
+
+    }
+
+}
