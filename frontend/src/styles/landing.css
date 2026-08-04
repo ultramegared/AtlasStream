@@ -380,3 +380,97 @@
     }
 
 }
+
+/* ==========================================================
+   TRENDING
+========================================================== */
+
+.landing-trending{
+
+    max-width:1400px;
+
+    margin:auto;
+
+    padding:90px 40px;
+
+}
+
+.landing-trending h2{
+
+    color:white;
+
+    font-size:2.4rem;
+
+    margin-bottom:10px;
+
+}
+
+.landing-trending p{
+
+    color:#a1a1aa;
+
+    margin-bottom:45px;
+
+}
+
+.landing-trending__grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:30px;
+
+}
+
+.landing-movie-card{
+
+    background:#141824;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    cursor:pointer;
+
+}
+
+.landing-movie-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 25px 45px rgba(0,0,0,.45);
+
+}
+
+.landing-movie-card img{
+
+    width:100%;
+
+    height:330px;
+
+    object-fit:cover;
+
+}
+
+.landing-movie-card__info{
+
+    padding:18px;
+
+}
+
+.landing-movie-card__info h3{
+
+    color:white;
+
+    margin-bottom:8px;
+
+}
+
+.landing-movie-card__info span{
+
+    color:#9ca3af;
+
+}

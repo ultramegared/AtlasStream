@@ -4,135 +4,97 @@
  * Project: AtlasStream
  * File: LandingTrending.tsx
  * Module: Frontend
- * Language: TypeScript React
- * Description:
- * Trending content section.
  * ===============================================================
  */
+
+import "../../styles/landing.css";
+
+const movies = [
+
+    {
+        title: "Dune",
+        genre: "Ciencia ficción",
+        image: "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg"
+    },
+
+    {
+        title: "The Batman",
+        genre: "Acción",
+        image: "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg"
+    },
+
+    {
+        title: "Wednesday",
+        genre: "Serie",
+        image: "https://image.tmdb.org/t/p/w500/jeGtaMwGxPmQN5xM4ClnwPQcNQz.jpg"
+    },
+
+    {
+        title: "Interstellar",
+        genre: "Drama",
+        image: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"
+    }
+
+];
 
 function LandingTrending() {
 
     return (
 
-        <section className="landing-trending">
+        <section
+            id="movies"
+            className="landing-trending"
+        >
 
-            <div className="landing-section__header">
+            <h2>
 
-                <h2>
+                Tendencias de hoy
 
-                    Tendencias de hoy
+            </h2>
 
-                </h2>
+            <p>
 
-                <p>
+                Descubre lo más visto por nuestros usuarios.
 
-                    Descubre lo más visto por nuestros usuarios.
-
-                </p>
-
-            </div>
+            </p>
 
             <div className="landing-trending__grid">
 
-                <article className="trending-card">
+                {
 
-                    <img
-                        src="/images/demo/movie1.jpg"
-                        alt="Movie 1"
-                    />
+                    movies.map((movie) => (
 
-                    <div className="trending-card__info">
+                        <article
+                            key={movie.title}
+                            className="landing-movie-card"
+                        >
 
-                        <h3>
+                            <img
+                                src={movie.image}
+                                alt={movie.title}
+                            />
 
-                            Dune
+                            <div className="landing-movie-card__info">
 
-                        </h3>
+                                <h3>
 
-                        <span>
+                                    {movie.title}
 
-                            Ciencia ficción
+                                </h3>
 
-                        </span>
+                                <span>
 
-                    </div>
+                                    {movie.genre}
 
-                </article>
+                                </span>
 
-                <article className="trending-card">
+                            </div>
 
-                    <img
-                        src="/images/demo/movie2.jpg"
-                        alt="Movie 2"
-                    />
+                        </article>
 
-                    <div className="trending-card__info">
+                    ))
 
-                        <h3>
-
-                            The Batman
-
-                        </h3>
-
-                        <span>
-
-                            Acción
-
-                        </span>
-
-                    </div>
-
-                </article>
-
-                <article className="trending-card">
-
-                    <img
-                        src="/images/demo/movie3.jpg"
-                        alt="Movie 3"
-                    />
-
-                    <div className="trending-card__info">
-
-                        <h3>
-
-                            Wednesday
-
-                        </h3>
-
-                        <span>
-
-                            Serie
-
-                        </span>
-
-                    </div>
-
-                </article>
-
-                <article className="trending-card">
-
-                    <img
-                        src="/images/demo/movie4.jpg"
-                        alt="Movie 4"
-                    />
-
-                    <div className="trending-card__info">
-
-                        <h3>
-
-                            Interstellar
-
-                        </h3>
-
-                        <span>
-
-                            Drama
-
-                        </span>
-
-                    </div>
-
-                </article>
+                }
 
             </div>
 
