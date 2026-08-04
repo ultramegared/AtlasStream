@@ -8,6 +8,8 @@
  * ===============================================================
  */
 
+import { Link } from "react-router-dom";
+
 import "../../styles/landing.css";
 
 function LandingHero() {
@@ -48,23 +50,21 @@ function LandingHero() {
 
                     <div className="landing-hero__buttons">
 
-                        <button
-                            className="landing-btn landing-btn--primary"
-                        >
+    <Link
+        to="/register"
+        className="landing-btn landing-btn--primary"
+    >
+        Crear cuenta
+    </Link>
 
-                            Crear cuenta
+    <Link
+        to="/login"
+        className="landing-btn landing-btn--secondary"
+    >
+        Iniciar sesión
+    </Link>
 
-                        </button>
-
-                        <button
-                            className="landing-btn landing-btn--secondary"
-                        >
-
-                            Iniciar sesión
-
-                        </button>
-
-                    </div>
+</div>
 
                 </div>
 

@@ -20,6 +20,8 @@ import {
 
 import LandingPage from "../pages/LandingPage";
 
+import LoginPage from "../pages/auth/LoginPage";
+
 import RegisterPage from "../pages/auth/RegisterPage";
 import SubscriptionPage from "../pages/auth/SubscriptionPage";
 import PaymentPage from "../pages/auth/PaymentPage";
@@ -33,6 +35,11 @@ function AppRouter() {
     return (
 
         <Routes>
+        
+        <Route
+    path="/login"
+    element={<LoginPage />}
+/>
 
             <Route
 

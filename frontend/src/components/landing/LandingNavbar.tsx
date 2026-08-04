@@ -10,6 +10,8 @@
  * ===============================================================
  */
 
+import { Link } from "react-router-dom";
+
 import "../../styles/landing.css";
 
 function LandingNavbar() {
@@ -18,23 +20,23 @@ function LandingNavbar() {
 
         <header className="landing-navbar">
 
-            <div className="landing-navbar__container">
+            <div className="landing-navbar__actions">
 
-                <div className="landing-navbar__logo">
+    <Link
+        to="/login"
+        className="landing-navbar__login"
+    >
+        Iniciar sesión
+    </Link>
 
-                    <span className="landing-navbar__atlas">
+    <Link
+        to="/register"
+        className="landing-navbar__register"
+    >
+        Crear cuenta
+    </Link>
 
-                        Atlas
-
-                    </span>
-
-                    <span className="landing-navbar__stream">
-
-                        Stream
-
-                    </span>
-
-                </div>
+</div>
 
                 <nav className="landing-navbar__menu">
 
