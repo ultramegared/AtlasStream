@@ -10,6 +10,8 @@
  * ===============================================================
  */
 
+import "../../styles/auth.css";
+
 import { useNavigate } from "react-router-dom";
 
 function ProfileSelectionPage() {
@@ -18,8 +20,9 @@ function ProfileSelectionPage() {
 
     function openHome(profile: string) {
 
-        // En el futuro aquí guardaremos
-        // el perfil activo del usuario.
+        // TODO:
+        // Guardar el perfil activo
+        // antes de ingresar al Home.
 
         console.log("Perfil seleccionado:", profile);
 
@@ -50,8 +53,11 @@ function ProfileSelectionPage() {
             <section className="profile-selection__grid">
 
                 <article
+
                     className="viewer-card"
+
                     onClick={() => openHome("José")}
+
                 >
 
                     <div className="viewer-card__avatar">
@@ -69,8 +75,11 @@ function ProfileSelectionPage() {
                 </article>
 
                 <article
+
                     className="viewer-card"
+
                     onClick={() => openHome("María")}
+
                 >
 
                     <div className="viewer-card__avatar">
@@ -88,8 +97,11 @@ function ProfileSelectionPage() {
                 </article>
 
                 <article
+
                     className="viewer-card"
+
                     onClick={() => openHome("Kevin")}
+
                 >
 
                     <div className="viewer-card__avatar">
@@ -107,8 +119,11 @@ function ProfileSelectionPage() {
                 </article>
 
                 <article
+
                     className="viewer-card"
+
                     onClick={() => openHome("Kids")}
+
                 >
 
                     <div className="viewer-card__avatar">
@@ -127,17 +142,19 @@ function ProfileSelectionPage() {
 
             </section>
 
-            <div className="profile-selection__footer">
+            <footer className="profile-selection__footer">
 
                 <button
+
                     type="button"
+
                 >
 
                     Administrar perfiles
 
                 </button>
 
-            </div>
+            </footer>
 
         </main>
 

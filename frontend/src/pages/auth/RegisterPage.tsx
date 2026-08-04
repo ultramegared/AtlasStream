@@ -10,6 +10,8 @@
  * ===============================================================
  */
 
+import "../../styles/auth.css";
+
 import AuthHeader from "../../components/auth/AuthHeader";
 import AuthLayout from "../../components/auth/AuthLayout";
 import RegisterForm from "../../components/auth/RegisterForm";

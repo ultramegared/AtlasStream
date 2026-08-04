@@ -10,6 +10,8 @@
  * ===============================================================
  */
 
+import "../../styles/auth.css";
+
 import { useNavigate } from "react-router-dom";
 
 import AuthContainer from "../../components/auth/AuthContainer";
@@ -20,8 +22,9 @@ function CreateProfilesPage() {
 
     function handleContinue() {
 
-        // Más adelante aquí se guardarán los perfiles
-        // en la base de datos.
+        // TODO:
+        // Aquí se guardarán los perfiles
+        // creados por el usuario.
 
         navigate("/profiles");
 
@@ -30,8 +33,11 @@ function CreateProfilesPage() {
     return (
 
         <AuthContainer
+
             step={4}
+
             title="Configura tus perfiles"
+
         >
 
             <section className="profiles-page">
@@ -63,14 +69,19 @@ function CreateProfilesPage() {
                         </div>
 
                         <input
+
                             type="text"
+
                             placeholder="Nombre del perfil"
+
                         />
 
                         <label>
 
                             <input
+
                                 type="checkbox"
+
                             />
 
                             Perfil infantil
@@ -80,7 +91,9 @@ function CreateProfilesPage() {
                         <label>
 
                             <input
+
                                 type="checkbox"
+
                             />
 
                             Proteger con PIN
@@ -142,8 +155,11 @@ function CreateProfilesPage() {
                 <footer className="profiles-page__footer">
 
                     <button
+
                         type="button"
+
                         onClick={handleContinue}
+
                     >
 
                         Continuar

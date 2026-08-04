@@ -12,7 +12,13 @@
 
 import { ReactNode } from "react";
 
-interface Props {
+import "../../styles/auth.css";
+
+import AuthHeader from "./AuthHeader";
+import AuthLayout from "./AuthLayout";
+import ProgressSteps from "../common/ProgressSteps";
+
+interface AuthContainerProps {
 
     title: string;
 
@@ -26,47 +32,37 @@ function AuthContainer({
 
     title,
 
-    step,
+    step = 1,
 
     children
 
-}: Props) {
+}: AuthContainerProps) {
 
     return (
 
-        <main className="auth-container">
+        <>
 
-            <section className="auth-card">
+            <AuthHeader />
 
-                {
+            <AuthLayout>
 
-                    step && (
+                <>
 
-                        <span className="auth-step">
+                    <ProgressSteps
 
-                            Paso {step}
+                        step={step}
 
-                        </span>
+                        title={title}
 
-                    )
-
-                }
-
-                <h1>
-
-                    {title}
-
-                </h1>
-
-                <div className="auth-content">
+                    />
 
                     {children}
 
-                </div>
+                </>
 
-            </section>
+            </AuthLayout>
 
-        </main>
+        </>
 
     );
 
