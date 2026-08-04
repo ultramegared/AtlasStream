@@ -10,7 +10,22 @@
  * ===============================================================
  */
 
+import { useNavigate } from "react-router-dom";
+
 function ProfileSelectionPage() {
+
+    const navigate = useNavigate();
+
+    function openHome(profile: string) {
+
+        // En el futuro aquí guardaremos
+        // el perfil activo del usuario.
+
+        console.log("Perfil seleccionado:", profile);
+
+        navigate("/home");
+
+    }
 
     return (
 
@@ -34,7 +49,10 @@ function ProfileSelectionPage() {
 
             <section className="profile-selection__grid">
 
-                <article className="viewer-card">
+                <article
+                    className="viewer-card"
+                    onClick={() => openHome("José")}
+                >
 
                     <div className="viewer-card__avatar">
 
@@ -50,7 +68,10 @@ function ProfileSelectionPage() {
 
                 </article>
 
-                <article className="viewer-card">
+                <article
+                    className="viewer-card"
+                    onClick={() => openHome("María")}
+                >
 
                     <div className="viewer-card__avatar">
 
@@ -66,7 +87,10 @@ function ProfileSelectionPage() {
 
                 </article>
 
-                <article className="viewer-card">
+                <article
+                    className="viewer-card"
+                    onClick={() => openHome("Kevin")}
+                >
 
                     <div className="viewer-card__avatar">
 
@@ -82,7 +106,10 @@ function ProfileSelectionPage() {
 
                 </article>
 
-                <article className="viewer-card">
+                <article
+                    className="viewer-card"
+                    onClick={() => openHome("Kids")}
+                >
 
                     <div className="viewer-card__avatar">
 
@@ -102,7 +129,9 @@ function ProfileSelectionPage() {
 
             <div className="profile-selection__footer">
 
-                <button>
+                <button
+                    type="button"
+                >
 
                     Administrar perfiles
 
