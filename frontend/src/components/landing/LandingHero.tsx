@@ -5,6 +5,8 @@
  * File: LandingHero.tsx
  * Module: Frontend
  * Language: TypeScript React
+ * Description:
+ * Public landing hero section.
  * ===============================================================
  */
 
@@ -41,30 +43,33 @@ function LandingHero() {
 
                     <p>
 
-                        Películas, series, TV en vivo, deportes y
-                        contenido exclusivo con una experiencia
-                        moderna, rápida y disponible en cualquier
+                        Películas, series, TV en vivo, deportes y contenido exclusivo
+                        con una experiencia moderna, rápida y disponible en cualquier
                         dispositivo.
 
                     </p>
 
                     <div className="landing-hero__buttons">
 
-    <Link
-        to="/register"
-        className="landing-btn landing-btn--primary"
-    >
-        Crear cuenta
-    </Link>
+                        <Link
+                            to="/register"
+                            className="landing-btn landing-btn--primary"
+                        >
 
-    <Link
-        to="/login"
-        className="landing-btn landing-btn--secondary"
-    >
-        Iniciar sesión
-    </Link>
+                            Crear cuenta
 
-</div>
+                        </Link>
+
+                        <Link
+                            to="/login"
+                            className="landing-btn landing-btn--secondary"
+                        >
+
+                            Iniciar sesión
+
+                        </Link>
+
+                    </div>
 
                 </div>
 
