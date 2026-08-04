@@ -4,9 +4,6 @@
  * Project: AtlasStream
  * File: LandingFooter.tsx
  * Module: Frontend
- * Language: TypeScript React
- * Description:
- * Landing page footer.
  * ===============================================================
  */
 
@@ -15,11 +12,11 @@ import {
     FaFacebook,
     FaInstagram,
     FaYoutube,
-    FaXTwitter,
-    FaLinkedin,
-    FaGithub
+    FaXTwitter
 
 } from "react-icons/fa6";
+
+import "../../styles/landing.css";
 
 function LandingFooter() {
 
@@ -27,31 +24,25 @@ function LandingFooter() {
 
         <footer className="landing-footer">
 
-            <div className="landing-footer__top">
+            <div className="landing-footer__container">
 
-                <div className="landing-footer__brand">
+                <div>
 
                     <h2>
 
-                        AtlasStream
+                        Atlas<span>Stream</span>
 
                     </h2>
 
                     <p>
 
-                        Premium Streaming Platform
+                        La nueva generación del entretenimiento.
 
                     </p>
 
-                    <span>
-
-                        Películas • Series • TV en Vivo • Deportes • Documentales
-
-                    </span>
-
                 </div>
 
-                <div className="landing-footer__links">
+                <div>
 
                     <h3>
 
@@ -59,23 +50,27 @@ function LandingFooter() {
 
                     </h3>
 
-                    <ul>
+                    <a href="#home">
 
-                        <li>Inicio</li>
+                        Inicio
 
-                        <li>Películas</li>
+                    </a>
 
-                        <li>Series</li>
+                    <a href="#plans">
 
-                        <li>TV en Vivo</li>
+                        Planes
 
-                        <li>Planes</li>
+                    </a>
 
-                    </ul>
+                    <a href="#faq">
+
+                        FAQ
+
+                    </a>
 
                 </div>
 
-                <div className="landing-footer__links">
+                <div>
 
                     <h3>
 
@@ -83,85 +78,53 @@ function LandingFooter() {
 
                     </h3>
 
-                    <ul>
+                    <a href="#">
 
-                        <li>Centro de ayuda</li>
+                        Contacto
 
-                        <li>Contáctanos</li>
+                    </a>
 
-                        <li>Preguntas frecuentes</li>
+                    <a href="#">
 
-                        <li>Estado del servicio</li>
+                        Privacidad
 
-                    </ul>
+                    </a>
+
+                    <a href="#">
+
+                        Términos
+
+                    </a>
 
                 </div>
 
-                <div className="landing-footer__links">
+                <div>
 
                     <h3>
 
-                        Legal
+                        Síguenos
 
                     </h3>
 
-                    <ul>
+                    <div className="landing-footer__social">
 
-                        <li>Términos de uso</li>
+                        <FaFacebook />
 
-                        <li>Privacidad</li>
+                        <FaInstagram />
 
-                        <li>Cookies</li>
+                        <FaXTwitter />
 
-                        <li>Licencias</li>
+                        <FaYoutube />
 
-                    </ul>
+                    </div>
 
                 </div>
-
-            </div>
-
-            <div className="landing-footer__social">
-
-                <FaFacebook />
-
-                <FaInstagram />
-
-                <FaXTwitter />
-
-                <FaYoutube />
-
-                <FaLinkedin />
-
-                <FaGithub />
 
             </div>
 
             <div className="landing-footer__bottom">
 
-                <div>
-
-                    🌎 Español
-
-                </div>
-
-                <div>
-
-                    Version 1.0.0
-
-                </div>
-
-                <div>
-
-                    © 2026 AtlasStream
-
-                </div>
-
-                <div>
-
-                    Designed & Developed by ultramegared
-
-                </div>
+                © 2026 AtlasStream. Todos los derechos reservados.
 
             </div>
 
