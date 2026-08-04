@@ -28,11 +28,8 @@ function RegisterPage() {
                 <>
 
                     <ProgressSteps
-
                         step={1}
-
                         title="Crear tu cuenta"
-
                     />
 
                     <RegisterForm />
