@@ -724,3 +724,75 @@
     background:#ff2330;
 
 }
+
+/* ==========================================================
+   FAQ
+========================================================== */
+
+.landing-faq{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    padding:90px 40px;
+
+}
+
+.landing-faq h2{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:2.5rem;
+
+    margin-bottom:50px;
+
+}
+
+.landing-faq__list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.landing-faq__item{
+
+    background:#141824;
+
+    border-radius:18px;
+
+    padding:28px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+
+}
+
+.landing-faq__item:hover{
+
+    border-color:#e50914;
+
+}
+
+.landing-faq__item h3{
+
+    color:white;
+
+    margin-bottom:12px;
+
+}
+
+.landing-faq__item p{
+
+    color:#b3b3b3;
+
+    line-height:1.8;
+
+}
