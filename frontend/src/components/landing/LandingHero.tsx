@@ -5,54 +5,66 @@
  * File: LandingHero.tsx
  * Module: Frontend
  * Language: TypeScript React
- * Description:
- * Landing hero section.
  * ===============================================================
  */
+
+import "../../styles/landing.css";
 
 function LandingHero() {
 
     return (
 
-        <section className="landing-hero">
+        <section
+            id="home"
+            className="landing-hero"
+        >
 
-            <div className="landing-hero__overlay" />
+            <div className="landing-hero__overlay">
 
-            <div className="landing-hero__content">
+                <div className="landing-hero__content">
 
-                <span className="landing-hero__badge">
+                    <span className="landing-hero__badge">
 
-                    Premium Streaming Platform
+                        Premium Streaming Platform
 
-                </span>
+                    </span>
 
-                <h1>
+                    <h1>
 
-                    Todo el entretenimiento en un solo lugar.
+                        Todo el entretenimiento
+                        <br />
+                        en un solo lugar.
 
-                </h1>
+                    </h1>
 
-                <p>
+                    <p>
 
-                    Películas, series, TV en vivo, deportes y contenido
-                    exclusivo con una experiencia moderna, rápida y
-                    disponible en cualquier dispositivo.
+                        Películas, series, TV en vivo, deportes y
+                        contenido exclusivo con una experiencia
+                        moderna, rápida y disponible en cualquier
+                        dispositivo.
 
-                </p>
+                    </p>
 
-                <div className="landing-hero__buttons">
+                    <div className="landing-hero__buttons">
 
-                    <button className="btn-primary">
+                        <button
+                            className="landing-btn landing-btn--primary"
+                        >
 
-                        Crear cuenta
+                            Crear cuenta
 
-                    </button>
+                        </button>
 
-                    <button className="btn-secondary">
+                        <button
+                            className="landing-btn landing-btn--secondary"
+                        >
 
-                        Iniciar sesión
+                            Iniciar sesión
 
-                    </button>
+                        </button>
+
+                    </div>
 
                 </div>
 
