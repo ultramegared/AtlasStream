@@ -12,12 +12,13 @@
 
 import {
 
-    BrowserRouter,
     Routes,
     Route,
     Navigate
 
 } from "react-router-dom";
+
+import LandingPage from "../pages/LandingPage";
 
 import RegisterPage from "../pages/auth/RegisterPage";
 import SubscriptionPage from "../pages/auth/SubscriptionPage";
@@ -31,69 +32,73 @@ function AppRouter() {
 
     return (
 
-        <BrowserRouter>
+        <Routes>
 
-            <Routes>
+            <Route
 
-                <Route
+                path="/"
 
-                    path="/"
+                element={<LandingPage />}
 
-                    element={<RegisterPage />}
+            />
 
-                />
+            <Route
 
-                <Route
+                path="/register"
 
-                    path="/subscription"
+                element={<RegisterPage />}
 
-                    element={<SubscriptionPage />}
+            />
 
-                />
+            <Route
 
-                <Route
+                path="/subscription"
 
-                    path="/payment"
+                element={<SubscriptionPage />}
 
-                    element={<PaymentPage />}
+            />
 
-                />
+            <Route
 
-                <Route
+                path="/payment"
 
-                    path="/profiles/create"
+                element={<PaymentPage />}
 
-                    element={<CreateProfilesPage />}
+            />
 
-                />
+            <Route
 
-                <Route
+                path="/profiles/create"
 
-                    path="/profiles"
+                element={<CreateProfilesPage />}
 
-                    element={<ProfileSelectionPage />}
+            />
 
-                />
+            <Route
 
-                <Route
+                path="/profiles"
 
-                    path="/home"
+                element={<ProfileSelectionPage />}
 
-                    element={<HomePage />}
+            />
 
-                />
+            <Route
 
-                <Route
+                path="/home"
 
-                    path="*"
+                element={<HomePage />}
 
-                    element={<Navigate to="/" replace />}
+            />
 
-                />
+            <Route
 
-            </Routes>
+                path="*"
 
-        </BrowserRouter>
+                element={<Navigate to="/" replace />}
+
+            />
+
+        </Routes>
 
     );
 
