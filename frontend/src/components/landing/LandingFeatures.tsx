@@ -4,9 +4,6 @@
  * Project: AtlasStream
  * File: LandingFeatures.tsx
  * Module: Frontend
- * Language: TypeScript React
- * Description:
- * Landing features section.
  * ===============================================================
  */
 
@@ -14,102 +11,102 @@ import {
 
     FaFilm,
     FaTv,
-    FaGlobe,
-    FaUsers
+    FaMobileAlt,
+    FaGlobe
 
 } from "react-icons/fa";
+
+import "../../styles/landing.css";
 
 function LandingFeatures() {
 
     return (
 
-        <section className="landing-features">
+        <section
+            className="landing-features"
+        >
 
-            <div className="landing-section__header">
+            <h2>
 
-                <h2>
+                ¿Por qué elegir AtlasStream?
 
-                    ¿Por qué elegir AtlasStream?
+            </h2>
 
-                </h2>
+            <p>
 
-                <p>
+                Una plataforma moderna diseñada para disfrutar del mejor entretenimiento desde cualquier lugar.
 
-                    Una plataforma moderna diseñada para toda la familia.
-
-                </p>
-
-            </div>
+            </p>
 
             <div className="landing-features__grid">
 
-                <article className="feature-card">
+                <article className="landing-feature">
 
-                    <FaFilm className="feature-card__icon" />
+                    <FaFilm className="landing-feature__icon"/>
 
                     <h3>
 
-                        Películas y Series
+                        Miles de películas
 
                     </h3>
 
                     <p>
 
-                        Miles de títulos disponibles en cualquier momento.
+                        Estrenos, clásicos y contenido exclusivo.
 
                     </p>
 
                 </article>
 
-                <article className="feature-card">
+                <article className="landing-feature">
 
-                    <FaTv className="feature-card__icon" />
+                    <FaTv className="landing-feature__icon"/>
 
                     <h3>
 
-                        TV en Vivo
+                        TV en vivo
 
                     </h3>
 
                     <p>
 
-                        Disfruta canales en vivo desde cualquier dispositivo.
+                        Canales nacionales e internacionales.
 
                     </p>
 
                 </article>
 
-                <article className="feature-card">
+                <article className="landing-feature">
 
-                    <FaGlobe className="feature-card__icon" />
+                    <FaMobileAlt className="landing-feature__icon"/>
 
                     <h3>
 
-                        Multi idioma
+                        Todos tus dispositivos
 
                     </h3>
 
                     <p>
 
-                        Disponible en múltiples idiomas para todo el mundo.
+                        Android, iPhone, Smart TV, PC y Tablet.
 
                     </p>
 
                 </article>
 
-                <article className="feature-card">
+                <article className="landing-feature">
 
-                    <FaUsers className="feature-card__icon" />
+                    <FaGlobe className="landing-feature__icon"/>
 
                     <h3>
 
-                        Perfiles Familiares
+                        Disponible donde estés
 
                     </h3>
 
                     <p>
 
-                        Cada integrante tendrá su propio historial y recomendaciones.
+                        Accede a tu contenido desde cualquier parte.
 
                     </p>
 
