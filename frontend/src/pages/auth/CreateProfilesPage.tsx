@@ -31,17 +31,27 @@ interface SelectedPlan {
 
 }
 
+interface UserProfile {
+
+    id: number;
+
+    name: string;
+
+    kids: boolean;
+
+    pin: boolean;
+
+}
+
 function CreateProfilesPage() {
 
     const navigate = useNavigate();
 
-    const [profileName, setProfileName] = useState("");
+    const storedPlan = localStorage.getItem(
 
-    const [kids, setKids] = useState(false);
+        "selectedPlan"
 
-    const [pin, setPin] = useState(false);
-
-    const storedPlan = localStorage.getItem("selectedPlan");
+    );
 
     const plan: SelectedPlan = storedPlan
 
@@ -61,17 +71,115 @@ function CreateProfilesPage() {
 
         };
 
-    function handleContinue() {
+    const storedProfiles = localStorage.getItem(
 
-        if (!profileName.trim()) {
+        "profiles"
 
-            alert("Ingresa el nombre del perfil.");
+    );
+
+    const [
+
+        profiles,
+
+        setProfiles
+
+    ] = useState<UserProfile[]>(
+
+        storedProfiles
+
+            ? JSON.parse(storedProfiles)
+
+            : []
+
+    );
+
+    const [
+
+        profileName,
+
+        setProfileName
+
+    ] = useState("");
+
+    const [
+
+        kids,
+
+        setKids
+
+    ] = useState(false);
+
+    const [
+
+        pin,
+
+        setPin
+
+    ] = useState(false);
+
+    function addProfile() {
+
+        if (
+
+            profileName.trim() === ""
+
+        ) {
+
+            alert(
+
+                "Ingresa el nombre del perfil."
+
+            );
 
             return;
 
         }
 
-        const profiles = [
+        if (
+
+            profiles.length >= plan.profiles
+
+        ) {
+
+            alert(
+
+                `Tu plan ${plan.name} solo permite ${plan.profiles} perfiles.`
+
+            );
+
+            return;
+
+        }
+
+        const exists = profiles.some(
+
+            profile =>
+
+                profile.name.toLowerCase() ===
+
+                profileName.toLowerCase()
+
+        );
+
+        if (
+
+            exists
+
+        ) {
+
+            alert(
+
+                "Ya existe un perfil con ese nombre."
+
+            );
+
+            return;
+
+        }
+
+        const updatedProfiles = [
+
+            ...profiles,
 
             {
 
@@ -87,27 +195,103 @@ function CreateProfilesPage() {
 
         ];
 
+        setProfiles(
+
+            updatedProfiles
+
+        );
+
         localStorage.setItem(
 
             "profiles",
 
-            JSON.stringify(profiles)
+            JSON.stringify(
+
+                updatedProfiles
+
+            )
 
         );
+
+        setProfileName("");
+
+        setKids(false);
+
+        setPin(false);
+
+    }
+
+    function removeProfile(
+
+        id: number
+
+    ) {
+
+        const updatedProfiles =
+
+            profiles.filter(
+
+                profile =>
+
+                    profile.id !== id
+
+            );
+
+        setProfiles(
+
+            updatedProfiles
+
+        );
+
+        localStorage.setItem(
+
+            "profiles",
+
+            JSON.stringify(
+
+                updatedProfiles
+
+            )
+
+        );
+
+    }
+
+    function handleContinue() {
+
+        if (
+
+            profiles.length === 0
+
+        ) {
+
+            alert(
+
+                "Debes crear al menos un perfil."
+
+            );
+
+            return;
+
+        }
 
         localStorage.setItem(
 
             "activeProfile",
 
-            profileName
+            profiles[0].name
 
         );
 
-        navigate("/profiles");
+        navigate(
+
+            "/profiles"
+
+        );
 
     }
-
-    return (
+    
+        return (
 
         <AuthContainer
 
@@ -153,7 +337,11 @@ function CreateProfilesPage() {
 
                             value={profileName}
 
-                            onChange={(e) => setProfileName(e.target.value)}
+                            onChange={(event) =>
+
+                                setProfileName(event.target.value)
+
+                            }
 
                         />
 
@@ -165,9 +353,9 @@ function CreateProfilesPage() {
 
                                 checked={kids}
 
-                                onChange={(e) =>
+                                onChange={(event) =>
 
-                                    setKids(e.target.checked)
+                                    setKids(event.target.checked)
 
                                 }
 
@@ -185,9 +373,9 @@ function CreateProfilesPage() {
 
                                 checked={pin}
 
-                                onChange={(e) =>
+                                onChange={(event) =>
 
-                                    setPin(e.target.checked)
+                                    setPin(event.target.checked)
 
                                 }
 
@@ -197,7 +385,107 @@ function CreateProfilesPage() {
 
                         </label>
 
+                        <button
+
+                            type="button"
+
+                            className="register-form__button"
+
+                            onClick={addProfile}
+
+                        >
+
+                            Agregar perfil
+
+                        </button>
+
                     </article>
+
+                    {
+
+                        profiles.map(
+
+                            (profile) => (
+
+                                <article
+
+                                    key={profile.id}
+
+                                    className="profile-slot"
+
+                                >
+
+                                    <div className="profile-slot__avatar">
+
+                                        {
+
+                                            profile.kids
+
+                                                ? "🧸"
+
+                                                : profile.name.charAt(0).toUpperCase()
+
+                                        }
+
+                                    </div>
+
+                                    <h3>
+
+                                        {profile.name}
+
+                                    </h3>
+
+                                    <p>
+
+                                        {
+
+                                            profile.kids
+
+                                                ? "Perfil infantil"
+
+                                                : "Perfil estándar"
+
+                                        }
+
+                                    </p>
+
+                                    {
+
+                                        profile.pin && (
+
+                                            <small>
+
+                                                🔒 Protegido con PIN
+
+                                            </small>
+
+                                        )
+
+                                    }
+
+                                    <button
+
+                                        type="button"
+
+                                        onClick={() =>
+
+                                            removeProfile(profile.id)
+
+                                        }
+
+                                    >
+
+                                        Eliminar
+
+                                    </button>
+
+                                </article>
+
+                            )
+
+                        )
+
+                    }
 
                 </section>
 
@@ -211,7 +499,7 @@ function CreateProfilesPage() {
 
                     >
 
-                        Guardar perfil
+                        Continuar
 
                     </button>
 
