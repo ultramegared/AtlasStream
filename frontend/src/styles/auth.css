@@ -58,6 +58,10 @@ HEADER
 
     display:flex;
 
+    align-items:center;
+
+    gap:4px;
+
     font-size:2rem;
 
     font-weight:700;
@@ -123,15 +127,10 @@ LAYOUT
     gap:80px;
 
     background:
-
     linear-gradient(
-
     rgba(4,8,18,.92),
-
     rgba(4,8,18,.95)
-
     ),
-
     url("/images/background.jpg");
 
     background-size:cover;
@@ -207,7 +206,6 @@ REGISTER FORM
     gap:18px;
 
 }
-
 .register-form h2{
 
     color:white;
@@ -360,7 +358,7 @@ PROGRESS STEPS
 
 }
 
-.progress-steps__bar{
+.progress-steps__wrapper{
 
     display:flex;
 
@@ -398,66 +396,30 @@ PROGRESS STEPS
 
 }
 
-/*
-===============================================================
-PROGRESS STEPS
-===============================================================
-*/
+.progress-steps__labels{
 
-.progress-steps{
+    display:flex;
 
-    margin-bottom:50px;
+    justify-content:space-between;
+
+    margin-top:18px;
+
+    color:#aeb7ca;
+
+    font-size:.9rem;
 
 }
 
-.progress-steps__title{
+.progress-steps__labels span{
 
-    display:block;
+    transition:.25s;
 
-    color:white;
+}
 
-    font-size:1.5rem;
+.progress-steps__labels span.active{
+
+    color:#E50914;
 
     font-weight:700;
-
-    margin-bottom:20px;
-
-}
-
-.progress-steps__bar{
-
-    display:flex;
-
-    gap:12px;
-
-}
-
-.progress-steps__item{
-
-    flex:1;
-
-    height:8px;
-
-    border-radius:20px;
-
-    background:#2b3244;
-
-    transition:.35s;
-
-}
-
-.progress-steps__item.active{
-
-    background:#E50914;
-
-}
-
-.progress-steps__counter{
-
-    display:block;
-
-    margin-top:14px;
-
-    color:#aeb7ca;
 
 }

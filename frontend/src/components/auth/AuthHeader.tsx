@@ -10,13 +10,18 @@
  * ===============================================================
  */
 
+import { Link } from "react-router-dom";
+
 function AuthHeader() {
 
     return (
 
         <header className="auth-header">
 
-            <div className="auth-header__logo">
+            <Link
+                to="/"
+                className="auth-header__logo"
+            >
 
                 <span>
 
@@ -30,15 +35,16 @@ function AuthHeader() {
 
                 </span>
 
-            </div>
+            </Link>
 
-            <button
+            <Link
+                to="/login"
                 className="auth-header__login"
             >
 
                 Iniciar sesión
 
-            </button>
+            </Link>
 
         </header>
 
