@@ -10,18 +10,28 @@
  * ===============================================================
  */
 
+import { useNavigate } from "react-router-dom";
+
 import AuthContainer from "../../components/auth/AuthContainer";
 
 function PaymentPage() {
 
+    const navigate = useNavigate();
+
+    function handleContinue() {
+
+        // Más adelante aquí se procesará el pago
+        // mediante Stripe, PayPal, Mercado Pago, etc.
+
+        navigate("/profiles/create");
+
+    }
+
     return (
 
         <AuthContainer
-
             step={3}
-
             title="Método de pago"
-
         >
 
             <section className="payment-page">
@@ -52,65 +62,33 @@ function PaymentPage() {
 
                     <div className="payment-summary__card">
 
-                        <span>
+                        <span>Plan</span>
 
-                            Plan
-
-                        </span>
-
-                        <strong>
-
-                            Premium
-
-                        </strong>
+                        <strong>Premium</strong>
 
                     </div>
 
                     <div className="payment-summary__card">
 
-                        <span>
+                        <span>Perfiles</span>
 
-                            Perfiles
-
-                        </span>
-
-                        <strong>
-
-                            4
-
-                        </strong>
+                        <strong>4</strong>
 
                     </div>
 
                     <div className="payment-summary__card">
 
-                        <span>
+                        <span>Reproducciones</span>
 
-                            Reproducciones
-
-                        </span>
-
-                        <strong>
-
-                            3 simultáneas
-
-                        </strong>
+                        <strong>3 simultáneas</strong>
 
                     </div>
 
                     <div className="payment-summary__card">
 
-                        <span>
+                        <span>Total mensual</span>
 
-                            Total mensual
-
-                        </span>
-
-                        <strong>
-
-                            S/. XX.XX
-
-                        </strong>
+                        <strong>S/. XX.XX</strong>
 
                     </div>
 
@@ -118,25 +96,25 @@ function PaymentPage() {
 
                 <section className="payment-methods">
 
-                    <button>
+                    <button type="button">
 
                         💳 Tarjeta de crédito o débito
 
                     </button>
 
-                    <button>
+                    <button type="button">
 
                         G Google Pay
 
                     </button>
 
-                    <button>
+                    <button type="button">
 
                          Apple Pay
 
                     </button>
 
-                    <button>
+                    <button type="button">
 
                         PayPal
 
@@ -146,7 +124,11 @@ function PaymentPage() {
 
                 <footer className="payment-footer">
 
-                    <button className="payment-footer__button">
+                    <button
+                        type="button"
+                        className="payment-footer__button"
+                        onClick={handleContinue}
+                    >
 
                         Continuar
 
