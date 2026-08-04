@@ -19,12 +19,31 @@ function RegisterForm() {
 
     const navigate = useNavigate();
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const storedPlan = localStorage.getItem(
+        "selectedPlan"
+    );
+
+    const selectedPlan = storedPlan
+        ? JSON.parse(storedPlan)
+        : {
+
+            id: "standard",
+
+            name: "Standard",
+
+            price: "11.99",
+
+            profiles: 3,
+
+            quality: "Full HD"
+
+        };
+
+    function handleSubmit(
+        event: FormEvent<HTMLFormElement>
+    ) {
 
         event.preventDefault();
-
-        // En el futuro aquí irá la validación
-        // y la llamada al backend.
 
         navigate("/subscription");
 
@@ -39,52 +58,80 @@ function RegisterForm() {
 
             <h2>
 
-                Crear tu cuenta
+                Create your account
 
             </h2>
 
             <p>
 
-                Empieza a disfrutar AtlasStream.
+                Start enjoying AtlasStream today.
 
             </p>
 
+            <div className="register-form__plan">
+
+                <span>
+
+                    Selected Plan
+
+                </span>
+
+                <h3>
+
+                    {selectedPlan.name}
+
+                </h3>
+
+                <p>
+
+                    ${selectedPlan.price}/month
+
+                </p>
+
+                <small>
+
+                    {selectedPlan.profiles} Profiles • {selectedPlan.quality}
+
+                </small>
+
+            </div>
+
             <input
                 type="text"
-                placeholder="Nombre completo"
+                placeholder="Full Name"
                 required
             />
 
             <input
                 type="text"
-                placeholder="Nombre de usuario"
+                placeholder="Username"
                 required
             />
 
             <input
                 type="email"
-                placeholder="Correo electrónico"
+                placeholder="Email Address"
                 required
             />
 
             <input
                 type="password"
-                placeholder="Contraseña"
+                placeholder="Password"
                 required
             />
 
             <input
                 type="password"
-                placeholder="Confirmar contraseña"
+                placeholder="Confirm Password"
                 required
             />
 
             <select
-                defaultValue="Español"
+                defaultValue="English"
             >
 
-                <option>Español</option>
                 <option>English</option>
+                <option>Español</option>
                 <option>Português</option>
                 <option>Français</option>
                 <option>Deutsch</option>
@@ -104,7 +151,7 @@ function RegisterForm() {
 
                 <span>
 
-                    Acepto los términos y condiciones.
+                    I accept the Terms and Conditions.
 
                 </span>
 
@@ -115,7 +162,7 @@ function RegisterForm() {
                 className="register-form__button"
             >
 
-                Continuar
+                Continue
 
             </button>
 

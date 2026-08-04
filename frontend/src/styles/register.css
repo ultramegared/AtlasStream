@@ -1,316 +1,76 @@
 /*
 ===============================================================
-Author: ultramegared
-Project: AtlasStream
-File: register.css
-Module: Frontend
-Language: CSS3
-Description:
-Register and Login styles.
+SELECTED PLAN
 ===============================================================
 */
 
-/*
-===============================================================
-AUTH LAYOUT
-===============================================================
-*/
+.register-form__plan{
 
-.auth-layout{
+    background:linear-gradient(
+        135deg,
+        rgba(229,9,20,.18),
+        rgba(255,255,255,.05)
+    );
 
-    min-height:100vh;
+    border:1px solid rgba(229,9,20,.35);
 
-    display:grid;
+    border-radius:18px;
 
-    grid-template-columns:1fr 520px;
-
-    gap:80px;
-
-    align-items:center;
-
-    padding:120px 80px;
-
-    background:
-    linear-gradient(
-        rgba(5,10,20,.92),
-        rgba(5,10,20,.96)
-    ),
-    url("/images/background.jpg");
-
-    background-size:cover;
-
-    background-position:center;
-
-}
-
-.auth-layout__left{
-
-    color:white;
-
-}
-
-.auth-layout__left h1{
-
-    font-size:3.8rem;
-
-    line-height:1.08;
-
-    margin-bottom:24px;
-
-}
-
-.auth-layout__left p{
-
-    color:#bfc7d7;
-
-    font-size:1.15rem;
-
-    line-height:1.8;
-
-    margin-bottom:40px;
-
-}
-
-.auth-layout__features{
-
-    list-style:none;
-
-    padding:0;
-
-}
-
-.auth-layout__features li{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin-bottom:18px;
-
-    font-size:1.05rem;
-
-}
-
-/*
-===============================================================
-REGISTER FORM
-===============================================================
-*/
-
-.register-form{
-
-    width:100%;
-
-    max-width:520px;
-
-    margin:auto;
-
-    background:rgba(20,25,35,.78);
-
-    backdrop-filter:blur(24px);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 20px 70px rgba(0,0,0,.45);
-
-    border-radius:28px;
-
-    padding:48px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:18px;
-
-}
-
-.register-form h2{
-
-    color:white;
-
-    font-size:2rem;
+    padding:22px;
 
     text-align:center;
 
-    margin:0;
-
-}
-
-.register-form p{
-
-    color:#bfc7d7;
-
-    text-align:center;
-
-    margin-bottom:10px;
-
-}
-
-.register-form input:not([type="checkbox"]),
-
-.register-form select{
-
-    width:100%;
-
-    height:56px;
-
-    background:#101725;
-
-    border:1px solid transparent;
-
-    border-radius:14px;
-
-    color:white;
-
-    padding:0 18px;
-
-    font-size:1rem;
-
-    transition:.25s;
-
-    outline:none;
-
-}
-
-.register-form input::placeholder{
-
-    color:#8c96a8;
-
-}
-
-.register-form input:not([type="checkbox"]):focus,
-
-.register-form select:focus{
-
-    border-color:#E50914;
+    margin-bottom:8px;
 
     box-shadow:
-        0 0 0 4px rgba(229,9,20,.15);
+        0 12px 35px rgba(0,0,0,.28);
 
 }
 
-/*
-===============================================================
-CHECKBOX
-===============================================================
-*/
+.register-form__plan span{
 
-.register-form__checkbox{
+    display:block;
 
-    display:flex;
+    color:#ff7d86;
 
-    align-items:center;
-
-    gap:12px;
-
-    color:#c2cad8;
-
-    font-size:.95rem;
-
-    cursor:pointer;
-
-}
-
-.register-form__checkbox input[type="checkbox"]{
-
-    width:20px;
-
-    height:20px;
-
-    margin:0;
-
-    accent-color:#E50914;
-
-    cursor:pointer;
-
-    flex-shrink:0;
-
-}
-
-.register-form__checkbox span{
-
-    line-height:1.5;
-
-}
-
-/*
-===============================================================
-BUTTON
-===============================================================
-*/
-
-.register-form__button{
-
-    width:100%;
-
-    height:58px;
-
-    margin-top:10px;
-
-    border:none;
-
-    border-radius:14px;
-
-    background:#E50914;
-
-    color:white;
-
-    font-size:1rem;
+    font-size:.82rem;
 
     font-weight:700;
 
-    cursor:pointer;
+    text-transform:uppercase;
 
-    transition:.25s;
+    letter-spacing:1px;
 
-}
-
-.register-form__button:hover{
-
-    background:#ff2733;
-
-    transform:translateY(-2px);
+    margin-bottom:8px;
 
 }
 
-.register-form__button:active{
+.register-form__plan h3{
 
-    transform:translateY(0);
+    color:#ffffff;
+
+    font-size:1.6rem;
+
+    margin:0;
 
 }
 
-/*
-===============================================================
-RESPONSIVE
-===============================================================
-*/
+.register-form__plan p{
 
-@media(max-width:1000px){
+    margin:8px 0;
 
-    .auth-layout{
+    color:#ffffff;
 
-        grid-template-columns:1fr;
+    font-size:1.1rem;
 
-        padding:150px 24px 60px;
+    font-weight:700;
 
-    }
+}
 
-    .auth-layout__left{
+.register-form__plan small{
 
-        display:none;
+    color:#bfc7d7;
 
-    }
-
-    .register-form{
-
-        max-width:100%;
-
-        padding:32px;
-
-    }
+    font-size:.9rem;
 
 }
