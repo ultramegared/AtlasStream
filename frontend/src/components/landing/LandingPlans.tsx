@@ -4,129 +4,98 @@
  * Project: AtlasStream
  * File: LandingPlans.tsx
  * Module: Frontend
- * Language: TypeScript React
- * Description:
- * Subscription plans preview section.
  * ===============================================================
  */
+
+import "../../styles/landing.css";
+
+const plans = [
+
+    {
+        name: "Básico",
+        price: "$7.99",
+        profiles: "2 perfiles",
+        quality: "HD",
+        featured: false
+    },
+
+    {
+        name: "Estándar",
+        price: "$11.99",
+        profiles: "3 perfiles",
+        quality: "Full HD",
+        featured: true
+    },
+
+    {
+        name: "Premium",
+        price: "$15.99",
+        profiles: "4 perfiles",
+        quality: "4K Ultra HD",
+        featured: false
+    }
+
+];
 
 function LandingPlans() {
 
     return (
 
-        <section className="landing-plans">
+        <section
+            id="plans"
+            className="landing-plans"
+        >
 
-            <div className="landing-section__header">
+            <h2>
 
-                <h2>
+                Elige tu plan
 
-                    Elige el plan ideal para ti
+            </h2>
 
-                </h2>
+            <p>
 
-                <p>
+                Empieza hoy mismo y disfruta del mejor entretenimiento.
 
-                    Todos los planes incluyen acceso ilimitado al catálogo de AtlasStream.
+            </p>
 
-                </p>
+            <div className="landing-plans__grid">
 
-            </div>
+                {
 
-            <div className="landing-plans__table">
+                    plans.map((plan) => (
 
-                <table>
+                        <article
+                            key={plan.name}
+                            className={`landing-plan ${plan.featured ? "landing-plan--featured" : ""}`}
+                        >
 
-                    <thead>
+                            <h3>{plan.name}</h3>
 
-                        <tr>
+                            <h4>{plan.price}<span>/mes</span></h4>
 
-                            <th>Características</th>
+                            <ul>
 
-                            <th>Basic</th>
+                                <li>✔ {plan.profiles}</li>
 
-                            <th>Platino ⭐</th>
+                                <li>✔ Calidad {plan.quality}</li>
 
-                            <th>Premium 👑</th>
+                                <li>✔ TV • Android • iPhone • PC</li>
 
-                        </tr>
+                                <li>✔ Cancela cuando quieras</li>
 
-                    </thead>
+                            </ul>
 
-                    <tbody>
+                            <button>
 
-                        <tr>
+                                Elegir plan
 
-                            <td>Perfiles</td>
+                            </button>
 
-                            <td>2</td>
+                        </article>
 
-                            <td>3</td>
+                    ))
 
-                            <td>4</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Reproducciones</td>
-
-                            <td>1</td>
-
-                            <td>2</td>
-
-                            <td>3</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Calidad</td>
-
-                            <td>Full HD</td>
-
-                            <td>4K HDR</td>
-
-                            <td>4K HDR</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Dolby Vision</td>
-
-                            <td>--</td>
-
-                            <td>✔</td>
-
-                            <td>✔</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Dolby Atmos</td>
-
-                            <td>--</td>
-
-                            <td>--</td>
-
-                            <td>✔</td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-            <div className="landing-plans__buttons">
-
-                <button className="btn-primary">
-
-                    Crear cuenta
-
-                </button>
+                }
 
             </div>
 

@@ -574,3 +574,153 @@
     line-height:1.8;
 
 }
+
+/* ==========================================================
+   PLANS
+========================================================== */
+
+.landing-plans{
+
+    max-width:1400px;
+
+    margin:auto;
+
+    padding:90px 40px;
+
+}
+
+.landing-plans h2{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:2.5rem;
+
+    margin-bottom:15px;
+
+}
+
+.landing-plans>p{
+
+    text-align:center;
+
+    color:#9ca3af;
+
+    margin-bottom:60px;
+
+}
+
+.landing-plans__grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+    gap:35px;
+
+}
+
+.landing-plan{
+
+    background:#141824;
+
+    border-radius:22px;
+
+    padding:40px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.35s;
+
+}
+
+.landing-plan:hover{
+
+    transform:translateY(-10px);
+
+}
+
+.landing-plan--featured{
+
+    border:2px solid #e50914;
+
+    transform:scale(1.04);
+
+}
+
+.landing-plan h3{
+
+    color:white;
+
+    font-size:1.7rem;
+
+    margin-bottom:18px;
+
+}
+
+.landing-plan h4{
+
+    color:#e50914;
+
+    font-size:2.6rem;
+
+    margin-bottom:25px;
+
+}
+
+.landing-plan h4 span{
+
+    color:#9ca3af;
+
+    font-size:1rem;
+
+}
+
+.landing-plan ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0 0 35px;
+
+}
+
+.landing-plan li{
+
+    color:#d4d4d8;
+
+    margin-bottom:16px;
+
+}
+
+.landing-plan button{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#e50914;
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.landing-plan button:hover{
+
+    background:#ff2330;
+
+}
