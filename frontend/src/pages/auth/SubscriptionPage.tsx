@@ -10,18 +10,30 @@
  * ===============================================================
  */
 
+import { useNavigate } from "react-router-dom";
+
 import AuthContainer from "../../components/auth/AuthContainer";
 
 function SubscriptionPage() {
 
+    const navigate = useNavigate();
+
+    function selectPlan(plan: string) {
+
+        // Más adelante aquí guardaremos el plan seleccionado
+        // en el backend o en un contexto global.
+
+        console.log("Plan seleccionado:", plan);
+
+        navigate("/payment");
+
+    }
+
     return (
 
         <AuthContainer
-
             step={2}
-
             title="Selecciona tu plan"
-
         >
 
             <section className="subscription-page">
@@ -80,7 +92,9 @@ function SubscriptionPage() {
 
                         </ul>
 
-                        <button>
+                        <button
+                            onClick={() => selectPlan("basic")}
+                        >
 
                             Elegir este plan
 
@@ -124,7 +138,9 @@ function SubscriptionPage() {
 
                         </ul>
 
-                        <button>
+                        <button
+                            onClick={() => selectPlan("platino")}
+                        >
 
                             Elegir este plan
 
@@ -172,7 +188,9 @@ function SubscriptionPage() {
 
                         </ul>
 
-                        <button>
+                        <button
+                            onClick={() => selectPlan("premium")}
+                        >
 
                             Elegir este plan
 
