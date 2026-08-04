@@ -101,6 +101,12 @@ REGISTER FORM
 
 .register-form{
 
+    width:100%;
+
+    max-width:520px;
+
+    margin:auto;
+
     background:rgba(20,25,35,.78);
 
     backdrop-filter:blur(24px);
@@ -108,7 +114,6 @@ REGISTER FORM
     border:1px solid rgba(255,255,255,.08);
 
     box-shadow:
-
         0 20px 70px rgba(0,0,0,.45);
 
     border-radius:28px;
@@ -145,7 +150,7 @@ REGISTER FORM
 
 }
 
-.register-form input,
+.register-form input:not([type="checkbox"]),
 
 .register-form select{
 
@@ -177,31 +182,66 @@ REGISTER FORM
 
 }
 
-.register-form input:focus,
+.register-form input:not([type="checkbox"]):focus,
 
 .register-form select:focus{
 
     border-color:#E50914;
 
     box-shadow:
-
         0 0 0 4px rgba(229,9,20,.15);
 
 }
+
+/*
+===============================================================
+CHECKBOX
+===============================================================
+*/
 
 .register-form__checkbox{
 
     display:flex;
 
-    align-items:flex-start;
+    align-items:center;
 
     gap:12px;
 
     color:#c2cad8;
 
-    font-size:.92rem;
+    font-size:.95rem;
+
+    cursor:pointer;
 
 }
+
+.register-form__checkbox input[type="checkbox"]{
+
+    width:20px;
+
+    height:20px;
+
+    margin:0;
+
+    accent-color:#E50914;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+
+}
+
+.register-form__checkbox span{
+
+    line-height:1.5;
+
+}
+
+/*
+===============================================================
+BUTTON
+===============================================================
+*/
 
 .register-form__button{
 
@@ -255,7 +295,7 @@ RESPONSIVE
 
         grid-template-columns:1fr;
 
-        padding:120px 24px 60px;
+        padding:150px 24px 60px;
 
     }
 
@@ -266,6 +306,8 @@ RESPONSIVE
     }
 
     .register-form{
+
+        max-width:100%;
 
         padding:32px;
 
