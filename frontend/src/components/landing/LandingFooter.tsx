@@ -124,7 +124,7 @@ function LandingFooter() {
 
             <div className="landing-footer__bottom">
 
-                © 2026 AtlasStream. Todos los derechos reservados.
+                ultramegared © 2026 AtlasStream. Todos los derechos reservados.
 
             </div>
 
