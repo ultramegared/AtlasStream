@@ -459,3 +459,34 @@ PROGRESS STEPS
     transform: translateY(-2px);
 
 }
+
+/* ==========================================================
+   Subscription - Selected Plan
+   ========================================================== */
+
+.plan-card {
+    position: relative;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.plan-card:hover {
+    transform: translateY(-6px);
+}
+
+.plan-card--selected {
+    border: 2px solid #e50914;
+    transform: translateY(-6px);
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.35);
+}
+
+.plan-card--selected .plan-card__badge {
+    background: #e50914;
+    color: #ffffff;
+}
+
+.plan-card--selected button {
+    background: #e50914;
+    color: #ffffff;
+    font-weight: 700;
+}
