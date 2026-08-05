@@ -12,8 +12,19 @@
 
 import "../../styles/auth.css";
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+
+    useMemo,
+
+    useState
+
+} from "react";
+
+import {
+
+    useNavigate
+
+} from "react-router-dom";
 
 import AuthContainer from "../../components/auth/AuthContainer";
 
@@ -31,37 +42,73 @@ interface SelectedPlan {
 
 }
 
+const DEFAULT_PLAN: SelectedPlan = {
+
+    id: "premium",
+
+    name: "Premium",
+
+    price: "S/. XX.XX",
+
+    profiles: 4,
+
+    streams: 3
+
+};
+
 function PaymentPage() {
 
     const navigate = useNavigate();
 
-    const [paymentMethod, setPaymentMethod] = useState("");
+    const [
 
-    const storedPlan = localStorage.getItem("selectedPlan");
+        paymentMethod,
 
-    const plan: SelectedPlan = storedPlan
+        setPaymentMethod
 
-        ? JSON.parse(storedPlan)
+    ] = useState("");
 
-        : {
+    const plan = useMemo(() => {
 
-            id: "premium",
+        try {
 
-            name: "Premium",
+            const storedPlan = localStorage.getItem(
 
-            price: "S/. XX.XX",
+                "selectedPlan"
 
-            profiles: 4,
+            );
 
-            streams: 3
+            if (!storedPlan) {
 
-        };
+                return DEFAULT_PLAN;
+
+            }
+
+            return JSON.parse(
+
+                storedPlan
+
+            ) as SelectedPlan;
+
+        }
+
+        catch {
+
+            return DEFAULT_PLAN;
+
+        }
+
+    }, []);
 
     function handleContinue() {
 
         if (!paymentMethod) {
 
-            alert("Selecciona un método de pago.");
+            alert(
+
+                "Selecciona un método de pago."
+
+            );
 
             return;
 
@@ -69,13 +116,23 @@ function PaymentPage() {
 
         localStorage.setItem(
 
-            "paymentMethod",
+            "payment",
 
-            paymentMethod
+            JSON.stringify({
+
+                plan,
+
+                method: paymentMethod
+
+            })
 
         );
 
-        navigate("/profiles/create");
+        navigate(
+
+            "/profiles/create"
+
+        );
 
     }
 
@@ -157,7 +214,13 @@ function PaymentPage() {
 
                         <strong>
 
-                            {plan.streams} simultánea{plan.streams > 1 ? "s" : ""}
+                            {plan.streams}
+
+                            {" "}
+
+                            simultánea
+
+                            {plan.streams > 1 ? "s" : ""}
 
                         </strong>
 
@@ -181,13 +244,34 @@ function PaymentPage() {
 
                 </section>
 
-                <section className="payment-methods">
+                <section
 
-                    <button
+                    className="payment-methods"
+
+                >
+                                    <button
 
                         type="button"
 
-                        onClick={() => setPaymentMethod("Tarjeta")}
+                        className={
+
+                            paymentMethod === "Tarjeta"
+
+                                ? "payment-method active"
+
+                                : "payment-method"
+
+                        }
+
+                        onClick={() =>
+
+                            setPaymentMethod(
+
+                                "Tarjeta"
+
+                            )
+
+                        }
 
                     >
 
@@ -199,7 +283,25 @@ function PaymentPage() {
 
                         type="button"
 
-                        onClick={() => setPaymentMethod("Google Pay")}
+                        className={
+
+                            paymentMethod === "Google Pay"
+
+                                ? "payment-method active"
+
+                                : "payment-method"
+
+                        }
+
+                        onClick={() =>
+
+                            setPaymentMethod(
+
+                                "Google Pay"
+
+                            )
+
+                        }
 
                     >
 
@@ -211,7 +313,25 @@ function PaymentPage() {
 
                         type="button"
 
-                        onClick={() => setPaymentMethod("Apple Pay")}
+                        className={
+
+                            paymentMethod === "Apple Pay"
+
+                                ? "payment-method active"
+
+                                : "payment-method"
+
+                        }
+
+                        onClick={() =>
+
+                            setPaymentMethod(
+
+                                "Apple Pay"
+
+                            )
+
+                        }
 
                     >
 
@@ -223,7 +343,25 @@ function PaymentPage() {
 
                         type="button"
 
-                        onClick={() => setPaymentMethod("PayPal")}
+                        className={
+
+                            paymentMethod === "PayPal"
+
+                                ? "payment-method active"
+
+                                : "payment-method"
+
+                        }
+
+                        onClick={() =>
+
+                            setPaymentMethod(
+
+                                "PayPal"
+
+                            )
+
+                        }
 
                     >
 
@@ -233,7 +371,11 @@ function PaymentPage() {
 
                 </section>
 
-                <footer className="payment-footer">
+                <footer
+
+                    className="payment-footer"
+
+                >
 
                     <button
 
@@ -260,3 +402,5 @@ function PaymentPage() {
 }
 
 export default PaymentPage;
+                
+                
