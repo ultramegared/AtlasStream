@@ -12,84 +12,79 @@
 
 import "../../styles/auth.css";
 
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import AuthContainer from "../../components/auth/AuthContainer";
 
 interface SelectedPlan {
-
     id: string;
-
     name: string;
-
     price: string;
-
     profiles: number;
-
     streams: number;
-
 }
+
+const PLANS: SelectedPlan[] = [
+    {
+        id: "basic",
+        name: "Basic",
+        price: "S/. XX.XX",
+        profiles: 2,
+        streams: 1
+    },
+    {
+        id: "platino",
+        name: "Platino",
+        price: "S/. XX.XX",
+        profiles: 3,
+        streams: 2
+    },
+    {
+        id: "premium",
+        name: "Premium",
+        price: "S/. XX.XX",
+        profiles: 4,
+        streams: 3
+    }
+];
 
 function SubscriptionPage() {
 
     const navigate = useNavigate();
 
+    const [selectedPlan, setSelectedPlan] =
+        useState<SelectedPlan | null>(null);
+
+    useEffect(() => {
+
+        const storedPlan = localStorage.getItem("selectedPlan");
+
+        if (storedPlan) {
+
+            setSelectedPlan(JSON.parse(storedPlan));
+
+        }
+
+    }, []);
+
     function selectPlan(planId: string) {
 
-        const plans: Record<string, SelectedPlan> = {
+        const plan = PLANS.find(
+            (item) => item.id === planId
+        );
 
-            basic: {
+        if (!plan) {
 
-                id: "basic",
+            return;
 
-                name: "Basic",
+        }
 
-                price: "S/. XX.XX",
-
-                profiles: 2,
-
-                streams: 1
-
-            },
-
-            platino: {
-
-                id: "platino",
-
-                name: "Platino",
-
-                price: "S/. XX.XX",
-
-                profiles: 3,
-
-                streams: 2
-
-            },
-
-            premium: {
-
-                id: "premium",
-
-                name: "Premium",
-
-                price: "S/. XX.XX",
-
-                profiles: 4,
-
-                streams: 3
-
-            }
-
-        };
-
-        const selectedPlan = plans[planId];
+        setSelectedPlan(plan);
 
         localStorage.setItem(
-
             "selectedPlan",
-
-            JSON.stringify(selectedPlan)
-
+            JSON.stringify(plan)
         );
 
         navigate("/payment");
@@ -124,165 +119,112 @@ function SubscriptionPage() {
 
                 </header>
 
-                <section className="subscription-grid">
+ <section className="subscription-grid">
 
-                    <article className="plan-card plan-card--basic">
+    {PLANS.map((plan) => (
 
-                        <span className="plan-card__badge">
+        <article
+            key={plan.id}
+            className={`plan-card plan-card--${plan.id}${
+                selectedPlan?.id === plan.id
+                    ? " plan-card--selected"
+                    : ""
+            }`}
+        >
 
-                            BASIC
+            <span className="plan-card__badge">
 
-                        </span>
+                {plan.id === "platino"
+                    ? "MÁS POPULAR"
+                    : plan.name.toUpperCase()}
 
-                        <h2>
+            </span>
 
-                            Basic
+            <h2>
 
-                        </h2>
+                {plan.name}
 
-                        <h3>
+            </h2>
 
-                            S/. XX.XX
+            <h3>
 
-                            <small>
+                {plan.price}
 
-                                / mes
+                <small>
 
-                            </small>
+                    / mes
 
-                        </h3>
+                </small>
 
-                        <ul>
+            </h3>
 
-                            <li>✓ 2 perfiles</li>
+            <ul>
 
-                            <li>✓ 1 reproducción simultánea</li>
+                <li>
 
-                            <li>✓ Full HD</li>
+                    ✓ {plan.profiles} perfiles
 
-                        </ul>
+                </li>
 
-                        <button
+                <li>
 
-                            type="button"
+                    ✓ {plan.streams} reproducciones simultáneas
 
-                            onClick={() => selectPlan("basic")}
+                </li>
 
-                        >
+                <li>
 
-                            Elegir este plan
+                    ✓ Full HD
 
-                        </button>
+                </li>
 
-                    </article>
+                {(plan.id === "platino" ||
+                    plan.id === "premium") && (
 
-                    <article className="plan-card plan-card--platino">
+                    <li>
 
-                        <span className="plan-card__badge">
+                        ✓ 4K HDR
 
-                            MÁS POPULAR
+                    </li>
 
-                        </span>
+                )}
 
-                        <h2>
+                {plan.id === "premium" && (
 
-                            Platino
+                    <>
+                        <li>
 
-                        </h2>
+                            ✓ Dolby Vision
 
-                        <h3>
+                        </li>
 
-                            S/. XX.XX
+                        <li>
 
-                            <small>
+                            ✓ Dolby Atmos
 
-                                / mes
+                        </li>
+                    </>
 
-                            </small>
+                )}
 
-                        </h3>
+            </ul>
 
-                        <ul>
+            <button
+                type="button"
+                onClick={() => selectPlan(plan.id)}
+            >
 
-                            <li>✓ 3 perfiles</li>
+                {selectedPlan?.id === plan.id
+                    ? "Plan seleccionado"
+                    : "Elegir este plan"}
 
-                            <li>✓ 2 reproducciones simultáneas</li>
+            </button>
 
-                            <li>✓ 4K HDR</li>
+        </article>
 
-                        </ul>
+    ))}
 
-                        <button
-
-                            type="button"
-
-                            onClick={() => selectPlan("platino")}
-
-                        >
-
-                            Elegir este plan
-
-                        </button>
-
-                    </article>
-
-                    <article className="plan-card plan-card--premium">
-
-                        <span className="plan-card__badge">
-
-                            PREMIUM
-
-                        </span>
-
-                        <h2>
-
-                            Premium
-
-                        </h2>
-
-                        <h3>
-
-                            S/. XX.XX
-
-                            <small>
-
-                                / mes
-
-                            </small>
-
-                        </h3>
-
-                        <ul>
-
-                            <li>✓ 4 perfiles</li>
-
-                            <li>✓ 3 reproducciones simultáneas</li>
-
-                            <li>✓ 4K HDR</li>
-
-                            <li>✓ Dolby Vision</li>
-
-                            <li>✓ Dolby Atmos</li>
-
-                        </ul>
-
-                        <button
-
-                            type="button"
-
-                            onClick={() => selectPlan("premium")}
-
-                        >
-
-                            Elegir este plan
-
-                        </button>
-
-                    </article>
-
-                </section>
-
-            </section>
+</section>
 
         </AuthContainer>
 
